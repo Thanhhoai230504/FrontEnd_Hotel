@@ -1,0 +1,36 @@
+.container-fluid {
+  height: auto;
+  max-width: 100%;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center; /* Căn giữa nội dung theo chiều ngang */
+  align-items: center; /* Căn giữa nội dung theo chiều dọc */
+  height: 100vh;
+  margin: 0; /* Xóa margin để hình và form căn đều 2 bên */
+}
+
+.login-image {
+  flex: 1;
+  background: url('../../assets/svg/singnup.png') no-repeat center center;
+  background-size: cover;
+  width: 50%; /* Chiếm 50% chiều rộng */
+  height: 100%; /* Chiếm 100% chiều cao */
+}
+
+.login-form-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%; /* Chiếm 50% chiều rộng */
+}
+
+/* Style for the form section */
+.login-form {
+  max-width: 400px; /* Điều chỉnh chiều rộng tối đa của form */
+  width: 100%;
+  padding: 20px;
+  margin-left: 0; /* Xóa margin */
+}

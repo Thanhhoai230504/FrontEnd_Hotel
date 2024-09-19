@@ -1,0 +1,24 @@
+.container-fluid{
+    height: auto;
+    max-width: 100%;
+}
+  
+  .login-container {
+    display: flex;
+    height: 100vh; 
+    margin: 50px;
+  }
+
+  .login-image {
+    flex: 1; 
+    background: url('../../assets/svg/singnup.png') no-repeat center center;
+    background-size: cover;
+    margin-top: 50px;
+    width: 100%;
+    height: 600px;
+  }
+  
+  /* Style for the form section */
+  .singnUp-form{
+    margin-left: 20px;
+  }
