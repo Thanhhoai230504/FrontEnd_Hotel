@@ -1,0 +1,202 @@
+// .footer-container {
+//     background-color: black;
+//     color: white;
+//     padding: 20px 10px 5px 20px;
+//     font-size: 0.9rem;
+//     position: fixed;  /* Fixes the footer at the bottom */
+//     bottom: 0;        /* Positions the footer at the very bottom */
+//     width: 100%;      /* Ensures the footer spans the entire width */
+//     z-index: 1000;
+// }
+
+// .footer-grid {
+//     padding-bottom: 40px;
+// }
+// .footer-grid-item {
+//     text-align: left; 
+// }
+
+// .footer-grid-item ul {
+//     padding: 0;
+//     list-style: none;
+// }
+
+// .footer-grid-item ul li {
+//     margin-bottom: 8px;
+// }
+
+// .footer-grid-item ul li a {
+//     color: #949494; 
+//     text-decoration: none; 
+//     font-size: 0.9rem; 
+//     font-weight: 300;
+// }
+
+// .footer-grid-item ul li a:hover {
+//     text-decoration: underline;
+// }
+
+//  .footer-typography {
+//     color: #FFFFFF;
+//     text-align: left; 
+//     font-size: 0.8rem; 
+   
+// }
+
+// .footer-bottom {
+//     border-top: 1px solid #555;
+//     padding-top: 5px;
+//     padding-right: 30px;
+//     display: flex;
+//     justify-content: space-between;
+//     align-items: center;
+// }
+
+// .footer-bottom ul {
+//     padding: 0;
+//     list-style: none;
+//     display: flex;
+//     gap: 15px;
+// }
+
+// .footer-bottom ul li a {
+//     text-decoration: none;
+//     font-size: 0.8rem; 
+//     color: #FFFFFF;
+//     font-weight: 300; /* Mảnh hơn */
+// }
+
+// .footer-bottom ul li a:hover {
+//     text-decoration: underline; 
+// }
+
+// .footer-logo {
+//     width: 24px;
+//     height: 24px;
+// }
+
+// .fwrd-box {
+//     text-align: center;
+//     padding-right: 50px;
+//     width: 100%;
+//     height: 212px;
+//     background: url('../../assets/svg/singnup.png') no-repeat center center;
+//     background-size: contain; /* Đảm bảo hình ảnh hoàn toàn vừa vặn trong phần tử */
+//     background-position: calc(50% - 40px) center; /* Căn giữa theo chiều ngang */
+// }
+// .footer-bottom-typography{
+//     color: #FFFFFF;
+// }
+// .footer-bottom-typography Badge{
+//     margin-right: 5px;
+// }
+
+
+.footer-container {
+    background-color: #000000;
+    padding: 20px 10px 5px 20px;
+    box-sizing: border-box;
+    margin: 0;
+    
+
+
+    .footer-grid {
+        padding-bottom: 40px;
+
+        .footer-grid-item {
+            text-align: left; 
+
+            ul {
+                padding: 0;
+                list-style: none;
+
+                li {
+                    margin-bottom: 8px;
+
+                    a {
+                        color: #949494; 
+                        text-decoration: none; 
+                        font-size: 0.9rem; 
+                        font-weight: 400;
+
+                        &:hover {
+                            text-decoration: underline;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .footer-typography {
+        color: #FFFFFF;
+        text-align: left; 
+        font-size: 0.8rem;
+        font-weight: 700;
+    }
+
+    .footer-bottom {
+        border-top: 1px solid #555;
+        padding-top: 5px;
+        padding-right: 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .badge{
+            color: #949494;
+        }
+        
+        ul {
+            padding: 0;
+            list-style: none;
+            display: flex;
+            gap: 15px;
+
+            li {
+                a {
+                    text-decoration: none;
+                    font-size: 0.8rem;
+                    color: #FFFFFF;
+                    font-weight: 400; /* Mảnh hơn */
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+
+        .footer-logo {
+            width: 24px;
+            height: 24px;
+        }
+    }
+
+    .footer-bottom-typography {
+        color: #FFFFFF;
+        font-size: 0.8rem;
+        font-weight: 700;
+        Badge {
+            margin-right: 10px;
+        }
+    }
+
+    .footer-bottom-typographys{
+        color: #949494;
+        font-size: 0.8rem;
+        font-weight: 300;
+    }
+    .fwrd-box {
+        text-align: center;
+        padding-right: 50px;
+        width: 100%;
+        height: 212px;
+        background: url('../../assets/svg/singnup.png') no-repeat center center;
+        background-size: contain; /* Đảm bảo hình ảnh hoàn toàn vừa vặn trong phần tử */
+        background-position: calc(50% - 40px) center; /* Căn giữa theo chiều ngang */
+    }
+}
+
+
+

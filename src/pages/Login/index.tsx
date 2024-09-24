@@ -1,37 +1,73 @@
-import React from "react";
-import { Button, TextField, Box, Typography } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import {
+  Box,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  IconButton,
+  InputAdornment,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useFormik } from "formik";
-import * as Yup from "yup";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import * as Yup from "yup";
+import { loginRequest } from "../../api/auth/auth.request";
 import HeaderLogin from "./components/header";
 import "./LoginForm.css";
+import { useDispatch } from "react-redux";
+import { login } from "../../store/slices/user-slice";
+import Footer from "../../layout/Footer";
 
-const LoginForm = () => {
+const LoginForm: React.FC = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
     },
-    validationSchema: Yup.object({
-      email: Yup.string().email("Invalid email address").required("Required"),
-      password: Yup.string().required("Required"),
+    validationSchema: Yup.object().shape({
+      email: Yup.string()
+        .email("Please enter a valid email")
+        .required("This field is required"),
+      password: Yup.string()
+        .required("This field is required")
+        .min(8, "Pasword must be 8 or more characters")
+        .required(""),
     }),
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
-      // Handle login logic here
+    onSubmit: async (values) => {
+      const result = await loginRequest(values);
+      if (!result) {
+        alert("Không nhập đúng email, vui lòng thử lại.!");
+        return;
+      }
+
+      dispatch(login(result));
+      navigate("/");
     },
   });
 
   return (
-    <div className="container-fluid">
+    <Box className="container-fluid">
       <HeaderLogin />
-      <div className="login-container">
-        <div className="login-image"></div>
-        <div className="login-form-container">
+      <Box className="login-container">
+        <Box className="login-image"></Box>
+        <Box className="login-form-container">
           <Box>
-            <Typography variant="h5" component="h1" gutterBottom>
+            <Typography
+              sx={{ paddingLeft: "30px" }}
+              variant="h5"
+              component="h1"
+              gutterBottom
+            >
               LOGIN
             </Typography>
 
@@ -43,10 +79,10 @@ const LoginForm = () => {
                 label="Email"
                 value={formik.values.email}
                 onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
                 error={formik.touched.email && Boolean(formik.errors.email)}
                 helperText={formik.touched.email && formik.errors.email}
                 margin="normal"
+                autoComplete="email"
               />
 
               <TextField
@@ -54,7 +90,7 @@ const LoginForm = () => {
                 id="password"
                 name="password"
                 label="Password"
-                type="password"
+                type={showPassword ? "text" : "password"} // Toggle password visibility
                 value={formik.values.password}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
@@ -63,6 +99,31 @@ const LoginForm = () => {
                 }
                 helperText={formik.touched.password && formik.errors.password}
                 margin="normal"
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+                autoComplete="current-password" // Thêm thuộc tính này
+              />
+              <FormControlLabel
+                className="check"
+                control={
+                  <Checkbox
+                    id="profilingConsent"
+                    name="profilingConsent"
+                    onChange={formik.handleChange}
+                  />
+                }
+                label="Remember me"
               />
 
               <Button
@@ -84,6 +145,7 @@ const LoginForm = () => {
               </Button>
 
               <Button
+                type="button"
                 fullWidth
                 variant="outlined"
                 sx={{
@@ -102,9 +164,10 @@ const LoginForm = () => {
               </Button>
             </form>
           </Box>
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Box>
+      <Footer />
+    </Box>
   );
 };
 

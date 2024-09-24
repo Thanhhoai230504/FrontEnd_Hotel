@@ -1,0 +1,146 @@
+// src/layout/Header/index.scss
+
+// Variables
+$font-size-small: 0.9rem;
+$font-size-large: 2rem;
+$font-weight-bold: 700;
+$font-weight-normal: 600;
+$color-black: black;
+$color-gray: gray;
+$bg-color: #f1f1f1;
+
+.header-container{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  height: 100px;
+
+  .header-app-bar {
+    border-bottom: 1px solid #e0e0e0;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1100;
+    // font-primary: Poppins, Arial, sans-serif;
+  }
+  
+  .header-toolbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 15px;
+  }
+  
+  .header-center-toolbar {
+    display: flex;
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    height: 100%; /* Đảm bảo toàn bộ chiều cao của container */
+    padding: 0 50px;
+    margin-top: 8px;
+  }
+  
+  .header-title {
+    font-weight: bold;
+    letter-spacing: 0,1rem;
+    font-size: 2rem;
+    text-align: center;
+    margin: 2px auto;
+    color: black;
+  }
+  
+  .header-link {
+    position: relative;
+    text-decoration: none;
+    font-weight: $font-weight-bold;
+    color: $color-black;
+  
+    &::after {
+      content: ""; 
+      /* Tạo một phần tử pseudo-element '::after' với nội dung trống. Đây là yêu cầu bắt buộc để sử dụng pseudo-element. */
+      position: absolute; 
+      /* Đặt vị trí của phần tử này thành 'absolute', cho phép nó được định vị tự do trong phần tử cha có 'position: relative'. */
+      left: 0; 
+      /* Đặt phần tử bắt đầu từ cạnh trái của phần tử cha. */
+      bottom: -2px; 
+      /* Đặt phần tử cách cạnh dưới của phần tử cha 2px. Thanh này sẽ xuất hiện ngay dưới phần tử cha. */
+      height: 2px; 
+      /* Đặt chiều cao của pseudo-element này là 2px, tạo ra một thanh mỏng. */
+      width: 100%; 
+      /* Chiều rộng của pseudo-element sẽ chiếm toàn bộ chiều ngang của phần tử cha. */
+      background-color: currentColor; 
+      /* Màu nền của pseudo-element sẽ sử dụng cùng màu với màu chữ (currentColor của phần tử cha). */
+      transform: scaleX(0); 
+      /* Ban đầu, thanh sẽ được thu nhỏ lại hoàn toàn theo trục X (ngang) bằng cách sử dụng 'scaleX(0)', làm nó không hiển thị. */
+      transition: transform 0.2s ease; 
+      /* Tạo hiệu ứng chuyển đổi cho thuộc tính 'transform'. Hiệu ứng kéo dài 0.3 giây với độ mượt 'ease', để thanh có thể mở rộng từ từ. */
+  }
+  
+  &:hover::after {
+      transform: scaleX(1); 
+      /* Khi di chuột qua phần tử chính, pseudo-element '::after' sẽ mở rộng trở lại kích thước đầy đủ (100% chiều rộng) nhờ 'scaleX(1)'. */
+  }
+  }
+  
+  .header-icon {
+    color: $color-gray;
+  }
+  
+  .header-search {
+    background-color: $bg-color;
+    border-radius: 1px;
+    padding-left: 2px;
+    padding-right: 2px;
+    width: 150px;
+    font-size: $font-size-small;
+  }
+  
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .header-nav-links {
+    display: flex;
+    gap: 100px;
+  }
+  
+  // Media Queries
+  @media (max-width: 480px) {
+    .header-title {
+      font-size: 1rem;
+    }
+  
+    .header-search {
+      width: 120px;
+    }
+  
+    .header-nav-links {
+      flex-direction: column;
+      gap: 4px;
+    }
+  }
+  
+  @media (min-width: 481px) and (max-width: 768px) {
+    .header-title {
+      font-size: 1.5rem;
+    }
+  
+    .header-search {
+      width: 140px;
+    }
+  }
+  
+  @media (min-width: 769px) {
+    .header-title {
+      font-size: $font-size-large;
+    }
+  
+    .header-search {  
+      width: 150px;
+    }
+  }
+  
+
+
+}

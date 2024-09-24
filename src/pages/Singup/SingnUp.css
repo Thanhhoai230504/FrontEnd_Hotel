@@ -1,24 +1,38 @@
-.container-fluid{
-    height: auto;
-    max-width: 100%;
+.container-fluid {
+  height: auto;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-  
-  .login-container {
-    display: flex;
-    height: 100vh; 
-    margin: 50px;
-  }
 
-  .login-image {
-    flex: 1; 
-    background: url('../../assets/svg/singnup.png') no-repeat center center;
-    background-size: cover;
-    margin-top: 50px;
-    width: 100%;
-    height: 600px;
-  }
-  
-  /* Style for the form section */
-  .singnUp-form{
-    margin-left: 20px;
-  }
+.singnUp-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  box-sizing: border-box;
+  padding: 90px 10px 10px 10px;
+}
+.singnUp-image {
+  flex: 1;
+  background: url("../../assets/svg/Login.png") no-repeat center center;
+  background-size: cover;
+  background-size: contain;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.singnUp-form-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.singnUp-form {
+  margin-right: 20px;
+}
+.footer-container {
+  margin-top: 30px;
+}

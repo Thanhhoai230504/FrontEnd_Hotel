@@ -1,11 +1,12 @@
-import Header from "../../layout/Header";
 import Footer from "../../layout/Footer";
-
-const Home = () => {
+import Header from "../../layout/Header";
+import Content from "./components/Content";
+import "./Home.scss";
+const Home: React.FC = () => {
   return (
-    <div>
+    <div className="grid-layout">
       <Header />
-      Hom bag
+      <Content />
       <Footer />
     </div>
   );
