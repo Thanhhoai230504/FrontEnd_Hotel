@@ -1,0 +1,41 @@
+.container-fluid {
+  height: auto;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  box-sizing: border-box;
+  padding: 90px 10px 10px 10px;
+}
+
+.login-image {
+  flex: 1;
+  background: url("../../assets/svg/Login.png") no-repeat center center;
+  background-size: cover;
+  height: 100%;
+  background-size: contain;
+}
+
+.login-form-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-form {
+  max-width: 600px;
+  width: 100%;
+  padding: 20px;
+  margin-left: 0;
+}
+
+.check {
+  float: left;
+}
