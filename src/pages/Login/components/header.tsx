@@ -1,83 +1,9 @@
-// import { LocalMallOutlined, PersonOutline, Search } from "@mui/icons-material";
-// import {
-//   AppBar,
-//   Badge,
-//   Box,
-//   IconButton,
-//   TextField,
-//   Toolbar,
-//   Typography,
-// } from "@mui/material";
-// import { Link } from "react-router-dom"; // Giả sử bạn dùng react-router-dom
-// import "./headerForm.scss";
-
-// type Props = {};
-
-// const HeaderLogin = (props: Props) => {
-//   return (
-//     <AppBar
-//       position="fixed"
-//       color="default"
-//       elevation={0}
-//       className="header-app-bar"
-//     >
-//       <Toolbar className="header-toolbar">
-//         <Box className="header-actions">
-//           <Link className="header-link" to="/">
-//             REVOLVE
-//           </Link>
-//           <Link className="header-link" to="/">
-//             FWRD
-//           </Link>
-//         </Box>
-
-//         <Box className="header-center-toolbar">
-//           <Link to="/" style={{ textDecoration: "none" }}>
-//             <Typography
-//               variant="h6"
-//               sx={{
-//                 fontWeight: "bold",
-//                 letterSpacing: "0.1rem",
-//                 fontSize: "2rem",
-//                 textAlign: "center",
-//                 margin: "2px auto",
-//                 color: "black",
-//                 paddingLeft: "100px",
-//               }}
-//             >
-//               REVOLVE
-//             </Typography>
-//           </Link>
-//         </Box>
-
-//         <Box className="header-actions">
-//           <TextField id="standard-basic" label="Search" variant="standard" />
-//           <IconButton>
-//             <Search className="header-icon" />
-//           </IconButton>
-//           <IconButton>
-//             <Link to="/Login" className="header-link">
-//               <Badge badgeContent={0} color="secondary">
-//                 <PersonOutline className="header-icon" />
-//               </Badge>
-//             </Link>
-//           </IconButton>
-//           <IconButton>
-//             <Link to="/Cart" className="header-link">
-//               <Badge badgeContent={0} color="secondary">
-//                 <LocalMallOutlined className="header-icon" />
-//               </Badge>
-//             </Link>
-//           </IconButton>
-//         </Box>
-//       </Toolbar>
-//     </AppBar>
-//   );
-// };
-
-// export default HeaderLogin;
-
-import { LocalMallOutlined, PersonOutline, Search } from "@mui/icons-material";
+import {
+  ExitToApp,
+  LocalMallOutlined,
+  PersonOutline,
+  Search,
+} from "@mui/icons-material";
 import {
   AppBar,
   Badge,
@@ -87,11 +13,18 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 type Props = {};
 
 const HeaderLogin = (props: Props) => {
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("user");
+    navigate("/Home");
+  };
   return (
     <AppBar
       position="fixed"
@@ -123,7 +56,7 @@ const HeaderLogin = (props: Props) => {
               position: "relative",
             }}
           >
-            REVOLVE
+            HOME
           </Link>
           <Link
             to="/"
@@ -140,28 +73,47 @@ const HeaderLogin = (props: Props) => {
 
         {/* Center title */}
         <Box
+          className="header-center-toolbar"
           sx={{
+            marginLeft: "240px",
             display: "flex",
-            justifyContent: "center",
             alignItems: "center",
-            width: "100%",
-            padding: "0 50px",
-            marginTop: "10px",
+            justifyContent: "center", // Đảm bảo phần tử nằm ở giữa
+            flexGrow: 1, // Thêm `flexGrow` để chiếm không gian giữa các phần khác
           }}
         >
-          <Link to="/" style={{ textDecoration: "none" }}>
+          <Link
+            to="/"
+            style={{
+              textDecoration: "none",
+              display: "flex",
+              alignItems: "baseline",
+            }}
+          >
             <Typography
               variant="h6"
               sx={{
-                fontWeight: "bold",
+                fontWeight: "700",
                 letterSpacing: "0.1rem",
                 fontSize: "2rem",
                 textAlign: "center",
                 color: "black",
-                paddingLeft: "165px",
+                marginRight: "5px",
               }}
             >
               REVOLVE
+            </Typography>
+            <Typography
+              variant="subtitle1"
+              sx={{
+                fontWeight: "400",
+                letterSpacing: "0.1rem",
+                fontSize: "1rem",
+                textAlign: "center",
+                color: "black",
+              }}
+            >
+              MAN
             </Typography>
           </Link>
         </Box>
@@ -185,11 +137,21 @@ const HeaderLogin = (props: Props) => {
             <Search sx={{ color: "gray" }} />
           </IconButton>
           <IconButton>
-            <Link to="/Login">
-              <Badge badgeContent={0} color="secondary">
-                <PersonOutline sx={{ color: "gray" }} />
-              </Badge>
-            </Link>
+            {isLoggedIn ? (
+              <IconButton onClick={handleLogout}>
+                <Badge badgeContent={0} color="secondary">
+                  <ExitToApp className="header-icon" />
+                </Badge>
+              </IconButton>
+            ) : (
+              <IconButton>
+                <Link to="/Login" className="header-link">
+                  <Badge badgeContent={0} color="secondary">
+                    <PersonOutline className="header-icon" />
+                  </Badge>
+                </Link>
+              </IconButton>
+            )}
           </IconButton>
           <IconButton>
             <Link to="/Cart">

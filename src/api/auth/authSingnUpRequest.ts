@@ -16,7 +16,7 @@ export const SingnUpRequest = async (payload: User) => {
         const userExists = response.find((user) => 
             user.email === payload.email || user.userName === payload.userName
         );
-        return !userExists; // Trả về true nếu không tồn tại người dùng nào
+        return !userExists; 
     } catch (error) {
         return null;
     }

@@ -1,18 +1,306 @@
-import React from "react";
+// import {
+//   AppBar,
+//   Toolbar,
+//   Typography,
+//   Box,
+//   IconButton,
+//   Badge,
+//   TextField,
+//   Table,
+//   TableBody,
+//   TableCell,
+//   TableContainer,
+//   TableHead,
+//   TableRow,
+//   Paper,
+// } from "@mui/material";
+// import {
+//   Search,
+//   PersonOutline,
+//   LocalMallOutlined,
+//   ExitToApp,
+// } from "@mui/icons-material";
+// import { Link, useNavigate } from "react-router-dom";
+// import { useEffect, useState } from "react";
+// import "./Header.scss";
+// import { useSelector } from "react-redux";
+// import { RootState } from "../../store/store";
+// import { useDispatch } from "react-redux";
+// import { fetchProductSearch } from "../../store/slices/productSearch-slice";
+// import { Product } from "../../store/slices/product-slice";
+
+// const Header = () => {
+//   const navigate = useNavigate();
+//   const isLoggedIn = localStorage.getItem("isLoggedIn");
+//   const [searchValue, setSearchInput] = useState("");
+//   const [searchResults, setSearchResults] = useState<Product[]>([]);
+//   const dispatch = useDispatch();
+//   const products = useSelector(
+//     (state: RootState) => state.productSearchState.productSearch
+//   );
+//   const role = localStorage.getItem("role");
+//   const isAdmin = role === "admin";
+//   const user = localStorage.getItem("user");
+
+//   useEffect(() => {
+//     const payload = {
+//       name: searchValue,
+//     };
+//     dispatch(fetchProductSearch(payload));
+//   }, [searchValue, dispatch]);
+
+//   const handleLogout = () => {
+//     localStorage.removeItem("isLoggedIn");
+//     localStorage.removeItem("user");
+//     navigate("/Home");
+//   };
+
+//   // Hàm tìm kiếm sản phẩm
+//   const handleSearch = () => {
+//     if (searchValue && products) {
+//       const filteredProducts: any[] = products.filter((product) =>
+//         product.name.toLowerCase().includes(searchValue.toLowerCase())
+//       );
+//       setSearchResults(filteredProducts);
+//     } else {
+//       setSearchResults([]);
+//     }
+//   };
+
+//   return (
+//     <Box className="header-container">
+//       <AppBar
+//         position="fixed"
+//         color="default"
+//         elevation={0}
+//         className="header-app-bar"
+//       >
+//         <Toolbar className="header-toolbar">
+//           <Box className="header-actions">
+//             <Link className="header-link" to="/">
+//               HOME
+//             </Link>
+//             {isAdmin && user ? (
+//               <Link className="header-link" to="/Admin/Products">
+//                 ADMIN
+//               </Link>
+//             ) : (
+//               <Link className="header-link" to="/">
+//                 FWRD
+//               </Link>
+//             )}
+//           </Box>
+
+//           <Box className="header-center-toolbar">
+//             <Link to="/" style={{ textDecoration: "none" }}>
+//               <Typography
+//                 variant="h6"
+//                 sx={{
+//                   fontWeight: "700",
+//                   letterSpacing: "0.1rem",
+//                   fontSize: "2rem",
+//                   textAlign: "center",
+//                   margin: "2px auto",
+//                   color: "black",
+//                   paddingLeft: "210px",
+//                 }}
+//               >
+//                 REVOLVE
+//               </Typography>
+//             </Link>
+//           </Box>
+
+//           <Box className="header-actions">
+//             <TextField
+//               id="standard-basic"
+//               label="Search"
+//               variant="standard"
+//               value={searchValue}
+//               onChange={(e) => setSearchInput(e.target.value)}
+//             />
+//             <IconButton onClick={handleSearch}>
+//               <Search className="header-icon" />
+//             </IconButton>
+//             {isLoggedIn ? (
+//               <IconButton onClick={handleLogout}>
+//                 <Badge badgeContent={0} color="secondary">
+//                   <ExitToApp className="header-icon" />
+//                 </Badge>
+//               </IconButton>
+//             ) : (
+//               <IconButton>
+//                 <Link to="/Login" className="header-link">
+//                   <Badge badgeContent={0} color="secondary">
+//                     <PersonOutline className="header-icon" />
+//                   </Badge>
+//                 </Link>
+//               </IconButton>
+//             )}
+//             <IconButton>
+//               <Link to="/Carts" className="header-link">
+//                 <Badge badgeContent={0} color="secondary">
+//                   <LocalMallOutlined className="header-icon" />
+//                 </Badge>
+//               </Link>
+//             </IconButton>
+//           </Box>
+//         </Toolbar>
+
+//         <Toolbar className="header-center-toolbar">
+//           <Box className="header-nav-links">
+//             <Link className="header-link" to="/">
+//               NEW
+//             </Link>
+//             <Link className="header-link" to="/shop">
+//               MENS
+//             </Link>
+//             <Link className="header-link" to="/shop">
+//               BEAUTY
+//             </Link>
+//             <Link className="header-link" to="/shop">
+//               NEW TODAY
+//             </Link>
+//             <Link className="header-link" to="/shop">
+//               CLOTHING
+//             </Link>
+//             <Link className="header-link" to="/shop">
+//               DRESSES
+//             </Link>
+//             <Link className="header-link" to="/UserOrders">
+//               ORDERS
+//             </Link>
+//           </Box>
+//         </Toolbar>
+//       </AppBar>
+
+//       {/* Hiển thị bảng kết quả tìm kiếm */}
+//       {searchResults.length > 0 && (
+//         <Box
+//           className="search-results"
+//           sx={{ padding: "10px", width: "300px", mt: 7 }}
+//         >
+//           <TableContainer component={Paper} className="table-container">
+//             <Table>
+//               <TableBody>
+//                 {searchResults.map((product) => (
+//                   <TableRow key={product.id}>
+//                     <TableCell>
+//                       <Link to={`/shop/detail/${product.id}`}>
+//                         <img
+//                           src={product.image}
+//                           alt={product.name}
+//                           style={{
+//                             width: "50px",
+//                             height: "60px",
+//                             objectFit: "cover",
+//                             cursor: "pointer",
+//                           }}
+//                         />
+//                       </Link>
+//                     </TableCell>
+//                     <TableCell>
+//                       <Link
+//                         to={`/shop/detail/${product.id}`}
+//                         style={{ textDecoration: "none", color: "inherit" }}
+//                       >
+//                         {product.name}
+//                       </Link>
+//                     </TableCell>
+//                   </TableRow>
+//                 ))}
+//               </TableBody>
+//             </Table>
+//           </TableContainer>
+//         </Box>
+//       )}
+//     </Box>
+//   );
+// };
+
+// export default Header;
+/////////////////
+
+import {
+  ExitToApp,
+  LocalMallOutlined,
+  PersonOutline,
+  Search,
+} from "@mui/icons-material";
 import {
   AppBar,
-  Toolbar,
-  Typography,
+  Badge,
   Box,
   IconButton,
-  Badge,
+  InputAdornment,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableRow,
   TextField,
+  Toolbar,
+  Typography,
 } from "@mui/material";
-import { Search, PersonOutline, LocalMallOutlined } from "@mui/icons-material";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import { Product } from "../../store/slices/product-slice";
+import { fetchProductSearch } from "../../store/slices/productSearch-slice";
+import { RootState } from "../../store/store";
 import "./Header.scss";
-
+import ClearIcon from "@mui/icons-material/Clear"; // Icon X
 const Header = () => {
+  const navigate = useNavigate();
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
+  const [searchValue, setSearchInput] = useState("");
+  const [searchResults, setSearchResults] = useState<Product[]>([]);
+  const dispatch = useDispatch();
+  const products = useSelector(
+    (state: RootState) => state.productSearchState.productSearch
+  );
+  const role = localStorage.getItem("role");
+  const isAdmin = role === "admin";
+  const user = localStorage.getItem("user");
+  const parsedUser = user ? JSON.parse(user) : null;
+
+  useEffect(() => {
+    if (searchValue.trim()) {
+      const payload = {
+        name: searchValue,
+      };
+      dispatch(fetchProductSearch(payload));
+    } else {
+      setSearchResults([]); // Nếu không có từ khóa tìm kiếm thì xóa kết quả
+    }
+  }, [searchValue, dispatch]);
+
+  useEffect(() => {
+    if (searchValue && products) {
+      const filteredProducts: any[] = products.filter((product) =>
+        product.name.toLowerCase().includes(searchValue.toLowerCase())
+      );
+      setSearchResults(filteredProducts);
+    } else {
+      setSearchResults([]);
+    }
+  }, [products, searchValue]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("user");
+    Swal.fire({
+      icon: "success",
+      title: "Logout successfully!",
+      showConfirmButton: false,
+      timer: 1500,
+    });
+    navigate("/Home");
+  };
+  const handleClearInput = () => {
+    setSearchInput("");
+  };
   return (
     <Box className="header-container">
       <AppBar
@@ -26,13 +314,35 @@ const Header = () => {
             <Link className="header-link" to="/">
               HOME
             </Link>
-            <Link className="header-link" to="/">
-              FWRD
-            </Link>
+            {isAdmin && user ? (
+              <Link className="header-link" to="/Admin/Products">
+                ADMIN
+              </Link>
+            ) : (
+              <Link className="header-link" to="/">
+                FWRD
+              </Link>
+            )}
           </Box>
 
-          <Box className="header-center-toolbar">
-            <Link to="/" style={{ textDecoration: "none" }}>
+          <Box
+            className="header-center-toolbar"
+            sx={{
+              marginLeft: "250px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center", // Đảm bảo phần tử nằm ở giữa
+              flexGrow: 1, // Thêm `flexGrow` để chiếm không gian giữa các phần khác
+            }}
+          >
+            <Link
+              to="/"
+              style={{
+                textDecoration: "none",
+                display: "flex",
+                alignItems: "baseline",
+              }}
+            >
               <Typography
                 variant="h6"
                 sx={{
@@ -40,31 +350,68 @@ const Header = () => {
                   letterSpacing: "0.1rem",
                   fontSize: "2rem",
                   textAlign: "center",
-                  margin: "2px auto",
                   color: "black",
-                  paddingLeft: "210px",
+                  marginRight: "5px",
                 }}
               >
                 REVOLVE
+              </Typography>
+              <Typography
+                variant="subtitle1"
+                sx={{
+                  fontWeight: "400",
+                  letterSpacing: "0.1rem",
+                  fontSize: "1rem",
+                  textAlign: "center",
+                  color: "black",
+                }}
+              >
+                MAN
               </Typography>
             </Link>
           </Box>
 
           <Box className="header-actions">
-            <TextField id="standard-basic" label="Search" variant="standard" />
+            <TextField
+              id="standard-basic"
+              label="Search"
+              variant="standard"
+              value={searchValue}
+              onChange={(e) => setSearchInput(e.target.value)}
+              InputProps={{
+                endAdornment: searchValue && ( // Hiển thị nút X khi có giá trị
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={handleClearInput} // Hàm xóa toàn bộ nội dung
+                      edge="end"
+                    >
+                      <ClearIcon />
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
             <IconButton>
               <Search className="header-icon" />
             </IconButton>
-            <IconButton>
-              <Link to="/Login" className="header-link">
-                <Badge badgeContent={0} color="secondary">
-                  <PersonOutline className="header-icon" />
+            {isLoggedIn ? (
+              <IconButton onClick={handleLogout}>
+                <Badge badgeContent={0}>
+                  <ExitToApp className="header-icon" />
                 </Badge>
-              </Link>
-            </IconButton>
+              </IconButton>
+            ) : (
+              <IconButton>
+                <Link to="/Login" className="header-link">
+                  <Badge badgeContent={0}>
+                    <PersonOutline className="header-icon" />
+                  </Badge>
+                </Link>
+              </IconButton>
+            )}
             <IconButton>
-              <Link to="/ShoppingCart" className="header-link">
-                <Badge badgeContent={0} color="secondary">
+              <Link to="/Carts" className="header-link">
+                <Badge badgeContent={0}>
                   <LocalMallOutlined className="header-icon" />
                 </Badge>
               </Link>
@@ -74,30 +421,68 @@ const Header = () => {
 
         <Toolbar className="header-center-toolbar">
           <Box className="header-nav-links">
-            <Link className="header-link" to="/">
+            <Link className="header-link" to="/shop">
               NEW
             </Link>
-            <Link className="header-link" to="/Shop">
+            <Link className="header-link" to="/shop">
               MENS
             </Link>
-            <Link className="header-link" to="/Shop">
+            <Link className="header-link" to="/shop">
               BEAUTY
             </Link>
-            <Link className="header-link" to="/Shop">
+            <Link className="header-link" to="/shop">
               NEW TODAY
             </Link>
-            <Link className="header-link" to="/Shop">
+            <Link className="header-link" to="/shop">
               CLOTHING
             </Link>
-            <Link className="header-link" to="/Shop">
-              DRESSES
-            </Link>
-            <Link className="header-link" to="/Shop">
-              SHOES
+            <Link className="header-link" to="/UserOrders">
+              ORDERS
             </Link>
           </Box>
         </Toolbar>
       </AppBar>
+
+      {/* Hiển thị bảng kết quả tìm kiếm */}
+      {searchResults.length > 0 && (
+        <Box
+          className="search-results"
+          sx={{ padding: "10px", width: "300px", mt: 7 }}
+        >
+          <TableContainer component={Paper} className="table-container">
+            <Table>
+              <TableBody>
+                {searchResults.map((product) => (
+                  <TableRow key={product.id}>
+                    <TableCell>
+                      <Link to={`/shop/detail/${product.id}`}>
+                        <img
+                          src={product.image}
+                          alt={product.name}
+                          style={{
+                            width: "50px",
+                            height: "60px",
+                            objectFit: "cover",
+                            cursor: "pointer",
+                          }}
+                        />
+                      </Link>
+                    </TableCell>
+                    <TableCell>
+                      <Link
+                        to={`/shop/detail/${product.id}`}
+                        style={{ textDecoration: "none", color: "inherit" }}
+                      >
+                        {product.name}
+                      </Link>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Box>
+      )}
     </Box>
   );
 };

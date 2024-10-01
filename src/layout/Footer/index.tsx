@@ -99,16 +99,35 @@ const Footer = () => {
             <Typography className="footer-bottom-typography">
               CONNECT
             </Typography>
-            <Badge className="badge">
-              <Instagram className="header-icon" />
-            </Badge>
-            <Badge className="badge">
-              <Facebook className="header-icon" />
-            </Badge>
-            <Badge className="badge">
-              <Google className="header-icon" />
-            </Badge>
+            <a
+              href="https://www.instagram.com/_nth_68/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Badge className="badge">
+                <Instagram className="header-icon" />
+              </Badge>
+            </a>
+            <a
+              href="https://www.facebook.com/profile.php?id=100036930660925"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Badge className="badge">
+                <Facebook className="header-icon" />
+              </Badge>
+            </a>
+            <a
+              href="https://www.google.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Badge className="badge">
+                <Google className="header-icon" />
+              </Badge>
+            </a>
           </Box>
+
           <Typography className="footer-bottom-typographys">
             2024 © Eminent, Inc. All Rights Reserved.
           </Typography>

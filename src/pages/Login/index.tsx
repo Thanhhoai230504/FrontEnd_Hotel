@@ -19,7 +19,8 @@ import "./LoginForm.css";
 import { useDispatch } from "react-redux";
 import { login } from "../../store/slices/user-slice";
 import Footer from "../../layout/Footer";
-
+import WithAuth from "../../hocs/WithAuth";
+import Swal from "sweetalert2";
 const LoginForm: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -46,9 +47,19 @@ const LoginForm: React.FC = () => {
     onSubmit: async (values) => {
       const result = await loginRequest(values);
       if (!result) {
-        alert("Không nhập đúng email, vui lòng thử lại.!");
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Invalid email or password!",
+          footer: '<a href="#">Why do I have this issue?</a>',
+        });
         return;
       }
+      const { password, confirmPassword, ...userWithoutPassword } = result;
+      // Store login status in localStorage
+      localStorage.setItem("isLoggedIn", "true");
+      localStorage.setItem("user", JSON.stringify(userWithoutPassword));
+      localStorage.setItem("role", result.role);
 
       dispatch(login(result));
       navigate("/");
@@ -171,4 +182,4 @@ const LoginForm: React.FC = () => {
   );
 };
 
-export default LoginForm;
+export default WithAuth(LoginForm);

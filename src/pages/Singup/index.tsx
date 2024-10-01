@@ -18,6 +18,8 @@ import axiosClient from "../../api/axiosClient";
 import HeaderLogin from "../Login/components/header";
 import "./SingnUp.css";
 import Footer from "../../layout/Footer";
+import WithAuth from "../../hocs/WithAuth";
+import Swal from "sweetalert2";
 const SignUpForm = () => {
   const navigate = useNavigate();
   // Formik setup
@@ -47,9 +49,12 @@ const SignUpForm = () => {
     onSubmit: async (values) => {
       const result = await SingnUpRequest(values);
       if (!result) {
-        alert(
-          "Email hoặc username đã tồn tại. Vui lòng nhập email hoặc username khác"
-        );
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Email or username already exists, please enter another email or username!",
+          footer: '<a href="#">Why do I have this issue?</a>',
+        });
         return;
       }
       try {
@@ -261,4 +266,4 @@ const SignUpForm = () => {
   );
 };
 
-export default SignUpForm;
+export default WithAuth(SignUpForm);

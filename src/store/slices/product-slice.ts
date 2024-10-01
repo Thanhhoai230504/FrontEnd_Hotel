@@ -3,26 +3,28 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axiosClient from "../../api/axiosClient";
 
 export type Product = {
-    id: number;
-    name: string;
-    price: number;
-    description: string;
-    image: string;
-    brand: string;
-    quantity: number;
-    sold: number;
-    color: string;
-    popularityScore: number;
-    condition: string;
-    size: string;
+  id: string; // Change this to string if necessary
+  name: string;
+  price: number;
+  description: string;
+  image: string;
+  brand: string;
+  quantity: number;
+  sold: number;
+  color?: string; // Optional
+  popularityScore: number;
+  condition: string;
+  size: string;
+  categoryId: string;
+  productId: string;
 };
 
 export const fetchProducts: any = createAsyncThunk(
   "products/fetchProducts",
-  async (payload: { page: number; _limit: number }, thunkAPI) => {
+  async (payload: { page: number; _limit: number; categoryId?: string, id?: string }, thunkAPI) => {
     try {
       const response: Product[] = await axiosClient.get(
-        `/products?_page=${payload.page}&_limit=${payload._limit}`
+        `/products?price_gte=200&_page=${payload.page}&_limit=${payload._limit}${payload.categoryId ? `&categoryId=${payload.categoryId}` : ''}`
       );
       return response;
     } catch (error: any) {
@@ -31,11 +33,13 @@ export const fetchProducts: any = createAsyncThunk(
   }
 );
 
-
 export interface CartItem {
   productId: string;
   quantity: number;
   size: string;
+  userId: string;
+  id: string;
+  product: Product;
 }
 
 export interface ProductState {
@@ -58,62 +62,27 @@ export const ProductSlice = createSlice({
   reducers: {
     setProducts(state, action: PayloadAction<Product[]>) {
       state.products = action.payload;
-      state.loading = false; // Stop loading when products are set
-    },
-    selectProduct(state, action: PayloadAction<string | null>) {
-      state.currentProductId = action.payload; // Set the selected product ID
+      state.loading = false; 
     },
     setLoading(state, action: PayloadAction<boolean>) {
       state.loading = action.payload; // Set loading state
     },
-    // Add a product to the cart
-    addCart(state, action: PayloadAction<{ productId: string; size: string }>) {
-      const existingCartItem = state.cart.find(
-        (item) =>
-          item.productId === action.payload.productId &&
-          item.size === action.payload.size
-      );
-
-      if (existingCartItem) {
-        // If product is already in the cart, increase the quantity
-        existingCartItem.quantity += 1;
-      } else {
-        // Otherwise, add the product to the cart
-        state.cart.push({
-          productId: action.payload.productId,
-          quantity: 1,
-          size: action.payload.size,
-        });
-      }
-    },
-    // Handle the buy action
-    buy(state, action: PayloadAction<{ productId: string; size: string }>) {
-      const product = state.products.find(
-        (p) => String(p.id) === action.payload.productId // Chuyển đổi p.id thành chuỗi
-      );
-    
-      if (product && product.quantity > 0) {
-        // Giảm số lượng sản phẩm trong kho
-        product.quantity -= 1;
-        product.sold += 1; // Tăng số lượng sản phẩm đã bán
-      }
-    }
     
   },
   extraReducers: (builder) => {
     builder.addCase(fetchProducts.pending, (state) => {
-      state.loading = true; // Set loading to true while fetching
+      state.loading = true;
     });
     builder.addCase(fetchProducts.fulfilled, (state, action) => {
-      state.loading = false; // Stop loading when fetch is successful
-      state.products = action.payload; // Set the fetched products
+      state.loading = false; 
+      state.products = action.payload; 
     });
     builder.addCase(fetchProducts.rejected, (state, action) => {
-      state.loading = false; // Stop loading on failure
+      state.loading = false;
       console.error("Fetching products rejected. Error:", action.error.message);
     });
   },
 });
 
-export const { setProducts, selectProduct, setLoading, addCart, buy } = ProductSlice.actions;
+export const { setProducts, setLoading } = ProductSlice.actions;
 export default ProductSlice.reducer;

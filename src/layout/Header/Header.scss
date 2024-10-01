@@ -35,7 +35,7 @@ $bg-color: #f1f1f1;
     justify-content: center; /* Căn giữa theo chiều ngang */
     align-items: center; /* Căn giữa theo chiều dọc */
     height: 100%; /* Đảm bảo toàn bộ chiều cao của container */
-    padding: 0 50px;
+    padding: 0 60px;
     margin-top: 8px;
   }
   
@@ -51,6 +51,7 @@ $bg-color: #f1f1f1;
   .header-link {
     position: relative;
     text-decoration: none;
+    letter-spacing: 0.1rem;
     font-weight: $font-weight-bold;
     color: $color-black;
   
@@ -102,7 +103,7 @@ $bg-color: #f1f1f1;
   
   .header-nav-links {
     display: flex;
-    gap: 100px;
+    gap: 155px;
   }
   
   // Media Queries
@@ -143,4 +144,27 @@ $bg-color: #f1f1f1;
   
 
 
+}
+.header-container {
+  position: relative; // Để quản lý vị trí cho phần tìm kiếm và kết quả
+}
+
+.search-results {
+  position: absolute; // Đặt vị trí tuyệt đối
+  right: 120px; // Khoảng cách từ bên phải
+  width: 300px; // Chiều rộng của bảng
+  z-index: 1200; // Đảm bảo bảng nằm trên các phần tử khác
+}
+
+.table-container {
+  width: 100%; // Chiều rộng 100% để phù hợp với kết quả tìm kiếm
+  border: 1px solid #ddd; // Đường viền xung quanh bảng
+  max-height: 400px;
+}
+
+.table-cell img {
+  width: 40px; // Kích thước hình ảnh
+  height: 40px; // Kích thước hình ảnh
+  object-fit: cover; // Đảm bảo hình ảnh được cắt theo kích thước
+  margin-right: 8px; // Khoảng cách giữa hình ảnh và tên sản phẩm
 }

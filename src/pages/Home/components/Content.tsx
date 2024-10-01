@@ -7,6 +7,8 @@ import "./Content.scss";
 import { RootState } from "../../../store/store";
 import { Box, CircularProgress, Typography } from "@mui/material";
 import Header from "../../../layout/Header";
+import RecentlyViewedCarousel from "./Carousel";
+import { fetchProductHome } from "../../../store/slices/productHome-slice";
 const Content: React.FC = () => {
   const dispatch = useDispatch();
 
@@ -14,12 +16,14 @@ const Content: React.FC = () => {
     const payload = {
       _limit: 12,
     };
-    dispatch(fetchProducts(payload));
+    dispatch(fetchProductHome(payload));
   }, [dispatch]);
 
-  const productList = useSelector((state: any) => state.productState.products);
+  const productList = useSelector(
+    (state: any) => state.productHomeState.ProductHome
+  );
   const loading: boolean = useSelector(
-    (state: RootState) => state.productState.loading // Select loading state
+    (state: RootState) => state.productState.loading
   );
 
   if (productList.length === 0) {
@@ -49,7 +53,7 @@ const Content: React.FC = () => {
           <CircularProgress
             disableShrink
             sx={{
-              color: "black", // Màu của thanh xoay
+              color: "black",
             }}
           />
         </Box>
@@ -110,6 +114,7 @@ const Content: React.FC = () => {
           </Link>
         </div>
       ))}
+      <RecentlyViewedCarousel />
     </div>
   );
 };
