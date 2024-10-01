@@ -103,7 +103,7 @@ $bg-color: #f1f1f1;
   
   .header-nav-links {
     display: flex;
-    gap: 155px;
+    gap: 120px;
   }
   
   // Media Queries
@@ -151,7 +151,7 @@ $bg-color: #f1f1f1;
 
 .search-results {
   position: absolute; // Đặt vị trí tuyệt đối
-  right: 120px; // Khoảng cách từ bên phải
+  right: 137px; // Khoảng cách từ bên phải
   width: 300px; // Chiều rộng của bảng
   z-index: 1200; // Đảm bảo bảng nằm trên các phần tử khác
 }

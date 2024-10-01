@@ -421,6 +421,9 @@ const Header = () => {
 
         <Toolbar className="header-center-toolbar">
           <Box className="header-nav-links">
+            <Link className="header-link" to="/shop">
+              VIEW ALL
+            </Link>
             <Link
               className="header-link"
               to="/shop/categories/9cb88bca-f2c2-4439-8b8f-b732f7d998d5"
@@ -456,48 +459,52 @@ const Header = () => {
             </Link>
           </Box>
         </Toolbar>
-      </AppBar>
-
-      {/* Hiển thị bảng kết quả tìm kiếm */}
-      {searchResults.length > 0 && (
-        <Box
-          className="search-results"
-          sx={{ padding: "10px", width: "300px", mt: 7 }}
-        >
-          <TableContainer component={Paper} className="table-container">
-            <Table>
-              <TableBody>
-                {searchResults.map((product) => (
-                  <TableRow key={product.id}>
-                    <TableCell>
-                      <Link to={`/shop/detail/${product.id}`}>
-                        <img
-                          src={product.image}
-                          alt={product.name}
+        {/* Hiển thị bảng kết quả tìm kiếm */}
+        {searchResults.length > 0 && (
+          <Box
+            className="search-results"
+            sx={{ padding: "10px", width: "300px", mt: 7 }}
+          >
+            <TableContainer component={Paper} className="table-container">
+              <Table>
+                <TableBody>
+                  {searchResults.map((product) => (
+                    <TableRow key={product.id}>
+                      <TableCell>
+                        <Link to={`/shop/detail/${product.id}`}>
+                          <img
+                            src={product.image}
+                            alt={product.name}
+                            style={{
+                              width: "50px",
+                              height: "60px",
+                              objectFit: "cover",
+                              cursor: "pointer",
+                            }}
+                          />
+                        </Link>
+                      </TableCell>
+                      <TableCell>
+                        <Link
+                          to={`/shop/detail/${product.id}`}
                           style={{
-                            width: "50px",
-                            height: "60px",
-                            objectFit: "cover",
-                            cursor: "pointer",
+                            textDecoration: "none",
+                            color: "inherit",
+                            fontSize: "0.9rem",
+                            fontWeight: "600",
                           }}
-                        />
-                      </Link>
-                    </TableCell>
-                    <TableCell>
-                      <Link
-                        to={`/shop/detail/${product.id}`}
-                        style={{ textDecoration: "none", color: "inherit" }}
-                      >
-                        {product.name}
-                      </Link>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Box>
-      )}
+                        >
+                          {product.name}
+                        </Link>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Box>
+        )}
+      </AppBar>
     </Box>
   );
 };

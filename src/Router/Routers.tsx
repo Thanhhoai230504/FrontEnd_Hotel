@@ -7,7 +7,6 @@ import ProductsAdmin from "../pages/Admin/Product/Products";
 import UsersAdmin from "../pages/Admin/Users/users";
 import ShoppingCart from "../pages/Cart/index";
 import Orders from "../pages/Orders";
-import ProductList from "../pages/Shop/components/ProductList";
 import OrderCard from "../pages/UserOrder/userOrder";
 
 const Routers = () => {
@@ -19,12 +18,8 @@ const Routers = () => {
           <Route path="/" element={<Home />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/singnup" element={<SignUpForm />}></Route>
-          <Route path="/shop" element={<Shop />}>
-            <Route
-              path="/shop/categories/:categoryId"
-              element={<ProductList />}
-            />
-          </Route>
+          <Route path="/shop" element={<Shop />}></Route>
+          <Route path="/shop/categories/:categoryId" element={<Shop />} />
           <Route path="/shop/detail/:id" element={<ItemDetail />}></Route>
           <Route path="/Carts" element={<ShoppingCart />}></Route>
           <Route path="/Orders" element={<Orders />}></Route>

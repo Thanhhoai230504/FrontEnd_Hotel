@@ -62,7 +62,11 @@ const UsersAdmin: React.FC = () => {
     // Kiểm tra kết quả từ hộp thoại
     if (result.isConfirmed) {
       try {
-        await axiosClient.delete(`/users/${id}`);
+        await axiosClient.delete(`/users/${id}`, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
         await Swal.fire({
           title: "Deleted!",
           text: "Your file has been deleted.",

@@ -206,12 +206,12 @@ const OrderCard = () => {
             ))}
           </Card>
         ) : (
-          <Box sx={{ textAlign: "center", height: "20vh" }}>
+          <Box sx={{ textAlign: "center", height: "50vh" }}>
             <Typography
               variant="h4"
               color="error"
               sx={{
-                mt: 5,
+                mt: 15,
                 ml: 2,
                 fontWeight: "bold",
                 fontSize: "30px",
