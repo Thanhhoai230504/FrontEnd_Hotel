@@ -476,8 +476,8 @@ const Header = () => {
                             src={product.image}
                             alt={product.name}
                             style={{
-                              width: "50px",
-                              height: "60px",
+                              width: "80px",
+                              height: "80px",
                               objectFit: "cover",
                               cursor: "pointer",
                             }}
@@ -490,7 +490,7 @@ const Header = () => {
                           style={{
                             textDecoration: "none",
                             color: "inherit",
-                            fontSize: "0.9rem",
+                            fontSize: "0.8rem",
                             fontWeight: "600",
                           }}
                         >
