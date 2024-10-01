@@ -421,20 +421,35 @@ const Header = () => {
 
         <Toolbar className="header-center-toolbar">
           <Box className="header-nav-links">
-            <Link className="header-link" to="/shop">
-              NEW
+            <Link
+              className="header-link"
+              to="/shop/categories/9cb88bca-f2c2-4439-8b8f-b732f7d998d5"
+            >
+              SHIRTS
             </Link>
-            <Link className="header-link" to="/shop">
-              MENS
+            <Link
+              className="header-link"
+              to="/shop/categories/896ce36d-57cf-4aad-8fdf-391d689f5ef3"
+            >
+              PANTS
             </Link>
-            <Link className="header-link" to="/shop">
-              BEAUTY
+            <Link
+              className="header-link"
+              to="/shop/categories/5ad02318-f4a1-4821-8624-acfbe1ae08c4"
+            >
+              SHORTS
             </Link>
-            <Link className="header-link" to="/shop">
-              NEW TODAY
+            <Link
+              className="header-link"
+              to="/shop/categories/fb106f1e-df36-4e0e-8b45-6b1a9c541d4a"
+            >
+              JACKET & COATS
             </Link>
-            <Link className="header-link" to="/shop">
-              CLOTHING
+            <Link
+              className="header-link"
+              to="/shop/categories/e475814d-cd9a-4c1a-8380-dc2b560e158c"
+            >
+              SUITS
             </Link>
             <Link className="header-link" to="/UserOrders">
               ORDERS
