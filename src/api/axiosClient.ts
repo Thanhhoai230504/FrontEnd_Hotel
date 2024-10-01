@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosClient = axios.create({
-   baseURL: "https://api-project-wheat-six.vercel.app",
+   baseURL: "https://backend-project-t200.onrender.com",
    timeout: 10000,
 });
 
