@@ -134,20 +134,23 @@ const HeaderLogin = (props: Props) => {
             }}
           />
           <IconButton>
-            <Search sx={{ color: "gray" }} />
+            <Search sx={{ color: "black" }} />
           </IconButton>
           <IconButton>
             {isLoggedIn ? (
               <IconButton onClick={handleLogout}>
                 <Badge badgeContent={0} color="secondary">
-                  <ExitToApp className="header-icon" />
+                  <ExitToApp className="header-icon" sx={{ color: "black" }} />
                 </Badge>
               </IconButton>
             ) : (
               <IconButton>
                 <Link to="/Login" className="header-link">
                   <Badge badgeContent={0} color="secondary">
-                    <PersonOutline className="header-icon" />
+                    <PersonOutline
+                      className="header-icon"
+                      sx={{ color: "black" }}
+                    />
                   </Badge>
                 </Link>
               </IconButton>
@@ -156,7 +159,7 @@ const HeaderLogin = (props: Props) => {
           <IconButton>
             <Link to="/Cart">
               <Badge badgeContent={0} color="secondary">
-                <LocalMallOutlined sx={{ color: "gray" }} />
+                <LocalMallOutlined sx={{ color: "black" }} />
               </Badge>
             </Link>
           </IconButton>

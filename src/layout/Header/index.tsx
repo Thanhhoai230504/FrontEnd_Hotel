@@ -225,6 +225,7 @@ import {
   LocalMallOutlined,
   PersonOutline,
   Search,
+  Toll,
 } from "@mui/icons-material";
 import {
   AppBar,
@@ -392,12 +393,12 @@ const Header = () => {
               }}
             />
             <IconButton>
-              <Search className="header-icon" />
+              <Search className="header-icon" sx={{ color: "black" }} />
             </IconButton>
             {isLoggedIn ? (
               <IconButton onClick={handleLogout}>
-                <Badge badgeContent={0}>
-                  <ExitToApp className="header-icon" />
+                <Badge className="header-link" badgeContent={0}>
+                  <ExitToApp sx={{ color: "black" }} />
                 </Badge>
               </IconButton>
             ) : (

@@ -150,7 +150,7 @@ const ProductsAdmin: React.FC = () => {
                     <TableCell>{product.name}</TableCell>
                     <TableCell>{product.brand}</TableCell>
                     <TableCell>{product.color}</TableCell>
-                    <TableCell>{product.price.toLocaleString()} VND</TableCell>
+                    <TableCell>{product.price.toLocaleString()} ฿</TableCell>
                     <TableCell>{product.size}</TableCell>
                     <TableCell>{product.quantity}</TableCell>
                     <TableCell>{product.condition}</TableCell>

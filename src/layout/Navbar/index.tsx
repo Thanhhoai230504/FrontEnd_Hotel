@@ -110,12 +110,17 @@ const Navbar = () => {
                 }}
               >
                 <ListItemText
-                  primary={category.name}
-                  sx={{
-                    textAlign: "left",
-                    fontSize: "14px",
-                    letterSpacing: "0.1rem",
-                  }}
+                  primary={
+                    <Typography
+                      sx={{
+                        textAlign: "left",
+                        fontSize: "15px",
+                        letterSpacing: "0.1rem",
+                      }}
+                    >
+                      {category.name}
+                    </Typography>
+                  }
                 />
               </ListItem>
             ))}
