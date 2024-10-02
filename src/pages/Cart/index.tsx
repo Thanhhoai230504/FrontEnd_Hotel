@@ -152,7 +152,7 @@ const ShoppingCart = () => {
               fontFamily: "Arial, sans-serif",
             }}
           >
-            No products in the cart.
+            No products in the shopping bag.
           </Typography>
         </Box>
       </Box>
@@ -163,9 +163,12 @@ const ShoppingCart = () => {
       <Header />
       <Box sx={{ p: 6 }}>
         <Box
-          sx={{ display: "flex", alignItems: "center", ml: 2, mt: 7, mb: 2 }}
+          sx={{ display: "flex", alignItems: "center", ml: 2, mt: 5, mb: 2 }}
         >
-          <Typography variant="h5" sx={{ fontWeight: "bold", mr: 1 }}>
+          <Typography
+            variant="h5"
+            sx={{ fontWeight: "bold", mr: 1, letterSpacing: "0.1rem" }}
+          >
             SHOPPING BAG
           </Typography>
           <Box sx={{ position: "relative", display: "inline-block" }}>
@@ -303,7 +306,13 @@ const ShoppingCart = () => {
                       </Box>
                     </TableCell>
                     <TableCell>
-                      <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+                      <Typography
+                        sx={{
+                          fontWeight: "500",
+                          letterSpacing: "0.1rem",
+                          fontSize: "1rem",
+                        }}
+                      >
                         ฿{product ? product.price : "N/A"}
                       </Typography>
                     </TableCell>

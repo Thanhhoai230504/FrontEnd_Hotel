@@ -208,7 +208,7 @@ const ItemDetail = () => {
                 {/* Price */}
                 <Typography
                   variant="h5"
-                  sx={{ fontWeight: "700", fontSize: "20px" }}
+                  sx={{ fontWeight: "500", fontSize: "16px" }}
                 >
                   ฿ {productDetail.price.toLocaleString()}
                 </Typography>

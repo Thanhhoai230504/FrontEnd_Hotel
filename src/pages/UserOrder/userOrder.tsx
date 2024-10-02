@@ -21,6 +21,7 @@ import { useSelector } from "react-redux";
 import Header from "../../layout/Header";
 import Footer from "../../layout/Footer";
 import { ReceiptOutlined } from "@mui/icons-material";
+import RecentlyViewed from "../Home/components/Carousel";
 
 const OrderCard = () => {
   const dispatch = useAppDispatch();
@@ -44,9 +45,12 @@ const OrderCard = () => {
       <Header />
       <Box sx={{ margin: "20px 50px" }}>
         <Box
-          sx={{ display: "flex", alignItems: "center", ml: 2, mt: 7, mb: 2 }}
+          sx={{ display: "flex", alignItems: "center", ml: 2, mt: 8, mb: 2 }}
         >
-          <Typography variant="h5" sx={{ fontWeight: "bold", mr: 1 }}>
+          <Typography
+            variant="h5"
+            sx={{ fontWeight: "bold", mr: 1, letterSpacing: "0.1rem" }}
+          >
             ORDERS
           </Typography>
           <Box sx={{ position: "relative", display: "inline-block" }}>
@@ -111,7 +115,7 @@ const OrderCard = () => {
                   <Typography variant="body2" color="textSecondary">
                     {new Date(order.createdAt).toLocaleString()}
                   </Typography>
-                  <Link href="#" underline="hover">
+                  <Link href="#" underline="hover" sx={{ color: "green" }}>
                     Shipping No: 61833014105
                   </Link>
                 </Box>
@@ -206,20 +210,43 @@ const OrderCard = () => {
             ))}
           </Card>
         ) : (
-          <Box sx={{ textAlign: "center", height: "50vh" }}>
-            <Typography
-              variant="h4"
-              color="error"
+          <Box sx={{ height: "auto" }}>
+            <Typography variant="body1" sx={{ ml: 3, fontSize: "0.9rem" }}>
+              {user
+                ? "Your shopping orders are empty. Start shopping and check out our new arrivals."
+                : "Please log in to view your orders."}
+            </Typography>
+            <Button
+              variant="outlined"
+              fullWidth
+              onClick={() => navigate("/shop")}
               sx={{
-                mt: 15,
-                ml: 2,
-                fontWeight: "bold",
-                fontSize: "30px",
-                fontFamily: "Arial, sans-serif",
+                mt: 3,
+                width: "150px",
+                marginLeft: "20px",
+                bgcolor: "black",
+                color: "white",
+                borderColor: "black",
+                borderRadius: 0,
+                "&:hover": {
+                  bgcolor: "white",
+                  color: "black",
+                },
               }}
             >
-              {user ? "No orders found." : "Please log in to view your orders."}
-            </Typography>
+              View All
+            </Button>
+            <Box
+              mt={8}
+              sx={{
+                border: "1px solid #e0e0e0  ",
+                p: 2,
+                borderRadius: "8px",
+                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+              }}
+            >
+              <RecentlyViewed />
+            </Box>
           </Box>
         )}
       </Box>

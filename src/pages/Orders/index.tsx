@@ -387,8 +387,8 @@ const Orders = () => {
             <Divider sx={{ mb: 2 }} />
             {/* Price Breakdown */}
             <Box display="flex" justifyContent="space-between" mb={1}>
-              <Typography sx={{ fontWeight: "bold" }}>Item Subtotal</Typography>
-              <Typography sx={{ fontWeight: "bold" }}>
+              <Typography sx={{ fontSize: "0.9rem" }}>Item Subtotal</Typography>
+              <Typography sx={{ fontSize: "0.9rem" }}>
                 {total.toFixed(2)} ฿
               </Typography>
             </Box>
@@ -399,15 +399,15 @@ const Orders = () => {
               mb={1}
               sx={{ fontWeight: "bold" }}
             >
-              <Typography sx={{ fontWeight: "bold" }}>VAT (21%)</Typography>
-              <Typography sx={{ fontWeight: "bold" }}>
+              <Typography sx={{ fontSize: "0.9rem" }}>VAT (21%)</Typography>
+              <Typography sx={{ fontSize: "0.9rem" }}>
                 {VAT.toFixed(2)} ฿
               </Typography>
             </Box>
 
             <Box display="flex" justifyContent="space-between" mb={2}>
-              <Typography sx={{ fontWeight: "bold" }}>Shipping</Typography>
-              <Typography sx={{ fontWeight: "bold" }}>0,00 ฿</Typography>
+              <Typography sx={{ fontSize: "0.9rem" }}>Shipping</Typography>
+              <Typography sx={{ fontSize: "0.9rem" }}>0,00 ฿</Typography>
             </Box>
 
             <Divider sx={{ mb: 2 }} />
