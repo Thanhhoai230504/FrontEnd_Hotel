@@ -1,3 +1,4 @@
+import { ShoppingCartOutlined } from "@mui/icons-material";
 import {
   Box,
   Button,
@@ -13,14 +14,13 @@ import {
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import { cartsRequest } from "../../api/auth/authCarts";
 import axiosClient from "../../api/axiosClient";
+import Footer from "../../layout/Footer";
 import Header from "../../layout/Header";
 import { CartItem, fetchCarts } from "../../store/slices/carts-slice";
 import { useAppDispatch } from "../../store/store";
-import Footer from "../../layout/Footer";
-import Swal from "sweetalert2";
-import { ReceiptOutlined, ShoppingCartOutlined } from "@mui/icons-material";
 
 const ShoppingCart = () => {
   const dispatch = useAppDispatch();

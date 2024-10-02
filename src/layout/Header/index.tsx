@@ -326,6 +326,14 @@ const Header = () => {
             )}
           </Box>
 
+          {isLoggedIn && (
+            <Typography
+              sx={{ ml: "10px", fontSize: "0.8rem", mt: 0.5, color: "black" }}
+            >
+              | HEY {parsedUser?.userName}
+            </Typography>
+          )}
+
           <Box
             className="header-center-toolbar"
             sx={{
