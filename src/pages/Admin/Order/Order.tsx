@@ -14,6 +14,7 @@ import {
   Pagination,
   Stack,
   Grid,
+  CircularProgress,
 } from "@mui/material";
 import HeaderLogin from "../../Login/components/header";
 import Navbar from "../components/Navbar";
@@ -32,6 +33,10 @@ const Order: React.FC<Props> = (props) => {
 
   const orderList = useSelector(
     (state: RootState) => state.allOrderState.orders
+  );
+
+  const loading = useSelector(
+    (state: RootState) => state.allOrderState.loading
   );
 
   useEffect(() => {
@@ -69,6 +74,28 @@ const Order: React.FC<Props> = (props) => {
       await Swal.fire("Order not deleted", "", "info");
     }
   };
+  if (loading) {
+    return (
+      <Box>
+        <HeaderLogin />
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            position: "fixed",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            zIndex: 9999,
+          }}
+        >
+          <CircularProgress disableShrink sx={{ color: "black" }} />
+        </Box>
+      </Box>
+    );
+  }
   return (
     <Box>
       <HeaderLogin />

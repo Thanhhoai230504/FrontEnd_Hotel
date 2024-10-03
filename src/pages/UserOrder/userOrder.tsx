@@ -8,6 +8,7 @@ import {
   ButtonBase,
   Card,
   Chip,
+  CircularProgress,
   Divider,
   Grid,
   Link,
@@ -30,7 +31,7 @@ const OrderCard = () => {
   const user = storedUser ? JSON.parse(storedUser) : null;
   const orderUserList =
     useSelector((state: any) => state.orderUserState.oderUser) || [];
-
+  const loading = useSelector((state: any) => state.orderUserState.loading);
   useEffect(() => {
     if (!user?.id) {
       console.error("User not logged in or invalid user data");
@@ -39,7 +40,28 @@ const OrderCard = () => {
     }
     dispatch(fetchOrderUser(user.id));
   }, [dispatch, user?.id]);
-
+  if (loading) {
+    return (
+      <Box>
+        <Header />
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            position: "fixed",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            zIndex: 9999,
+          }}
+        >
+          <CircularProgress disableShrink sx={{ color: "black" }} />
+        </Box>
+      </Box>
+    );
+  }
   return (
     <Box>
       <Header />

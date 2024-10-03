@@ -2,6 +2,7 @@ import { ShoppingCartOutlined } from "@mui/icons-material";
 import {
   Box,
   Button,
+  CircularProgress,
   Paper,
   Table,
   TableBody,
@@ -31,7 +32,7 @@ const ShoppingCart = () => {
   const user = storedUser ? JSON.parse(storedUser) : null;
 
   const carts = useSelector((state: any) => state.cartsState.carts) || [];
-
+  const loading = useSelector((state: any) => state.cartsState.loading);
   const handleDelete = async (id: string) => {
     try {
       await axiosClient.delete(`/carts/${id}`);
@@ -68,6 +69,28 @@ const ShoppingCart = () => {
       console.error("Error buying products:", error);
     }
   };
+  if (loading) {
+    return (
+      <Box>
+        <Header />
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            position: "fixed",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            zIndex: 9999,
+          }}
+        >
+          <CircularProgress disableShrink sx={{ color: "black" }} />
+        </Box>
+      </Box>
+    );
+  }
 
   if (carts.length === 0) {
     return (

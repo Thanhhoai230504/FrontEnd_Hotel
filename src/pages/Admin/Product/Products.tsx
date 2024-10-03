@@ -10,6 +10,7 @@ import {
   TableContainer,
   TableRow,
   Grid,
+  CircularProgress,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -32,6 +33,9 @@ const ProductsAdmin: React.FC = () => {
 
   const ProductList = useSelector(
     (state: any) => state.allProductState.allProduct
+  );
+  const loading: boolean = useSelector(
+    (state: any) => state.allProductState.loading
   );
 
   useEffect(() => {
@@ -91,7 +95,28 @@ const ProductsAdmin: React.FC = () => {
     setModalOpen(true);
     setSelectedProduct(product);
   };
-
+  if (loading) {
+    return (
+      <Box>
+        <HeaderLogin />
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            position: "fixed",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            zIndex: 9999,
+          }}
+        >
+          <CircularProgress disableShrink sx={{ color: "black" }} />
+        </Box>
+      </Box>
+    );
+  }
   return (
     <Box>
       <HeaderLogin />

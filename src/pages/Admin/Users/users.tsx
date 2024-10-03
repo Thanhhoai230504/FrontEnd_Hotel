@@ -10,12 +10,13 @@ import {
   TableContainer,
   TableRow,
   Grid,
+  CircularProgress,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import UserModal from "../../../components/Modal/ModalUser";
 import { fetchAllUsers } from "../../../store/slices/allUsers-slice";
-import { AppDispatch } from "../../../store/store";
+import { AppDispatch, RootState } from "../../../store/store";
 import HeaderLogin from "../../Login/components/header";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Navbar from "../components/Navbar";
@@ -31,7 +32,9 @@ const UsersAdmin: React.FC = () => {
   const limit = 12;
 
   const userList = useSelector((state: any) => state.allUserState.allUsers);
-
+  const loading: boolean = useSelector(
+    (state: any) => state.allUserState.loading
+  );
   useEffect(() => {
     const payload = {
       page,
@@ -89,6 +92,28 @@ const UsersAdmin: React.FC = () => {
     setModalOpen(true);
     setSelectedUser(user);
   };
+  if (loading) {
+    return (
+      <Box>
+        <HeaderLogin />
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            position: "fixed",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            zIndex: 9999,
+          }}
+        >
+          <CircularProgress disableShrink sx={{ color: "black" }} />
+        </Box>
+      </Box>
+    );
+  }
 
   return (
     <Box>
