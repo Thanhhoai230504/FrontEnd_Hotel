@@ -16,7 +16,7 @@
 
 .login-image {
   flex: 1;
-  background: url("../../assets/svg/login.png") no-repeat center center;
+  background: url("../../assets/svg/Login.png") no-repeat center center;
   background-size: cover;
   height: 100%;
   background-size: contain;
