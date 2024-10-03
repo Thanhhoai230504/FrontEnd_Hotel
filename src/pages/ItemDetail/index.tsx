@@ -261,7 +261,7 @@ const ItemDetail = () => {
                       sx={{
                         width: "20px",
                         height: "20px",
-                        borderRadius: "50%",
+                        borderRadius: "25%",
                         bgcolor: productDetail.color,
                         marginLeft: "8px",
                       }}

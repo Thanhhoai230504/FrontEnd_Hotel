@@ -20,6 +20,7 @@ import "./SingnUp.css";
 import Footer from "../../layout/Footer";
 import WithAuth from "../../hocs/WithAuth";
 import Swal from "sweetalert2";
+import "../../assets/font/index.css";
 const SignUpForm = () => {
   const navigate = useNavigate();
   // Formik setup
@@ -77,7 +78,16 @@ const SignUpForm = () => {
         <Box className="singnUp-image"></Box>
         <Box className="login-form-container">
           <Box>
-            <Typography variant="h5" component="h1" gutterBottom>
+            <Typography
+              variant="h5"
+              component="h1"
+              sx={{
+                fontWeight: "500",
+                fontSize: "2.3rem",
+                fontFamily: "Giants",
+              }}
+              gutterBottom
+            >
               CREATE ACCOUNT
             </Typography>
 
@@ -217,15 +227,13 @@ const SignUpForm = () => {
               {/* Consent Section */}
 
               <Typography
-                sx={{ mt: 2 }}
-                variant="h6"
-                component="h2"
+                sx={{ mt: 2, fontWeight: "400", fontSize: "0.9rem" }}
                 gutterBottom
               >
                 CONSENT TO PERSONAL DATA PROCESSING
               </Typography>
               <FormControlLabel
-                sx={{ maxWidth: 556 }}
+                sx={{ maxWidth: 556, fontSize: "0.8rem" }}
                 control={
                   <Checkbox
                     id="profilingConsent"
@@ -234,7 +242,19 @@ const SignUpForm = () => {
                     onChange={formik.handleChange}
                   />
                 }
-                label="I agree to the collection, disclosure or processing of my personal data for profiling purposes."
+                label={
+                  <span
+                    style={{
+                      fontWeight: "400",
+                      fontSize: "0.8rem",
+                      lineHeight: "1.5",
+                      textAlign: "left",
+                    }}
+                  >
+                    I agree to the collection, disclosure or processing of my
+                    personal data for profiling purposes.
+                  </span>
+                }
               />
 
               {/* Submit Button */}

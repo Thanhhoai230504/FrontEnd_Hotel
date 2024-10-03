@@ -15,7 +15,7 @@
 }
 .singnUp-image {
   flex: 1;
-  background: url("../../assets/svg/Login.png") no-repeat center center;
+  background: url("../../assets/svg/signUp.png") no-repeat center center;
   background-size: cover;
   background-size: contain;
   height: 100%;

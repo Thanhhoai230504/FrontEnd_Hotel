@@ -350,6 +350,10 @@ const Header = () => {
                 textDecoration: "none",
                 display: "flex",
                 alignItems: "baseline",
+                position: "relative", // Thay đổi vị trí tương đối
+                zIndex: 1400, // Đặt z-index để đảm bảo không bị lật bởi các phần tử khác
+                paddingRight: "110px",
+                paddingLeft: "70px",
               }}
             >
               <Typography
@@ -388,12 +392,9 @@ const Header = () => {
               value={searchValue}
               onChange={(e) => setSearchInput(e.target.value)}
               InputProps={{
-                endAdornment: searchValue && ( // Hiển thị nút X khi có giá trị
+                endAdornment: searchValue && (
                   <InputAdornment position="end">
-                    <IconButton
-                      onClick={handleClearInput} // Hàm xóa toàn bộ nội dung
-                      edge="end"
-                    >
+                    <IconButton onClick={handleClearInput} edge="end">
                       <ClearIcon />
                     </IconButton>
                   </InputAdornment>

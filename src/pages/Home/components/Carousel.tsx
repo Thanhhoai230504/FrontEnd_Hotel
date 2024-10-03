@@ -91,14 +91,14 @@ const RecentlyViewed = () => {
   return (
     <Box sx={{ maxWidth: "100%" }}>
       <Typography
-        variant="h5"
         sx={{
-          fontWeight: "bold",
-          mb: 3,
+          fontFamily: "inherit",
+          fontWeight: 600,
+          mb: 4,
           mt: 3,
           textAlign: "center",
           letterSpacing: "0.1rem",
-          fontSize: "1.5rem",
+          fontSize: "1.3rem",
         }}
       >
         BEST SELLING PRODUCT

@@ -21,7 +21,8 @@ import Footer from "../../layout/Footer";
 import Header from "../../layout/Header";
 import { CartItem, fetchCarts } from "../../store/slices/carts-slice";
 import { useAppDispatch } from "../../store/store";
-
+import cart from "../../assets/svg/cart.png";
+import "../../assets/font/index.css";
 const ShoppingCart = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -95,7 +96,10 @@ const ShoppingCart = () => {
           <Box
             sx={{ display: "flex", alignItems: "center", ml: 2, mt: 2, mb: 2 }}
           >
-            <Typography variant="h5" sx={{ fontWeight: "bold", mr: 1 }}>
+            <Typography
+              variant="h5"
+              sx={{ mr: 1, fontFamily: "Giants", fontSize: "2rem" }}
+            >
               SHOPPING BAG
             </Typography>
             <Box sx={{ position: "relative", display: "inline-block" }}>
@@ -123,6 +127,11 @@ const ShoppingCart = () => {
               </Box>
             </Box>
           </Box>
+          <Typography variant="body1" sx={{ ml: 3, fontSize: "0.9rem", mb: 2 }}>
+            {user
+              ? "Your shopping bag are empty. Start shopping and check out our new arrivals."
+              : "Please log in to view your orders."}
+          </Typography>
           <Button
             variant="outlined"
             fullWidth
@@ -143,17 +152,19 @@ const ShoppingCart = () => {
             View All
           </Button>
         </Box>
-        <Box sx={{ p: 4 }}>
-          <Typography
-            variant="h4"
-            color="error"
-            sx={{
-              fontWeight: "bold",
-              fontFamily: "Arial, sans-serif",
-            }}
-          >
-            No products in the shopping bag.
-          </Typography>
+        <Box
+          sx={{
+            p: 4,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <img
+            src={cart}
+            alt="No products in the shopping bag"
+            style={{ width: "400px", height: "auto" }}
+          />
         </Box>
       </Box>
     );
@@ -167,7 +178,12 @@ const ShoppingCart = () => {
         >
           <Typography
             variant="h5"
-            sx={{ fontWeight: "bold", mr: 1, letterSpacing: "0.1rem" }}
+            sx={{
+              fontFamily: "Giants",
+              fontSize: "2rem",
+              mr: 1,
+              letterSpacing: "0.1rem",
+            }}
           >
             SHOPPING BAG
           </Typography>
@@ -228,7 +244,7 @@ const ShoppingCart = () => {
                           <img
                             src={product.image}
                             alt={product.name}
-                            style={{ width: "200px", marginRight: "16px" }}
+                            style={{ width: "200px", marginRight: "55px" }}
                           />
                         ) : (
                           <Typography>No Image</Typography>
@@ -239,22 +255,27 @@ const ShoppingCart = () => {
                             flexDirection="column"
                             alignItems="flex-start"
                             gap={2}
+                            paddingBottom={7}
                           >
                             <Typography sx={{ fontWeight: "bold" }}>
                               {product ? product.name : "Product not found"}
                             </Typography>
-                            <Typography>
+                            <Typography
+                              sx={{ fontWeight: "500", fontSize: "1rem" }}
+                            >
                               {product ? product.brand : "N/A"}
                             </Typography>
-                            <Typography>
-                              Size: {cart.size}, Color:{" "}
+                            <Typography
+                              sx={{ fontWeight: "400", fontSize: "0.9rem" }}
+                            >
+                              Size: {cart.size} , Color:{" "}
                               {product ? (
                                 <Box
                                   sx={{
                                     bgcolor: product.color,
                                     width: "20px",
                                     height: "20px",
-                                    borderRadius: "50%",
+                                    borderRadius: "25%",
                                     display: "inline-block",
                                     marginLeft: "5px",
                                     verticalAlign: "middle",
@@ -262,7 +283,7 @@ const ShoppingCart = () => {
                                 />
                               ) : (
                                 "N/A"
-                              )}
+                              )}{" "}
                               , Quantity: {cart.quantity}
                             </Typography>
                           </Box>
@@ -276,7 +297,7 @@ const ShoppingCart = () => {
                                 fontWeight: "300",
                                 bgcolor: "white",
                                 textDecoration: "none",
-
+                                fontSize: "0.8rem",
                                 "&:hover": {
                                   textDecoration: "underline",
                                 },
@@ -294,6 +315,7 @@ const ShoppingCart = () => {
                                 fontWeight: "300",
                                 bgcolor: "white",
                                 textDecoration: "none",
+                                fontSize: "0.8rem",
                                 "&:hover": {
                                   textDecoration: "underline",
                                 },
@@ -308,7 +330,7 @@ const ShoppingCart = () => {
                     <TableCell>
                       <Typography
                         sx={{
-                          fontWeight: "500",
+                          fontWeight: "600",
                           letterSpacing: "0.1rem",
                           fontSize: "1rem",
                         }}

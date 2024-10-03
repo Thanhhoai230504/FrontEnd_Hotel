@@ -20,7 +20,8 @@ import Header from "../../layout/Header";
 import { fetchCarts } from "../../store/slices/carts-slice";
 import { CartItem, Product } from "../../store/slices/product-slice";
 import { useAppDispatch } from "../../store/store";
-
+import iconThanhToan from "../../assets/svg/iconthanhtoan.svg";
+import "../../assets/font/index.css";
 const Orders = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -130,7 +131,10 @@ const Orders = () => {
       await Swal.fire({
         title: "ORDER SUCCESSFUL!",
         text: "Order placed successfully!",
-        icon: "success",
+        imageUrl: iconThanhToan,
+        imageWidth: 100,
+        imageHeight: 100,
+        imageAlt: "Custom Image",
       });
       deleteCartUser(carts);
       dispatch(fetchCarts(user.id));
@@ -161,9 +165,13 @@ const Orders = () => {
             <Typography
               variant="h6"
               gutterBottom
-              sx={{ fontWeight: "bold", letterSpacing: "0.9px" }}
+              sx={{
+                fontFamily: "Giants",
+                fontSize: "2rem",
+                letterSpacing: "0.9px",
+              }}
             >
-              ENTER SHIPPING ADDRESS <HomeIcon />
+              ENTER SHIPPING ADDRESS <HomeIcon sx={{ fontSize: "1.5rem" }} />
             </Typography>
             <Grid container spacing={2}>
               <Grid item xs={12} md={6}>
@@ -323,7 +331,12 @@ const Orders = () => {
           <Typography
             variant="h6"
             gutterBottom
-            sx={{ fontWeight: "bold", letterSpacing: "0.9px", mb: 2 }}
+            sx={{
+              fontFamily: "Giants",
+              fontSize: "2rem",
+              letterSpacing: "0.9px",
+              mb: 2,
+            }}
           >
             ORDER SUMMARY
           </Typography>

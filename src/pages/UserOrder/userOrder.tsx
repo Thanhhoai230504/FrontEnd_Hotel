@@ -22,7 +22,7 @@ import Header from "../../layout/Header";
 import Footer from "../../layout/Footer";
 import { ReceiptOutlined } from "@mui/icons-material";
 import RecentlyViewed from "../Home/components/Carousel";
-
+import "../../assets/font/index.css";
 const OrderCard = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -49,7 +49,12 @@ const OrderCard = () => {
         >
           <Typography
             variant="h5"
-            sx={{ fontWeight: "bold", mr: 1, letterSpacing: "0.1rem" }}
+            sx={{
+              fontFamily: "Giants",
+              fontSize: "2rem",
+              mr: 1,
+              letterSpacing: "0.1rem",
+            }}
           >
             ORDERS
           </Typography>
@@ -115,7 +120,7 @@ const OrderCard = () => {
                   <Typography variant="body2" color="textSecondary">
                     {new Date(order.createdAt).toLocaleString()}
                   </Typography>
-                  <Link href="#" underline="hover" sx={{ color: "green" }}>
+                  <Link href="#" underline="hover" sx={{ color: "#2E7D32" }}>
                     Shipping No: 61833014105
                   </Link>
                 </Box>
@@ -123,7 +128,7 @@ const OrderCard = () => {
                 <Divider />
 
                 {/* Order Status */}
-                <Grid container alignItems="center" spacing={6} mt={2}>
+                <Grid container alignItems="center" spacing={9} paddingTop={2}>
                   <Grid item>
                     <Chip
                       label="Unfinished"
@@ -149,7 +154,7 @@ const OrderCard = () => {
                       container
                       alignItems="center"
                       key={index}
-                      sx={{ mb: 2 }}
+                      sx={{ mb: 3 }}
                       gap={6}
                     >
                       <Avatar
@@ -157,7 +162,13 @@ const OrderCard = () => {
                           index + 1
                         }`}
                         alt="Product Image"
-                        sx={{ width: 100, height: 100, mr: 2 }}
+                        sx={{
+                          width: 100,
+                          height: 100,
+                          mr: 4,
+                          borderRadius: "5px",
+                          mb: 4,
+                        }}
                       />
                       <Box display={"flex"} flexDirection={"column"} gap={1}>
                         <Typography variant="body1">
@@ -191,6 +202,7 @@ const OrderCard = () => {
                               fontWeight: "300",
                               bgcolor: "whitesmoke",
                               textDecoration: "none",
+                              fontSize: "0.7rem",
                               "&:hover": {
                                 textDecoration: "underline",
                               },

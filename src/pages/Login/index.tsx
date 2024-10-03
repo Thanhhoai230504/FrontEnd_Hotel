@@ -21,6 +21,7 @@ import { login } from "../../store/slices/user-slice";
 import Footer from "../../layout/Footer";
 import WithAuth from "../../hocs/WithAuth";
 import Swal from "sweetalert2";
+import "../../assets/font/index.css";
 const LoginForm: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -74,9 +75,12 @@ const LoginForm: React.FC = () => {
         <Box className="login-form-container">
           <Box>
             <Typography
-              sx={{ paddingLeft: "30px" }}
-              variant="h5"
-              component="h1"
+              sx={{
+                paddingLeft: "25px",
+                fontWeight: "500",
+                fontSize: "2.3rem",
+                fontFamily: "Giants",
+              }}
               gutterBottom
             >
               LOGIN

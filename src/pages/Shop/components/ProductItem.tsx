@@ -83,12 +83,30 @@ const ProductCard = ({ product }: ProductCardProps) => {
         <Typography
           variant="h6"
           component="div"
-          sx={{ fontSize: "16px", fontWeight: "bold" }}
+          sx={{
+            fontSize: "16px",
+            fontWeight: "bold",
+            display: "-webkit-box",
+            WebkitBoxOrient: "vertical",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            WebkitLineClamp: 1,
+          }}
         >
           {product.name}
         </Typography>
 
-        <Typography variant="body2" color="text.secondary">
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          sx={{
+            display: "-webkit-box",
+            WebkitBoxOrient: "vertical",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            WebkitLineClamp: 1,
+          }}
+        >
           {product.brand}
         </Typography>
 
