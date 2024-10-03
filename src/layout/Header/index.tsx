@@ -325,19 +325,51 @@ const Header = () => {
               </Link>
             )}
           </Box>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            {isLoggedIn ? (
+              <Typography
+                sx={{ ml: "10px", fontSize: "0.8rem", mt: 0.5, color: "black" }}
+              >
+                | HEY {parsedUser?.userName}
+              </Typography>
+            ) : (
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  paddingRight: "50px",
+                }}
+              >
+                <img
+                  src="https://st.quantrimang.com/photos/image/2021/09/05/Co-Vietnam.png"
+                  alt="Vietnam Flag"
+                  style={{
+                    width: "20px",
+                    height: "15px",
+                    marginLeft: "10px",
+                    borderRadius: "50%",
+                  }}
+                />
+                <Typography
+                  sx={{
+                    ml: "10px",
+                    fontSize: "0.8rem",
+                    color: "black",
+                    fontWeight: "600",
 
-          {isLoggedIn && (
-            <Typography
-              sx={{ ml: "10px", fontSize: "0.8rem", mt: 0.5, color: "black" }}
-            >
-              | HEY {parsedUser?.userName}
-            </Typography>
-          )}
+                    mt: 0.5,
+                  }}
+                >
+                  | VN
+                </Typography>
+              </Box>
+            )}
+          </Box>
 
           <Box
             className="header-center-toolbar"
             sx={{
-              marginLeft: "250px",
+              marginLeft: "230px",
               display: "flex",
               alignItems: "center",
               justifyContent: "center", // Đảm bảo phần tử nằm ở giữa
@@ -352,8 +384,8 @@ const Header = () => {
                 alignItems: "baseline",
                 position: "relative", // Thay đổi vị trí tương đối
                 zIndex: 1400, // Đặt z-index để đảm bảo không bị lật bởi các phần tử khác
-                paddingRight: "110px",
-                paddingLeft: "70px",
+                paddingRight: "120px",
+                paddingLeft: "40px",
               }}
             >
               <Typography
