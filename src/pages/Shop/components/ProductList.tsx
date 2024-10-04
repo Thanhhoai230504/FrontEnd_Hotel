@@ -1,18 +1,11 @@
-import {
-  Box,
-  CircularProgress,
-  Grid,
-  Pagination,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box, CircularProgress, Grid, Pagination, Stack } from "@mui/material";
 import { useEffect, useState } from "react"; // Import useState
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import Header from "../../../layout/Header";
 import { fetchProducts, Product } from "../../../store/slices/product-slice";
 import { AppDispatch, RootState } from "../../../store/store";
 import ProductCard from "./ProductItem";
-import Header from "../../../layout/Header";
-import { useParams } from "react-router-dom";
 
 const ProductList = () => {
   const { categoryId } = useParams();

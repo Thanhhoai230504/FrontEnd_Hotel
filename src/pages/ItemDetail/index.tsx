@@ -13,7 +13,6 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { useDispatch } from "react-redux";
@@ -23,11 +22,14 @@ import Footer from "../../layout/Footer";
 import Header from "../../layout/Header";
 import { fetchProductDetail } from "../../store/slices/productDetail";
 import { AppDispatch, RootState } from "../../store/store";
+import { Modal } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 const ItemDetail = () => {
   const { id } = useParams<{ id: string }>();
   const dispatch = useDispatch<AppDispatch>();
   const [selectedSize, setSelectedSize] = useState("S");
   const [quantity, setQuantity] = useState(1);
+  const [openImageModal, setOpenImageModal] = useState(false);
 
   const navigate = useNavigate();
   const handleIncrease = () => {
@@ -163,7 +165,50 @@ const ItemDetail = () => {
   return (
     <Box>
       <Header />
-      <Box sx={{ padding: "40px 40px 0 40px" }}>
+      <Modal
+        open={openImageModal}
+        onClose={() => setOpenImageModal(false)}
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Box
+          sx={{
+            position: "relative",
+            width: "100vw",
+            height: "100vh",
+            backgroundColor: "white",
+          }}
+        >
+          <IconButton
+            onClick={() => setOpenImageModal(false)}
+            sx={{
+              position: "absolute",
+              top: 10,
+              right: 10,
+              backgroundColor: "rgba(0, 0, 0, 0.8)",
+              color: "white",
+              "&:hover": { backgroundColor: "black" },
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+          <CardMedia
+            component="img"
+            src={productDetail.image}
+            alt={productDetail.name}
+            sx={{
+              width: "100%",
+              height: "100%",
+              objectFit: "contain",
+            }}
+          />
+        </Box>
+      </Modal>
+
+      <Box sx={{ padding: "40px 40px 0 40px", height: "120vh" }}>
         <Grid container spacing={2}>
           {/* Product Image */}
           <Grid item xs={12} md={6}>
@@ -181,6 +226,7 @@ const ItemDetail = () => {
                   cursor: "pointer",
                 },
               }}
+              onClick={() => setOpenImageModal(true)}
             />
           </Grid>
 
