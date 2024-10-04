@@ -142,7 +142,7 @@ const OrderCard = () => {
                   <Typography variant="body2" color="textSecondary">
                     {new Date(order.createdAt).toLocaleString()}
                   </Typography>
-                  <Link href="#" underline="hover" sx={{ color: "#2E7D32" }}>
+                  <Link href="#" underline="hover" sx={{ color: "#00eb10" }}>
                     Shipping No: 61833014105
                   </Link>
                 </Box>
