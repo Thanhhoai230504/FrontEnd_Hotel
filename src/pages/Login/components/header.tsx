@@ -20,11 +20,13 @@ type Props = {};
 const HeaderLogin = (props: Props) => {
   const isLoggedIn = localStorage.getItem("isLoggedIn");
   const navigate = useNavigate();
+
   const handleLogout = () => {
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("user");
     navigate("/Home");
   };
+
   return (
     <AppBar
       position="fixed"
@@ -78,8 +80,8 @@ const HeaderLogin = (props: Props) => {
             marginLeft: "240px",
             display: "flex",
             alignItems: "center",
-            justifyContent: "center", // Đảm bảo phần tử nằm ở giữa
-            flexGrow: 1, // Thêm `flexGrow` để chiếm không gian giữa các phần khác
+            justifyContent: "center",
+            flexGrow: 1,
           }}
         >
           <Link
@@ -136,33 +138,31 @@ const HeaderLogin = (props: Props) => {
           <IconButton>
             <Search sx={{ color: "black" }} />
           </IconButton>
-          <IconButton>
-            {isLoggedIn ? (
-              <IconButton onClick={handleLogout}>
+          {isLoggedIn ? (
+            <IconButton onClick={handleLogout}>
+              <Badge badgeContent={0} color="secondary">
+                <ExitToApp className="header-icon" sx={{ color: "black" }} />
+              </Badge>
+            </IconButton>
+          ) : (
+            <Link to="/Login" style={{ textDecoration: "none" }}>
+              <IconButton>
                 <Badge badgeContent={0} color="secondary">
-                  <ExitToApp className="header-icon" sx={{ color: "black" }} />
+                  <PersonOutline
+                    className="header-icon"
+                    sx={{ color: "black" }}
+                  />
                 </Badge>
               </IconButton>
-            ) : (
-              <IconButton>
-                <Link to="/Login" className="header-link">
-                  <Badge badgeContent={0} color="secondary">
-                    <PersonOutline
-                      className="header-icon"
-                      sx={{ color: "black" }}
-                    />
-                  </Badge>
-                </Link>
-              </IconButton>
-            )}
-          </IconButton>
-          <IconButton>
-            <Link to="/Cart">
+            </Link>
+          )}
+          <Link to="/Carts">
+            <IconButton>
               <Badge badgeContent={0} color="secondary">
                 <LocalMallOutlined sx={{ color: "black" }} />
               </Badge>
-            </Link>
-          </IconButton>
+            </IconButton>
+          </Link>
         </Box>
       </Toolbar>
     </AppBar>

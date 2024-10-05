@@ -46,12 +46,12 @@ const ordersAllSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
+        builder.addCase(fetchAllOrders.pending, (state) => {
+            state.loading = true;
+        });
         builder.addCase(fetchAllOrders.fulfilled, (state, action: PayloadAction<Order[]>) => {
             state.orders = action.payload;
             state.loading = false;
-        });
-        builder.addCase(fetchAllOrders.pending, (state) => {
-            state.loading = true;
         });
         builder.addCase(fetchAllOrders.rejected, (state) => {
             state.loading = false;
