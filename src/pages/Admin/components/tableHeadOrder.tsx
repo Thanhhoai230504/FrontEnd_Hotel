@@ -10,7 +10,10 @@ const TableHeadOrder: React.FC<Props> = ({ OrderTable }) => {
     <TableHead sx={{ backgroundColor: "#a0a0a0" }}>
       <TableRow>
         {OrderTable.map((header) => (
-          <TableCell sx={{ fontWeight: "bold" }} key={header.order}>
+          <TableCell
+            sx={{ fontWeight: "bold", letterSpacing: "0.06rem" }}
+            key={header.order}
+          >
             {header.label}
           </TableCell>
         ))}

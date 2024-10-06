@@ -533,7 +533,8 @@ const Header = () => {
                             textDecoration: "none",
                             color: "inherit",
                             fontSize: "0.8rem",
-                            fontWeight: "600",
+                            letterSpacing: "0.07rem",
+                            fontWeight: "500",
                           }}
                         >
                           {product.name}

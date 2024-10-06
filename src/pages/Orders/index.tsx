@@ -362,7 +362,7 @@ const Orders = () => {
                     <img
                       src={product.image}
                       alt={product.name}
-                      width={85}
+                      width={82}
                       style={{
                         marginRight: "10px",
                         maxHeight: "100px",

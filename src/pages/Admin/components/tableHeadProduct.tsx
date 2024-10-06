@@ -10,7 +10,10 @@ const TableHeadComponent: React.FC<Props> = ({ ProductHeader }) => {
     <TableHead sx={{ backgroundColor: "#a0a0a0" }}>
       <TableRow>
         {ProductHeader.map((header) => (
-          <TableCell sx={{ fontWeight: "bold" }} key={header.order}>
+          <TableCell
+            sx={{ fontWeight: "bold", letterSpacing: "0.06rem" }}
+            key={header.order}
+          >
             {header.label}
           </TableCell>
         ))}

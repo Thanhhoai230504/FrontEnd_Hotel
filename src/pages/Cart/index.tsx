@@ -245,8 +245,16 @@ const ShoppingCart = () => {
           <Table sx={{ minWidth: 650 }} aria-label="shopping cart table">
             <TableHead>
               <TableRow>
-                <TableCell sx={{ fontWeight: "bold" }}>ITEM</TableCell>
-                <TableCell sx={{ fontWeight: "bold" }}>PRICE</TableCell>
+                <TableCell
+                  sx={{ fontWeight: "bold", letterSpacing: "0.07rem" }}
+                >
+                  ITEM
+                </TableCell>
+                <TableCell
+                  sx={{ fontWeight: "bold", letterSpacing: "0.07rem" }}
+                >
+                  PRICE
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -280,18 +288,42 @@ const ShoppingCart = () => {
                             gap={2}
                             paddingBottom={7}
                           >
-                            <Typography sx={{ fontWeight: "bold" }}>
+                            <Typography
+                              sx={{
+                                fontWeight: "600",
+                                letterSpacing: "0.07rem",
+                              }}
+                            >
                               {product ? product.name : "Product not found"}
                             </Typography>
                             <Typography
-                              sx={{ fontWeight: "500", fontSize: "1rem" }}
+                              sx={{
+                                fontWeight: "500",
+                                fontSize: "1rem",
+                              }}
                             >
                               {product ? product.brand : "N/A"}
                             </Typography>
                             <Typography
                               sx={{ fontWeight: "400", fontSize: "0.9rem" }}
                             >
-                              Size: {cart.size} , Color:{" "}
+                              <span
+                                style={{
+                                  fontWeight: "600",
+                                  letterSpacing: "0.07rem",
+                                }}
+                              >
+                                Size:
+                              </span>{" "}
+                              {cart.size},{" "}
+                              <span
+                                style={{
+                                  fontWeight: "600",
+                                  letterSpacing: "0.07rem",
+                                }}
+                              >
+                                Color:
+                              </span>
                               {product ? (
                                 <Box
                                   sx={{
@@ -306,8 +338,17 @@ const ShoppingCart = () => {
                                 />
                               ) : (
                                 "N/A"
-                              )}{" "}
-                              , Quantity: {cart.quantity}
+                              )}
+                              ,{" "}
+                              <span
+                                style={{
+                                  fontWeight: "600",
+                                  letterSpacing: "0.07rem",
+                                }}
+                              >
+                                Quantity:
+                              </span>{" "}
+                              {cart.quantity}
                             </Typography>
                           </Box>
 

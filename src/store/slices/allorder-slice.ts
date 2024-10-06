@@ -33,7 +33,7 @@ export const fetchAllOrders : any = createAsyncThunk(
     "orders/fetchAllOrders",
     async (payload: { page: number; _limit: number }, thunkAPI) => {
         try {
-            const response = await axiosClient.get(`/Orders?page=${payload.page}&_limit=${payload._limit}`);
+            const response = await axiosClient.get(`/Orders?_page=${payload.page}&_limit=${payload._limit}`);
             return response;
         } catch (error) {
             return thunkAPI.rejectWithValue(error);

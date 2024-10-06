@@ -1,6 +1,9 @@
+import DeleteIcon from "@mui/icons-material/Delete";
 import {
   Box,
   Button,
+  CircularProgress,
+  Grid,
   Pagination,
   Paper,
   Stack,
@@ -9,21 +12,18 @@ import {
   TableCell,
   TableContainer,
   TableRow,
-  Grid,
-  CircularProgress,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Swal from "sweetalert2";
+import axiosClient from "../../../api/axiosClient";
 import ProductModal from "../../../components/Modal/ModalProduct";
 import { fetchAllProduct } from "../../../store/slices/allProduct";
 import { AppDispatch } from "../../../store/store";
 import { ProductTable } from "../../../utils/constants/index";
 import HeaderLogin from "../../Login/components/header";
-import TableHeadComponent from "../components/tableHeadProduct";
-import axiosClient from "../../../api/axiosClient";
-import DeleteIcon from "@mui/icons-material/Delete";
 import Navbar from "../components/Navbar";
-import Swal from "sweetalert2";
+import TableHeadComponent from "../components/tableHeadProduct";
 const ProductsAdmin: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
   const [page, setPage] = useState(1);
@@ -185,9 +185,9 @@ const ProductsAdmin: React.FC = () => {
                         fullWidth
                         onClick={() => handleEdit(product)}
                         sx={{
-                          bgcolor: "#FFC107", // Màu nền vàng đậm
-                          color: "black", // Màu chữ
-                          borderColor: "#FFC107", // Màu viền
+                          bgcolor: "#FFC107",
+                          color: "black",
+                          borderColor: "#FFC107",
                           "&:hover": {
                             bgcolor: "white",
                             color: "black",

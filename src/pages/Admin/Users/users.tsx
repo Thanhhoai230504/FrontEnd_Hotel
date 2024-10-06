@@ -1,6 +1,9 @@
+import DeleteIcon from "@mui/icons-material/Delete";
 import {
   Box,
   Button,
+  CircularProgress,
+  Grid,
   Pagination,
   Paper,
   Stack,
@@ -9,21 +12,18 @@ import {
   TableCell,
   TableContainer,
   TableRow,
-  Grid,
-  CircularProgress,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Swal from "sweetalert2";
+import axiosClient from "../../../api/axiosClient";
 import UserModal from "../../../components/Modal/ModalUser";
 import { fetchAllUsers } from "../../../store/slices/allUsers-slice";
-import { AppDispatch, RootState } from "../../../store/store";
-import HeaderLogin from "../../Login/components/header";
-import DeleteIcon from "@mui/icons-material/Delete";
-import Navbar from "../components/Navbar";
-import axiosClient from "../../../api/axiosClient";
-import TableHeadUser from "../components/tableHeadUser";
+import { AppDispatch } from "../../../store/store";
 import { UserTable } from "../../../utils/constants";
-import Swal from "sweetalert2";
+import HeaderLogin from "../../Login/components/header";
+import Navbar from "../components/Navbar";
+import TableHeadUser from "../components/tableHeadUser";
 const UsersAdmin: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
   const [page, setPage] = useState(1);
@@ -65,11 +65,8 @@ const UsersAdmin: React.FC = () => {
     // Kiểm tra kết quả từ hộp thoại
     if (result.isConfirmed) {
       try {
-        await axiosClient.delete(`/users/${id}`, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+        await axiosClient.delete(`/users/${id}`);
+
         await Swal.fire({
           title: "Deleted!",
           text: "Your file has been deleted.",
