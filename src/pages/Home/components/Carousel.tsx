@@ -1,20 +1,19 @@
-import React, { useEffect } from "react";
 import {
   Box,
-  Typography,
-  Card,
-  CardMedia,
-  CardContent,
   Button,
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
 } from "@mui/material";
-import Slider from "react-slick"; // Import thư viện react-slick
-import { fetchAllProduct } from "../../../store/slices/allProduct";
-import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../../../store/store";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Slider from "react-slick"; // Import thư viện react-slick
+import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
 import { fetchProductCarousel } from "../../../store/slices/productsCarousel-slice";
+import { RootState } from "../../../store/store";
 const RecentlyViewed = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();

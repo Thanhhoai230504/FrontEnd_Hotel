@@ -24,6 +24,7 @@ import { fetchProductDetail } from "../../store/slices/productDetail";
 import { AppDispatch, RootState } from "../../store/store";
 import { Modal } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import RecentlyViewed from "../Home/components/Carousel";
 const ItemDetail = () => {
   const { id } = useParams<{ id: string }>();
   const dispatch = useDispatch<AppDispatch>();
@@ -442,6 +443,7 @@ const ItemDetail = () => {
           </Grid>
         </Grid>
       </Box>
+      <RecentlyViewed />
       <Footer />
     </Box>
   );

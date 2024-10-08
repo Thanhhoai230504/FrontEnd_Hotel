@@ -23,7 +23,7 @@ import { OrderTable } from "../../../utils/constants";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axiosClient from "../../../api/axiosClient";
 import Swal from "sweetalert2";
-
+import moment from "moment";
 type Props = {};
 
 const Order: React.FC<Props> = (props) => {
@@ -125,16 +125,61 @@ const Order: React.FC<Props> = (props) => {
                     <TableCell>{order.address}</TableCell>
                     <TableCell>
                       {Array.isArray(order.products)
-                        ? order.products.length
+                        ? order.products.reduce(
+                            (total, product) => total + product.quantity,
+                            0
+                          )
                         : 0}
                     </TableCell>
+
                     <TableCell>
                       {Array.isArray(order.products) ? (
-                        <ul style={{ padding: 0, margin: 0 }}>
+                        <ul
+                          style={{
+                            padding: 0,
+                            margin: 0,
+                            listStyleType: "none",
+                          }}
+                        >
                           {order.products.map((product) => (
-                            <li key={product.productId}>
-                              Product ID: {product.productId} - Quantity:{" "}
-                              {product.quantity}
+                            <li
+                              key={product.productId}
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "10px",
+                                marginBottom: "10px",
+                              }}
+                            >
+                              <img
+                                src={product.img}
+                                alt={product.name}
+                                style={{
+                                  width: "80px",
+                                  height: "100px",
+                                  objectFit: "cover",
+                                  cursor: "pointer",
+                                }}
+                              />
+                              <Box>
+                                <span
+                                  style={{
+                                    fontWeight: "600",
+                                    fontSize: "0.8rem",
+                                    marginBottom: "10px",
+                                  }}
+                                >
+                                  {product.name}
+                                </span>{" "}
+                                <br />
+                                <span style={{ fontSize: "0.8rem" }}>
+                                  Quantity: {product.quantity}
+                                </span>
+                                <br />
+                                <span style={{ fontSize: "0.8rem" }}>
+                                  Size: {product.size}
+                                </span>
+                              </Box>
                             </li>
                           ))}
                         </ul>
@@ -142,9 +187,10 @@ const Order: React.FC<Props> = (props) => {
                         <span>No products available</span>
                       )}
                     </TableCell>
-                    <TableCell>{order.totalAmount}</TableCell>
+
+                    <TableCell> ฿ {order.totalAmount}</TableCell>
                     <TableCell>
-                      {new Date(order.createdAt).toLocaleString()}
+                      {moment(order.createdAt).format("DD/MM/YYYY HH:mm:ss")}
                     </TableCell>
                     <TableCell>
                       <Button

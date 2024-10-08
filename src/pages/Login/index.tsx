@@ -63,6 +63,11 @@ const LoginForm: React.FC = () => {
       localStorage.setItem("role", result.role);
 
       dispatch(login(result));
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: "Login successfully!",
+      });
       navigate("/");
     },
   });
@@ -129,24 +134,13 @@ const LoginForm: React.FC = () => {
                 }}
                 autoComplete="current-password" // Thêm thuộc tính này
               />
-              <FormControlLabel
-                className="check"
-                control={
-                  <Checkbox
-                    id="profilingConsent"
-                    name="profilingConsent"
-                    onChange={formik.handleChange}
-                  />
-                }
-                label="Remember me"
-              />
 
               <Button
                 type="submit"
                 fullWidth
                 variant="outlined"
                 sx={{
-                  mt: 2,
+                  mt: 4,
                   bgcolor: "black",
                   color: "white",
                   "&:hover": {

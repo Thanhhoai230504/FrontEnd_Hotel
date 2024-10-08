@@ -24,6 +24,7 @@ import { UserTable } from "../../../utils/constants";
 import HeaderLogin from "../../Login/components/header";
 import Navbar from "../components/Navbar";
 import TableHeadUser from "../components/tableHeadUser";
+import moment from "moment";
 const UsersAdmin: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
   const [page, setPage] = useState(1);
@@ -169,7 +170,9 @@ const UsersAdmin: React.FC = () => {
                       <TableCell>{user.email}</TableCell>
                       <TableCell>{user.role}</TableCell>
                       <TableCell>{user.password}</TableCell>
-                      <TableCell>{user.createdAt}</TableCell>
+                      <TableCell>
+                        {moment(user.createdAt).format("DD/MM/YYYY HH:mm:ss")}
+                      </TableCell>
                       <TableCell>
                         <Button
                           variant="outlined"

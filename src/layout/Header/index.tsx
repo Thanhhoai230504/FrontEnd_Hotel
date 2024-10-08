@@ -433,17 +433,17 @@ const Header = () => {
                 ),
               }}
             />
-            <IconButton>
+            <IconButton sx={{ marginTop: "20px" }}>
               <Search className="header-icon" sx={{ color: "black" }} />
             </IconButton>
             {isLoggedIn ? (
-              <IconButton onClick={handleLogout}>
+              <IconButton sx={{ marginTop: "20px" }} onClick={handleLogout}>
                 <Badge className="header-link" badgeContent={0}>
                   <ExitToApp sx={{ color: "black" }} />
                 </Badge>
               </IconButton>
             ) : (
-              <IconButton>
+              <IconButton sx={{ marginTop: "20px" }}>
                 <Link to="/Login" className="header-link">
                   <Badge badgeContent={0}>
                     <PersonOutline className="header-icon" />
@@ -451,7 +451,7 @@ const Header = () => {
                 </Link>
               </IconButton>
             )}
-            <IconButton>
+            <IconButton sx={{ marginTop: "18px" }}>
               <Link to="/Carts" className="header-link">
                 <Badge badgeContent={0}>
                   <LocalMallOutlined className="header-icon" />
@@ -505,7 +505,7 @@ const Header = () => {
         {searchResults.length > 0 && (
           <Box
             className="search-results"
-            sx={{ padding: "10px", width: "300px", mt: 7 }}
+            sx={{ padding: "10px", width: "450px", mt: 7 }}
           >
             <TableContainer component={Paper} className="table-container">
               <Table>
@@ -518,26 +518,51 @@ const Header = () => {
                             src={product.image}
                             alt={product.name}
                             style={{
-                              width: "80px",
-                              height: "80px",
+                              width: "100px",
+                              height: "130px",
                               objectFit: "cover",
                               cursor: "pointer",
                             }}
                           />
                         </Link>
                       </TableCell>
-                      <TableCell>
+                      <TableCell sx={{ fontFamily: "inherit" }}>
                         <Link
                           to={`/shop/detail/${product.id}`}
                           style={{
                             textDecoration: "none",
                             color: "inherit",
-                            fontSize: "0.8rem",
+                            fontSize: "0.9rem",
                             letterSpacing: "0.07rem",
                             fontWeight: "500",
                           }}
                         >
                           {product.name}
+                          <Typography
+                            sx={{
+                              fontSize: "0.8rem",
+                              letterSpacing: "0.07rem",
+                              fontWeight: "500",
+                              marginTop: "8px",
+                            }}
+                          >
+                            {" "}
+                            ฿ {product.price}{" "}
+                          </Typography>
+                          <Typography
+                            sx={{
+                              backgroundColor: "black",
+                              color: "white",
+                              borderRadius: "16px",
+                              fontSize: "10px",
+                              padding: "4px 8px",
+                              textTransform: "uppercase",
+                              width: "fit-content",
+                              mt: 1.3,
+                            }}
+                          >
+                            {product.condition}
+                          </Typography>
                         </Link>
                       </TableCell>
                     </TableRow>

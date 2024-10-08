@@ -24,6 +24,7 @@ import Footer from "../../layout/Footer";
 import { ReceiptOutlined } from "@mui/icons-material";
 import RecentlyViewed from "../Home/components/Carousel";
 import "../../assets/font/index.css";
+import { autoBatchEnhancer } from "@reduxjs/toolkit";
 const OrderCard = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -132,7 +133,7 @@ const OrderCard = () => {
                   </Grid>
                   <Grid item>
                     <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-                      ${order.totalAmount.toFixed(2)}
+                      ฿{order.totalAmount.toFixed(2)}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -150,7 +151,7 @@ const OrderCard = () => {
                 <Divider />
 
                 {/* Order Status */}
-                <Grid container alignItems="center" spacing={9} paddingTop={2}>
+                <Grid container alignItems="center" spacing={24} paddingTop={2}>
                   <Grid item>
                     <Chip
                       label="Unfinished"
@@ -179,27 +180,40 @@ const OrderCard = () => {
                       sx={{ mb: 3 }}
                       gap={6}
                     >
-                      <Avatar
-                        src={`https://via.placeholder.com/50?text=Product+${
-                          index + 1
-                        }`}
-                        alt="Product Image"
-                        sx={{
-                          width: 100,
-                          height: 100,
-                          mr: 4,
-                          borderRadius: "5px",
-                          mb: 4,
+                      <img
+                        src={product.img}
+                        alt={product.name}
+                        style={{
+                          width: "200px",
+                          height: "auto",
+                          marginRight: 7,
+                          marginBottom: 4,
                         }}
                       />
-                      <Box display={"flex"} flexDirection={"column"} gap={1}>
-                        <Typography variant="body1">
-                          Product ID: {product.productId}
+                      <Box
+                        display={"flex"}
+                        flexDirection={"column"}
+                        gap={1}
+                        sx={{ ml: 6 }}
+                      >
+                        <Typography
+                          sx={{
+                            fontWeight: "600",
+                            letterSpacing: "0.07rem",
+                          }}
+                        >
+                          {product.name}
                         </Typography>
-                        <Typography variant="body2">
+                        <Typography sx={{ fontSize: "0.9rem" }}>
+                          {product.description}
+                        </Typography>
+                        <Typography sx={{ fontSize: "0.9rem" }}>
+                          Price: ฿ {product.price}
+                        </Typography>
+                        <Typography sx={{ fontSize: "0.9rem" }}>
                           Quantity: {product.quantity}
                         </Typography>
-                        <Typography variant="body2">
+                        <Typography sx={{ fontSize: "0.9rem" }}>
                           Size: {product.size}
                         </Typography>
                         <Box sx={{ display: "flex", gap: 1, mt: 1 }}>
@@ -218,15 +232,16 @@ const OrderCard = () => {
                         </Box>
                         <Box mt={2}>
                           <Button
-                            variant="text"
+                            variant="outlined"
                             sx={{
-                              color: "black",
-                              fontWeight: "300",
-                              bgcolor: "whitesmoke",
-                              textDecoration: "none",
-                              fontSize: "0.7rem",
+                              mt: 2,
+                              bgcolor: "black",
+                              color: "white",
+                              borderColor: "black",
+                              borderRadius: 0,
                               "&:hover": {
-                                textDecoration: "underline",
+                                bgcolor: "white",
+                                color: "black",
                               },
                             }}
                             onClick={() =>

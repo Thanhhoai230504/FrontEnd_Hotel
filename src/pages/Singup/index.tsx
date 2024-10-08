@@ -60,9 +60,18 @@ const SignUpForm = () => {
       }
       try {
         await axiosClient.post("/users", values);
+        Swal.fire({
+          icon: "success",
+          title: "Success",
+          text: "Sign up successfully!",
+        });
         navigate("/login");
       } catch (error) {
-        alert("Có lỗi xảy ra. Vui lòng thử lại.");
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Something went wrong. Please try again!",
+        });
       }
     },
   });
@@ -224,47 +233,15 @@ const SignUpForm = () => {
                 }}
               />
 
-              {/* Consent Section */}
-
-              <Typography
-                sx={{ mt: 2, fontWeight: "400", fontSize: "0.9rem" }}
-                gutterBottom
-              >
-                CONSENT TO PERSONAL DATA PROCESSING
-              </Typography>
-              <FormControlLabel
-                sx={{ maxWidth: 556, fontSize: "0.8rem" }}
-                control={
-                  <Checkbox
-                    id="profilingConsent"
-                    name="profilingConsent"
-                    checked={formik.values.profilingConsent}
-                    onChange={formik.handleChange}
-                  />
-                }
-                label={
-                  <span
-                    style={{
-                      fontWeight: "400",
-                      fontSize: "0.8rem",
-                      lineHeight: "1.5",
-                      textAlign: "left",
-                    }}
-                  >
-                    I agree to the collection, disclosure or processing of my
-                    personal data for profiling purposes.
-                  </span>
-                }
-              />
-
               {/* Submit Button */}
               <Button
                 type="submit"
                 fullWidth
                 variant="outlined"
                 sx={{
+                  mt: 4,
                   maxWidth: 556,
-                  mt: 2,
+
                   bgcolor: "black",
                   color: "white",
                   borderColor: "black",

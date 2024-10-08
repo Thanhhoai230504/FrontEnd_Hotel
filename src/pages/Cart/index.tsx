@@ -240,6 +240,7 @@ const ShoppingCart = () => {
           sx={{
             boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
             borderRadius: "8px",
+            backgroundColor: "whitesmoke",
           }}
         >
           <Table sx={{ minWidth: 650 }} aria-label="shopping cart table">
@@ -275,12 +276,14 @@ const ShoppingCart = () => {
                           <img
                             src={product.image}
                             alt={product.name}
-                            style={{ width: "200px", marginRight: "55px" }}
+                            style={{
+                              width: "200px",
+                            }}
                           />
                         ) : (
                           <Typography>No Image</Typography>
                         )}
-                        <Box>
+                        <Box sx={{ marginLeft: "120px" }}>
                           <Box
                             display="flex"
                             flexDirection="column"
@@ -299,27 +302,35 @@ const ShoppingCart = () => {
                             <Typography
                               sx={{
                                 fontWeight: "500",
-                                fontSize: "1rem",
+                                fontSize: "0.9rem",
                               }}
                             >
                               {product ? product.brand : "N/A"}
                             </Typography>
                             <Typography
-                              sx={{ fontWeight: "400", fontSize: "0.9rem" }}
+                              sx={{
+                                fontWeight: "400",
+                                fontSize: "0.9rem",
+                                lineHeight: "1.8", // Điều chỉnh khoảng cách giữa các dòng
+                              }}
                             >
                               <span
                                 style={{
-                                  fontWeight: "600",
                                   letterSpacing: "0.07rem",
+                                  fontSize: "0.9rem",
+                                  marginBottom: "8px",
+                                  display: "inline-block",
                                 }}
                               >
                                 Size:
                               </span>{" "}
-                              {cart.size},{" "}
+                              {cart.size} <br />
                               <span
                                 style={{
-                                  fontWeight: "600",
                                   letterSpacing: "0.07rem",
+                                  fontSize: "0.9rem",
+                                  marginBottom: "8px",
+                                  display: "inline-block",
                                 }}
                               >
                                 Color:
@@ -334,16 +345,19 @@ const ShoppingCart = () => {
                                     display: "inline-block",
                                     marginLeft: "5px",
                                     verticalAlign: "middle",
+                                    marginBottom: "8px",
                                   }}
                                 />
                               ) : (
                                 "N/A"
                               )}
-                              ,{" "}
+                              <br />
                               <span
                                 style={{
-                                  fontWeight: "600",
                                   letterSpacing: "0.07rem",
+                                  fontSize: "0.9rem",
+                                  marginBottom: "8px",
+                                  display: "inline-block",
                                 }}
                               >
                                 Quantity:
@@ -354,38 +368,38 @@ const ShoppingCart = () => {
 
                           <Box sx={{ display: "flex", gap: 2, mt: 2 }}>
                             <Button
-                              variant="text"
+                              variant="outlined"
                               onClick={() => handleDelete(cart.id)}
                               sx={{
-                                color: "black",
-                                fontWeight: "300",
                                 bgcolor: "white",
-                                textDecoration: "none",
-                                fontSize: "0.8rem",
+                                color: "black",
+                                borderColor: "black",
+                                borderRadius: 0,
                                 "&:hover": {
-                                  textDecoration: "underline",
+                                  bgcolor: "black",
+                                  color: "white",
                                 },
                               }}
                             >
                               Remove
                             </Button>
                             <Button
-                              variant="text"
+                              variant="outlined"
                               onClick={() =>
                                 navigate(`/shop/detail/${product.id}`)
                               }
                               sx={{
-                                color: "black",
-                                fontWeight: "300",
-                                bgcolor: "white",
-                                textDecoration: "none",
-                                fontSize: "0.8rem",
+                                bgcolor: "black",
+                                color: "white",
+                                borderColor: "black",
+                                borderRadius: 0,
                                 "&:hover": {
-                                  textDecoration: "underline",
+                                  bgcolor: "white",
+                                  color: "black",
                                 },
                               }}
                             >
-                              view details
+                              View Details
                             </Button>
                           </Box>
                         </Box>

@@ -13,10 +13,11 @@ export interface Order {
     postalCode: string;
     telephone: string;
     discountCode: string;
-    products: { productId: string; quantity: number; userId: number }[];
+    products: { productId: string; quantity: number; userId: number; img: string,name: string ,size: string }[];
     totalAmount: number;
     createdAt: number;
     id: string;
+   
 }
 
 export interface OrdersState {

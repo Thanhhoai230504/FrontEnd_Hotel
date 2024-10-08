@@ -116,6 +116,10 @@ const Orders = () => {
     const orderData = {
       ...formik.values,
       products: carts.map((cart: any) => ({
+        name: cart.product.name,
+        price: cart.product.price,
+        description: cart.product.description,
+        img: cart.product.image,
         productId: cart.productId,
         size: cart.size,
         quantity: cart.quantity,
@@ -138,7 +142,7 @@ const Orders = () => {
       });
       deleteCartUser(carts);
       dispatch(fetchCarts(user.id));
-      navigate("/");
+      navigate("/UserOrders");
     } catch (error) {
       console.error("Error placing order:", error);
       await Swal.fire({
