@@ -20,7 +20,7 @@ export const fetchAllProduct: any = createAsyncThunk  (
     "AllProductSlice/fetchAllProduct", 
     async (payload: { page: number; _limit: number }, thunkAPI) => {
       try {
-        const response = await axiosClient.get( `/products?_page=${payload.page}&_limit=${payload._limit}`);
+        const response = await axiosClient.get( `/products?price_gte=200&_page=${payload.page}&_limit=${payload._limit}`);
         return response; 
       } catch (error: any) {
         return thunkAPI.rejectWithValue(error.message);

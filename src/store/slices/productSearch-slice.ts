@@ -20,7 +20,7 @@ export const fetchProductSearch: any = createAsyncThunk(
   "productSearchSlice/fetchProductSearch",
   async (payload: { name: string }, thunkAPI) => {
     try {
-      const response: Product = await axiosClient.get(`/products?name_like=${payload.name}`);
+      const response: Product = await axiosClient.get(`/products?price_gte=200&name_like=${payload.name}`);
       return response;  
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.message); 

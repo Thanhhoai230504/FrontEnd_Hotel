@@ -327,11 +327,18 @@ const Header = () => {
           </Box>
           <Box sx={{ display: "flex", alignItems: "center" }}>
             {isLoggedIn ? (
-              <Typography
-                sx={{ ml: "10px", fontSize: "0.8rem", mt: 0.5, color: "black" }}
-              >
-                | HEY {parsedUser?.userName}
-              </Typography>
+              <Link to={"/Profile"}>
+                <Typography
+                  sx={{
+                    ml: "10px",
+                    fontSize: "0.8rem",
+                    mt: 0.5,
+                    color: "black",
+                  }}
+                >
+                  | HEY {parsedUser?.userName}
+                </Typography>
+              </Link>
             ) : (
               <Box
                 sx={{

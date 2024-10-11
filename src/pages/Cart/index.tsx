@@ -16,14 +16,13 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { cartsRequest } from "../../api/auth/authCarts";
 import axiosClient from "../../api/axiosClient";
+import "../../assets/font/index.css";
+import cart from "../../assets/svg/cart.png";
 import Footer from "../../layout/Footer";
 import Header from "../../layout/Header";
 import { CartItem, fetchCarts } from "../../store/slices/carts-slice";
 import { useAppDispatch } from "../../store/store";
-import cart from "../../assets/svg/cart.png";
-import "../../assets/font/index.css";
 const ShoppingCart = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -63,7 +62,6 @@ const ShoppingCart = () => {
 
   const handleBuyNow = async () => {
     try {
-      const result = await cartsRequest(carts);
       navigate("/Orders");
     } catch (error) {
       console.error("Error buying products:", error);

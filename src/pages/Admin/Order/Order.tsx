@@ -15,6 +15,7 @@ import {
   Stack,
   Grid,
   CircularProgress,
+  Typography,
 } from "@mui/material";
 import HeaderLogin from "../../Login/components/header";
 import Navbar from "../components/Navbar";
@@ -24,6 +25,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import axiosClient from "../../../api/axiosClient";
 import Swal from "sweetalert2";
 import moment from "moment";
+import "../../../assets/font/Giants.ttf";
 type Props = {};
 
 const Order: React.FC<Props> = (props) => {
@@ -101,7 +103,18 @@ const Order: React.FC<Props> = (props) => {
       <HeaderLogin />
       <Grid container>
         <Navbar />
-        <Grid item md={10} sx={{ padding: "30px", marginTop: "80px" }}>
+        <Grid item md={10} sx={{ padding: "0 30px", marginTop: "80px" }}>
+          <Typography
+            sx={{
+              textAlign: "center",
+              fontFamily: "Giants",
+              letterSpacing: "0.1rem",
+              fontSize: "2rem",
+              mb: 2,
+            }}
+          >
+            ORDER MANAGER
+          </Typography>
           <TableContainer
             component={Paper}
             sx={{

@@ -7,7 +7,7 @@ type Props = {};
 
 const Navbar: React.FC<Props> = (props) => {
   return (
-    <Grid item md={2} mt={9}>
+    <Grid item md={2} mt={10}>
       <Box
         sx={{
           display: "flex",
@@ -26,14 +26,22 @@ const Navbar: React.FC<Props> = (props) => {
             mt: 1,
           }}
         >
-          <AdminPanelSettingsIcon sx={{ marginRight: 1,letterSpacing: "0.1rem", }} />
+          <AdminPanelSettingsIcon
+            sx={{ marginRight: 1, letterSpacing: "0.1rem" }}
+          />
           Admin Panel
         </Typography>
         <Button
           color="inherit"
           component={Link}
           to="/Admin/Products"
-          sx={{ justifyContent: "flex-start", mb: 1, fontWeight: "600", mt: 1,letterSpacing: "0.1rem", }}
+          sx={{
+            justifyContent: "flex-start",
+            mb: 1,
+            fontWeight: "600",
+            mt: 1,
+            letterSpacing: "0.1rem",
+          }}
         >
           Products
         </Button>

@@ -12,6 +12,8 @@ import  OrderUserSlice  from "./slices/orderUser-slice";
 import productSearchSlice from "./slices/productSearch-slice";
 import  ProductCarouselSlice  from "./slices/productsCarousel-slice";
 import  ProductHomelSlice  from "./slices/productHome-slice";
+import userProfileSlice from "./slices/userProfile-slice";
+import userAllProfileSlice  from "./slices/allUserProfile-slice";
 
 
 const store = configureStore({
@@ -27,7 +29,9 @@ const store = configureStore({
     orderUserState: OrderUserSlice,
     productSearchState: productSearchSlice,
     productCarouselState: ProductCarouselSlice,
-    productHomeState: ProductHomelSlice
+    productHomeState: ProductHomelSlice,
+    userProfileState:userProfileSlice,
+    userAllProfileState:userAllProfileSlice
   },
 });
 

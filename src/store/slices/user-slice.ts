@@ -11,7 +11,7 @@ export type User = {
   password: string;
 };
 
-export const fetchUser = createAsyncThunk(
+export const fetchUser: any = createAsyncThunk(
   "userSlice/fetchUser",
   async (id: string, thunkAPI) => {
     try {

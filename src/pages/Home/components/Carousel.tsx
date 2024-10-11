@@ -113,6 +113,7 @@ const RecentlyViewed = () => {
                   position: "relative",
                   boxShadow: "none",
                   cursor: "pointer",
+                  margin: "0 auto",
                 }}
                 onClick={() => {
                   navigate(`/shop/detail/${product.id}`);

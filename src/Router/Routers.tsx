@@ -8,6 +8,7 @@ import UsersAdmin from "../pages/Admin/Users/users";
 import ShoppingCart from "../pages/Cart/index";
 import Orders from "../pages/Orders";
 import OrderCard from "../pages/UserOrder/userOrder";
+import AccountSettings from "../pages/Profile";
 
 const Routers = () => {
   return (
@@ -46,7 +47,7 @@ const Routers = () => {
           ></Route>
 
           <Route path="/UserOrders" element={<OrderCard />}></Route>
-
+          <Route path="/Profile" element={<AccountSettings />}></Route>
           <Route path="*" element={<Home />}></Route>
         </Routes>
       </Router>

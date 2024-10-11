@@ -82,7 +82,12 @@ const Footer = () => {
       </Grid> */}
       <Box>
         {/* //spacing={4} nghĩa là khoảng cách giữa các phần tử con sẽ là 4 đơn vị */}
-        <Grid container spacing={4} className="footer-grid">
+        <Grid
+          sx={{ paddingTop: "7px" }}
+          container
+          spacing={4}
+          className="footer-grid"
+        >
           <Grid item xs={12} sm={6} md={3} className="footer-grid-item">
             <Typography className="footer-typography">CUSTOMER CARE</Typography>
             <Box component="ul">
@@ -170,13 +175,17 @@ const Footer = () => {
 
         <Box className="footer-bottom">
           <Box>
-            <Typography className="footer-bottom-typography">
+            <Typography
+              className="footer-bottom-typography"
+              sx={{ marginLeft: "5px" }}
+            >
               CONNECT
             </Typography>
             <a
               href="https://www.instagram.com/_nth_68/"
               target="_blank"
               rel="noopener noreferrer"
+              style={{ marginRight: "5px" }}
             >
               <Badge className="badge">
                 <Instagram className="header-icon" />
@@ -186,6 +195,7 @@ const Footer = () => {
               href="https://www.facebook.com/profile.php?id=100036930660925"
               target="_blank"
               rel="noopener noreferrer"
+              style={{ marginRight: "5px" }}
             >
               <Badge className="badge">
                 <Facebook className="header-icon" />

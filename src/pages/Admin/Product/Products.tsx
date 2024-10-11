@@ -12,6 +12,7 @@ import {
   TableCell,
   TableContainer,
   TableRow,
+  Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -24,6 +25,7 @@ import { ProductTable } from "../../../utils/constants/index";
 import HeaderLogin from "../../Login/components/header";
 import Navbar from "../components/Navbar";
 import TableHeadComponent from "../components/tableHeadProduct";
+import "../../../assets/font/Giants.ttf";
 const ProductsAdmin: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
   const [page, setPage] = useState(1);
@@ -123,6 +125,16 @@ const ProductsAdmin: React.FC = () => {
       <Grid container>
         <Navbar />
         <Grid item md={10} sx={{ padding: "30px", marginTop: "60px" }}>
+          <Typography
+            sx={{
+              textAlign: "center",
+              fontFamily: "Giants",
+              letterSpacing: "0.1rem",
+              fontSize: "2rem",
+            }}
+          >
+            PRODUCTS MANAGER
+          </Typography>
           <Button
             fullWidth
             variant="outlined"
