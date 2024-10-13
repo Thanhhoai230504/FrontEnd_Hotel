@@ -208,7 +208,7 @@ const OrderCard = () => {
                           {product.description}
                         </Typography>
                         <Typography sx={{ fontSize: "0.9rem" }}>
-                          Price: ฿ {product.price}
+                          Price: ฿ {product.price.toLocaleString()}
                         </Typography>
                         <Typography sx={{ fontSize: "0.9rem" }}>
                           Quantity: {product.quantity}

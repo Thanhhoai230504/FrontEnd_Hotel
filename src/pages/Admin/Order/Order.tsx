@@ -201,7 +201,10 @@ const Order: React.FC<Props> = (props) => {
                       )}
                     </TableCell>
 
-                    <TableCell> ฿ {order.totalAmount}</TableCell>
+                    <TableCell>
+                      {" "}
+                      ฿ {order.totalAmount.toLocaleString()}
+                    </TableCell>
                     <TableCell>
                       {moment(order.createdAt).format("DD/MM/YYYY HH:mm:ss")}
                     </TableCell>

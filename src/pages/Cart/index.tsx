@@ -411,7 +411,7 @@ const ShoppingCart = () => {
                           fontSize: "1rem",
                         }}
                       >
-                        ฿{product ? product.price : "N/A"}
+                        ฿{product ? product.price.toLocaleString() : "N/A"}
                       </Typography>
                     </TableCell>
                   </TableRow>

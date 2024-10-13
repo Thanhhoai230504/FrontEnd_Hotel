@@ -169,9 +169,16 @@ const RecentlyViewed = () => {
                   <Typography
                     variant="h6"
                     component="div"
-                    className="product-name" // Áp dụng class cho tên sản phẩm
-                    sx={{ fontWeight: "bold" }}
-                    fontSize={"1rem"}
+                    className="product-name"
+                    sx={{
+                      fontWeight: "bold",
+                      fontSize: "1rem",
+                      display: "-webkit-box",
+                      WebkitBoxOrient: "vertical",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      WebkitLineClamp: 1,
+                    }}
                   >
                     {product.name}
                   </Typography>
@@ -180,6 +187,13 @@ const RecentlyViewed = () => {
                     variant="body2"
                     color="text.secondary"
                     className="product-brand"
+                    sx={{
+                      display: "-webkit-box",
+                      WebkitBoxOrient: "vertical",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      WebkitLineClamp: 1,
+                    }}
                   >
                     {product.brand}
                   </Typography>
@@ -190,7 +204,7 @@ const RecentlyViewed = () => {
                     className="product-price" // Áp dụng class cho giá sản phẩm
                     fontSize={"0.9rem"}
                   >
-                    ฿ {product.price}
+                    ฿ {product.price.toLocaleString()}
                   </Typography>
                 </CardContent>
               </Card>
