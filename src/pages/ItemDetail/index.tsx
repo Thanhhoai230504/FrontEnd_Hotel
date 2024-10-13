@@ -33,6 +33,14 @@ const ItemDetail = () => {
   const [openImageModal, setOpenImageModal] = useState(false);
 
   const navigate = useNavigate();
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchProductDetail(id));
+    }
+  }, [dispatch, id]);
+  const productDetail = useSelector(
+    (state: RootState) => state.productDetailState.productDetail
+  );
   const handleIncrease = () => {
     setQuantity((prevQuantity) => prevQuantity + 1);
   };
@@ -87,14 +95,6 @@ const ItemDetail = () => {
     }
   };
 
-  useEffect(() => {
-    if (id) {
-      dispatch(fetchProductDetail(id));
-    }
-  }, [dispatch, id]);
-  const productDetail = useSelector(
-    (state: RootState) => state.productDetailState.productDetail
-  );
   const handleBuyNow = async () => {
     const storedUser = localStorage.getItem("user");
 

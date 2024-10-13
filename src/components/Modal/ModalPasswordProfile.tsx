@@ -39,7 +39,7 @@ const UpdatePasswordModal: React.FC<UpdatePasswordModalProps> = ({
     }
   }, [dispatch, user?.id]);
 
-  const validationSchema = Yup.object({
+  const validationSchema = Yup.object().shape({
     currentPassword: Yup.string()
       .required("Current password is required")
       .test(

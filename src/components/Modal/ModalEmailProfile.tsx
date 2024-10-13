@@ -19,7 +19,7 @@ import { fetchUsersProfile } from "../../store/slices/userProfile-slice";
 interface UpdateEmailModalProps {
   open: boolean;
   onClose: () => void;
-  user: { id: string; email: string }; // Thêm email hiện tại
+  user: { id: string; email: string }; 
 }
 
 const UpdateEmailModal: React.FC<UpdateEmailModalProps> = ({
@@ -42,7 +42,7 @@ const UpdateEmailModal: React.FC<UpdateEmailModalProps> = ({
     (state: any) => state.userAllProfileState.allUsersProfile
   );
 
-  const validationSchema = Yup.object({
+  const validationSchema = Yup.object().shape({
     newEmail: Yup.string()
       .email("Invalid email format")
       .required("Required")

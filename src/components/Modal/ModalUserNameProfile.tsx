@@ -43,7 +43,7 @@ const UpdateUserNameModal: React.FC<UpdateUserNameModalProps> = ({
     (state: any) => state.userAllProfileState.allUsersProfile
   );
 
-  const validationSchema = Yup.object({
+  const validationSchema = Yup.object().shape({
     newUserName: Yup.string()
       .required("User name is required")
       .test(
