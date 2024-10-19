@@ -1,3 +1,4 @@
+
 import {
   Box,
   Button,
@@ -6,7 +7,7 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react"; // Thêm useRef
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Slider from "react-slick"; // Import thư viện react-slick
@@ -14,11 +15,24 @@ import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import { fetchProductCarousel } from "../../../store/slices/productsCarousel-slice";
 import { RootState } from "../../../store/store";
+
 const RecentlyViewed = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  
+  const sliderRef = useRef<Slider | null>(null); // Dùng useRef để lưu trữ slider
+
   useEffect(() => {
     dispatch(fetchProductCarousel({ _limit: 30 }));
+
+    // Tự động phát carousel sau 2 giây
+    const timer = setTimeout(() => {
+      if (sliderRef.current) {
+        sliderRef.current.slickPlay(); // Gọi phương thức slickPlay để tự động chạy
+      }
+    }, 2000);
+
+    return () => clearTimeout(timer); // Xóa timer khi component unmount
   }, [dispatch]);
 
   const products = useSelector(
@@ -35,6 +49,8 @@ const RecentlyViewed = () => {
     slidesToScroll: 4, // Số lượng sản phẩm lướt qua khi nhấn mũi tên
     nextArrow: <SampleNextArrow />, // Custom arrow phải
     prevArrow: <SamplePrevArrow />, // Custom arrow trái
+    autoplay: false, // Tắt autoplay mặc định để tự điều khiển
+    ref: sliderRef, // Đưa ref của slider vào đây
   };
 
   // Custom arrow phải
