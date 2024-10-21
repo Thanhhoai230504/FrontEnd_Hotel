@@ -51,13 +51,15 @@ const Orders = () => {
   const calculateTotal = () => {
     return carts.reduce((acc: number, cart: CartItem) => {
       const product = cart?.product as Product;
-      return product ? acc + product?.price * cart?.quantity : acc;
+      return product ? acc + product?.price * cart?.quantity : acc;//Nếu product tồn tại tính và cộng vào acc
     }, 0);
   };
 
   const calculateVAT = (total: number) => {
     return total * 0.21;
   };
+  const total = calculateTotal();
+  const VAT = calculateVAT(total);
 
   const formik = useFormik({
     initialValues: {
@@ -152,8 +154,7 @@ const Orders = () => {
       });
     }
   };
-  const total = calculateTotal();
-  const VAT = calculateVAT(total);
+
 
   return (
     <Box>

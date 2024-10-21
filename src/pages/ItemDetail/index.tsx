@@ -209,7 +209,7 @@ const ItemDetail = () => {
         </Box>
       </Modal>
 
-      <Box sx={{ padding: "40px 40px 0 40px", height: "120vh" }}>
+      <Box sx={{ padding: "40px 40px 0 40px", height: "100vh" }}>
         <Grid container spacing={2}>
           {/* Product Image */}
           <Grid item xs={12} md={6}>
@@ -276,7 +276,7 @@ const ItemDetail = () => {
                         variant="outlined"
                         fullWidth
                         sx={{
-                          bgcolor: selectedSize === size ? "black" : "white",
+                          bgcolor: selectedSize === size ? "black" : "white",//kích thước size bằng size đã chọn
                           color: selectedSize === size ? "white" : "black",
                           borderColor: "black",
                           "&:hover": {

@@ -1,4 +1,3 @@
-
 import {
   Box,
   Button,
@@ -19,7 +18,7 @@ import { RootState } from "../../../store/store";
 const RecentlyViewed = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+
   const sliderRef = useRef<Slider | null>(null); // Dùng useRef để lưu trữ slider
 
   useEffect(() => {
@@ -38,7 +37,6 @@ const RecentlyViewed = () => {
   const products = useSelector(
     (state: RootState) => state.productCarouselState.ProductCarousel
   );
-  console.log(products);
 
   // Cấu hình carousel
   const settings = {
@@ -55,6 +53,7 @@ const RecentlyViewed = () => {
 
   // Custom arrow phải
   function SampleNextArrow(props: any) {
+
     const { className, style, onClick } = props;
     return (
       <div

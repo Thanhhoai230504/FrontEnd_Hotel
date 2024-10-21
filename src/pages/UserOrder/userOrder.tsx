@@ -1,30 +1,27 @@
+import { ReceiptOutlined } from "@mui/icons-material";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import SpeedIcon from "@mui/icons-material/Speed";
 import {
-  Avatar,
   Box,
   Button,
-  ButtonBase,
   Card,
   Chip,
   CircularProgress,
   Divider,
   Grid,
   Link,
-  Typography,
+  Typography
 } from "@mui/material";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import "../../assets/font/index.css";
+import Footer from "../../layout/Footer";
+import Header from "../../layout/Header";
 import { fetchOrderUser } from "../../store/slices/orderUser-slice";
 import { useAppDispatch } from "../../store/store";
-import { useSelector } from "react-redux";
-import Header from "../../layout/Header";
-import Footer from "../../layout/Footer";
-import { ReceiptOutlined } from "@mui/icons-material";
 import RecentlyViewed from "../Home/components/Carousel";
-import "../../assets/font/index.css";
-import { autoBatchEnhancer } from "@reduxjs/toolkit";
 const OrderCard = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();

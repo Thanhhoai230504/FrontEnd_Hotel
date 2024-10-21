@@ -45,7 +45,6 @@ const Routers = () => {
               <ProtectedRoute Component={UsersAdmin} allowedRoles={["admin"]} />
             }
           ></Route>
-
           <Route path="/UserOrders" element={<OrderCard />}></Route>
           <Route path="/Profile" element={<AccountSettings />}></Route>
           <Route path="*" element={<Home />}></Route>
