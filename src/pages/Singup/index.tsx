@@ -2,25 +2,23 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   Box,
   Button,
-  Checkbox,
-  FormControlLabel,
   IconButton,
   InputAdornment,
   TextField,
-  Typography,
+  Typography
 } from "@mui/material";
 import { useFormik } from "formik";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import * as Yup from "yup";
 import { SingnUpRequest } from "../../api/auth/authSingnUpRequest";
 import axiosClient from "../../api/axiosClient";
+import "../../assets/font/index.css";
+import WithAuth from "../../hocs/WithAuth";
+import Footer from "../../layout/Footer";
 import HeaderLogin from "../Login/components/header";
 import "./SingnUp.css";
-import Footer from "../../layout/Footer";
-import WithAuth from "../../hocs/WithAuth";
-import Swal from "sweetalert2";
-import "../../assets/font/index.css";
 const SignUpForm = () => {
   const navigate = useNavigate();
   // Formik setup

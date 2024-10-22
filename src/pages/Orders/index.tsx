@@ -51,7 +51,7 @@ const Orders = () => {
   const calculateTotal = () => {
     return carts.reduce((acc: number, cart: CartItem) => {
       const product = cart?.product as Product;
-      return product ? acc + product?.price * cart?.quantity : acc;//Nếu product tồn tại tính và cộng vào acc
+      return product ? acc + product?.price * cart?.quantity : acc; //Nếu product tồn tại tính và cộng vào acc
     }, 0);
   };
 
@@ -80,7 +80,7 @@ const Orders = () => {
       address: Yup.string().required("Required"),
       city: Yup.string().required("Required"),
       country: Yup.string().required("Required"),
-      postalCode: Yup.string().required("Required"),
+      postalCode: Yup.string(),
       telephone: Yup.string().required("Required"),
     }),
     onSubmit: (values) => {
@@ -154,7 +154,6 @@ const Orders = () => {
       });
     }
   };
-
 
   return (
     <Box>

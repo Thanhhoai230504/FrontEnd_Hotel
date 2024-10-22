@@ -2,26 +2,24 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   Box,
   Button,
-  Checkbox,
-  FormControlLabel,
   IconButton,
   InputAdornment,
   TextField,
-  Typography,
+  Typography
 } from "@mui/material";
 import { useFormik } from "formik";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import * as Yup from "yup";
 import { loginRequest } from "../../api/auth/auth.request";
+import "../../assets/font/index.css";
+import WithAuth from "../../hocs/WithAuth";
+import Footer from "../../layout/Footer";
+import { login } from "../../store/slices/user-slice";
 import HeaderLogin from "./components/header";
 import "./LoginForm.css";
-import { useDispatch } from "react-redux";
-import { login } from "../../store/slices/user-slice";
-import Footer from "../../layout/Footer";
-import WithAuth from "../../hocs/WithAuth";
-import Swal from "sweetalert2";
-import "../../assets/font/index.css";
 const LoginForm: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
