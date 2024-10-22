@@ -289,7 +289,7 @@ const Orders = () => {
                 </TextField>
               </Grid>
 
-              <Grid item xs={12} md={6}>
+              {/* <Grid item xs={12} md={6}>
                 <TextField
                   fullWidth
                   id="postalCode"
@@ -307,9 +307,9 @@ const Orders = () => {
                   }
                   margin="normal"
                 />
-              </Grid>
+              </Grid> */}
 
-              <Grid item xs={12} md={6}>
+              <Grid item xs={12} md={12}>
                 <TextField
                   fullWidth
                   id="telephone"
