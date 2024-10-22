@@ -14,7 +14,7 @@ const AdminAuth = <P extends object>({
     const isLoggedIn = localStorage.getItem("isLoggedIn");
     const role = localStorage.getItem("role");
 
-    if (!isLoggedIn || !allowedRoles.includes(role || "")) {
+    if (!isLoggedIn || !allowedRoles.includes(role || "")) { //nếu có là true và đảo ngược trả về false
       return <Navigate to="/not-authorized" />;
     }
 

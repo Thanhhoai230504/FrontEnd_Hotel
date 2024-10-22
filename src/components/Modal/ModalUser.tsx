@@ -14,6 +14,8 @@ import axiosClient from "../../api/axiosClient";
 import { useDispatch } from "react-redux";
 import { fetchAllUsers } from "../../store/slices/allUsers-slice"; // Cập nhật slice nếu cần
 import Swal from "sweetalert2";
+import { fetchAllUsersProfile } from "../../store/slices/allUserProfile-slice";
+import { useSelector } from "react-redux";
 const modalStyle = {
   position: "absolute" as "absolute",
   top: "50%",
@@ -33,10 +35,62 @@ const modalStyle = {
 
 // Validation schema for User
 const UserSchema = Yup.object().shape({
-  userName: Yup.string().required("Required"),
+  userName: Yup.string()
+    .required("Required")
+    .test(
+      "is-unique",
+      "The username already exists or is identical to the current username",
+      function (value) {
+        const allUser = this.parent.allUser; // Lấy allUser từ parent
+        const user = this.parent.user; // Lấy user từ parent
+
+        // Kiểm tra nếu allUser là một mảng hợp lệ
+        if (!Array.isArray(allUser)) {
+          return true; // Nếu allUser không phải là mảng, bỏ qua kiểm tra
+        }
+
+        // Kiểm tra xem user có tồn tại hay không
+        if (user && user.userName) {
+          return (
+            value !== user.userName && // So sánh với userName hiện tại nếu tồn tại
+            !allUser.some((u: any) => u.userName === value) // Kiểm tra trùng lặp
+          );
+        }
+
+        // Nếu user không tồn tại, chỉ kiểm tra trùng lặp
+        return !allUser.some((u: any) => u.userName === value);
+      }
+    ),
+
   firstName: Yup.string().required("Required"),
   lastName: Yup.string().required("Required"),
-  email: Yup.string().email("Invalid email").required("Required"),
+  email: Yup.string()
+    .email("Invalid email")
+    .required("Required")
+    .test(
+      "is-unique-email",
+      "The email already exists or is identical to the current email",
+      function (value) {
+        const allUser = this.parent.allUser; // Lấy allUser từ parent
+        const user = this.parent.user; // Lấy user từ parent
+
+        // Kiểm tra nếu allUser là một mảng hợp lệ
+        if (!Array.isArray(allUser)) {
+          return true; // Nếu allUser không phải là mảng, bỏ qua kiểm tra
+        }
+
+        // Kiểm tra xem user có tồn tại hay không
+        if (user && user.email) {
+          return (
+            value !== user.email && // So sánh với email hiện tại nếu tồn tại
+            !allUser.some((u: any) => u.email === value) // Kiểm tra trùng lặp
+          );
+        }
+
+        // Nếu user không tồn tại, chỉ kiểm tra trùng lặp
+        return !allUser.some((u: any) => u.email === value);
+      }
+    ),
   password: Yup.string().required("Required"),
   confirmPassword: Yup.string()
     .oneOf([Yup.ref("password")], "Passwords must match")
@@ -47,6 +101,13 @@ const UserSchema = Yup.object().shape({
 
 const UserModal = ({ open, handleClose, user }: any) => {
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchAllUsersProfile());
+  }, [dispatch]);
+
+  const allUser = useSelector(
+    (state: any) => state.userAllProfileState.allUsersProfile
+  );
 
   const formik = useFormik({
     initialValues: {
@@ -60,6 +121,26 @@ const UserModal = ({ open, handleClose, user }: any) => {
       profilingConsent: false,
     },
     validationSchema: UserSchema,
+    validate: (values) => {
+      const errors: any = {};
+
+      // Kiểm tra username
+      const userExists =
+        allUser && allUser.some((u: any) => u.userName === values.userName);
+      if (userExists && (!user || user.userName !== values.userName)) {
+        errors.userName =
+          "The username already exists or is identical to the current username.";
+      }
+       // Kiểm tra email
+       const emailExists =
+       allUser && allUser.some((u: any) => u.email === values.email);
+     if (emailExists && (!user || user.email !== values.email)) {
+       errors.email =
+         "The email already exists or is identical to the current email.";
+     }
+
+      return errors;
+    },
     onSubmit: async (values) => {
       try {
         if (user) {
