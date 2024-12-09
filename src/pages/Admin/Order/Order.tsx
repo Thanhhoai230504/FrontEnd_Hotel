@@ -274,7 +274,7 @@ const Order: React.FC<Props> = (props) => {
                         {order.totalAmount.toLocaleString()} VNĐ
                       </TableCell>
                       <TableCell>
-                        {moment(order.createdAt).format("DD/MM/YYYY HH:mm:ss")}
+                        {moment(order.createdAt).format("HH:mm:ss DD/MM/YYYY")}
                       </TableCell>
                       <TableCell>{order?.createdAtBrowse}</TableCell>
                       <TableCell>
@@ -309,7 +309,6 @@ const Order: React.FC<Props> = (props) => {
                               borderColor: "gray",
                               "&.Mui-disabled": {
                                 color: "white",
-                  
                               },
                             }}
                           >
