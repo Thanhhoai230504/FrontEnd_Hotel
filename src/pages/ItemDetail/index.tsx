@@ -257,7 +257,7 @@ const ItemDetail = () => {
                   variant="h5"
                   sx={{ fontWeight: "500", fontSize: "16px" }}
                 >
-                  ฿ {productDetail.price.toLocaleString()}
+                  {productDetail.price.toLocaleString()} VNĐ
                 </Typography>
 
                 <Divider sx={{ my: 2 }} />
@@ -276,7 +276,7 @@ const ItemDetail = () => {
                         variant="outlined"
                         fullWidth
                         sx={{
-                          bgcolor: selectedSize === size ? "black" : "white",//kích thước size bằng size đã chọn
+                          bgcolor: selectedSize === size ? "black" : "white", //kích thước size bằng size đã chọn
                           color: selectedSize === size ? "white" : "black",
                           borderColor: "black",
                           "&:hover": {

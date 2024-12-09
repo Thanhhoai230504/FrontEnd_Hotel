@@ -32,6 +32,21 @@ const ShoppingCart = () => {
 
   const carts = useSelector((state: any) => state.cartsState.carts) || [];
   const loading = useSelector((state: any) => state.cartsState.loading);
+
+  // Combine products with the same ID
+  const mergedCarts = carts.reduce((acc: CartItem[], cart: CartItem) => {
+    const existingCartIndex = acc.findIndex(item => item.product.id === cart.product.id && item.size === cart.size);
+    
+    if (existingCartIndex !== -1) {
+      // If product with same ID and size exists, add quantities
+      acc[existingCartIndex].quantity += cart.quantity;
+    } else {
+      // If not found, add new cart item
+      acc.push({ ...cart });
+    }
+    return acc;
+  }, []);
+  
   const handleDelete = async (id: string) => {
     try {
       await axiosClient.delete(`/carts/${id}`);
@@ -257,7 +272,7 @@ const ShoppingCart = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {carts.map((cart: CartItem) => {
+              {mergedCarts.map((cart: CartItem) => {
                 const product = cart.product;
 
                 return (
@@ -411,7 +426,7 @@ const ShoppingCart = () => {
                           fontSize: "1rem",
                         }}
                       >
-                        ฿{product ? product.price.toLocaleString() : "N/A"}
+                        {product ? product.price.toLocaleString() : "N/A"} VNĐ
                       </Typography>
                     </TableCell>
                   </TableRow>

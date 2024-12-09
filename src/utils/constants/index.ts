@@ -22,7 +22,9 @@ export const OrderTable = [
     { label: 'Products', order: 5 },
     { label: 'Total amount', order: 6 },
     { label: 'Created At', order: 7 },
-    { label: '', order: 8 },
+    { label: 'Created At Browse', order: 8 },
+    { label: 'Delete', order: 9 },
+    { label: 'Status', order: 10 },
 
 ];
 

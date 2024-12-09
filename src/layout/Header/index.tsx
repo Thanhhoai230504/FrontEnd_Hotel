@@ -251,7 +251,7 @@ import { Product } from "../../store/slices/product-slice";
 import { fetchProductSearch } from "../../store/slices/productSearch-slice";
 import { RootState } from "../../store/store";
 import "./Header.scss";
-import ClearIcon from "@mui/icons-material/Clear"; // Icon X
+import ClearIcon from "@mui/icons-material/Clear";
 const Header = () => {
   const navigate = useNavigate();
   const isLoggedIn = localStorage.getItem("isLoggedIn");
@@ -260,6 +260,9 @@ const Header = () => {
   const dispatch = useDispatch();
   const products = useSelector(
     (state: RootState) => state.productSearchState.productSearch
+  );
+  const approvedCount = useSelector(
+    (state: RootState) => state.allOrderState.approvedCount
   );
   const role = localStorage.getItem("role");
   const isAdmin = role === "admin";
@@ -504,7 +507,18 @@ const Header = () => {
               SUITS
             </Link>
             <Link className="header-link" to="/UserOrders">
-              ORDERS
+              <Badge
+                badgeContent={approvedCount}
+                color="primary"
+                sx={{
+                  "& .MuiBadge-badge": {
+                    backgroundColor: "red",
+                    color: "#fff",
+                  },
+                }}
+              >
+                ORDERS
+              </Badge>
             </Link>
           </Box>
         </Toolbar>
@@ -554,7 +568,7 @@ const Header = () => {
                             }}
                           >
                             {" "}
-                            ฿ {product.price}{" "}
+                            {product.price} VNĐ
                           </Typography>
                           <Typography
                             sx={{

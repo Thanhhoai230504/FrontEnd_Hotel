@@ -115,7 +115,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
           component="div"
           sx={{ fontWeight: "bold", mt: 1 }}
         >
-          ฿ {product.price.toLocaleString()}
+          {product.price.toLocaleString()} VNĐ
         </Typography>
       </CardContent>
     </Card>

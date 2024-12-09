@@ -5,7 +5,7 @@ import {
   IconButton,
   InputAdornment,
   TextField,
-  Typography
+  Typography,
 } from "@mui/material";
 import { useFormik } from "formik";
 import React, { useState } from "react";
@@ -20,6 +20,7 @@ import Footer from "../../layout/Footer";
 import { login } from "../../store/slices/user-slice";
 import HeaderLogin from "./components/header";
 import "./LoginForm.css";
+import logotruong from "../../assets/svg/logotruong.jpg";
 const LoginForm: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -77,6 +78,7 @@ const LoginForm: React.FC = () => {
         <Box className="login-image"></Box>
         <Box className="login-form-container">
           <Box>
+            <img src={logotruong} alt="" className="login-truong" style={{height:"80px", width:"80px", marginLeft:"30px", borderRadius:"50%" }} />
             <Typography
               sx={{
                 paddingLeft: "25px",

@@ -20,6 +20,7 @@ export type Product = {
     popularityScore: number;
     condition: string;
     size: string;
+    createdAtBrowse: string;
 };
 
 

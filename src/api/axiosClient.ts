@@ -1,6 +1,8 @@
 import axios from "axios";
 
 const axiosClient = axios.create({
+   // https://backend-project-t200.onrender.com
+   // http://localhost:4000
    baseURL: "https://backend-project-t200.onrender.com",
    timeout: 10000,
 });

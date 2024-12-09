@@ -5,11 +5,11 @@ import {
   IconButton,
   InputAdornment,
   TextField,
-  Typography
+  Typography,
 } from "@mui/material";
 import { useFormik } from "formik";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import * as Yup from "yup";
 import { SingnUpRequest } from "../../api/auth/authSingnUpRequest";
@@ -19,6 +19,8 @@ import WithAuth from "../../hocs/WithAuth";
 import Footer from "../../layout/Footer";
 import HeaderLogin from "../Login/components/header";
 import "./SingnUp.css";
+import logotruong from "../../assets/svg/logotruong.jpg";
+
 const SignUpForm = () => {
   const navigate = useNavigate();
   // Formik setup
@@ -85,6 +87,17 @@ const SignUpForm = () => {
         <Box className="singnUp-image"></Box>
         <Box className="login-form-container">
           <Box>
+            <img
+              src={logotruong}
+              alt=""
+              className="login-truong"
+              style={{
+                height: "80px",
+                width: "80px",
+                marginLeft: "30px",
+                borderRadius: "50%",
+              }}
+            />
             <Typography
               variant="h5"
               component="h1"
@@ -97,7 +110,6 @@ const SignUpForm = () => {
             >
               CREATE ACCOUNT
             </Typography>
-
             <form className="singnUp-form" onSubmit={formik.handleSubmit}>
               {/* First Name */}
               <TextField
@@ -253,6 +265,12 @@ const SignUpForm = () => {
                 AGREE AND CONTINUE
               </Button>
             </form>
+            <div style={{ marginTop: "20px" }}>
+              You already have an account? {""}
+              <Link to="/login" style={{ color: "blue" }}>
+                Login Account now
+              </Link>
+            </div>
           </Box>
         </Box>
       </Box>

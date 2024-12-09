@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
-import { fetchAllOrders } from "../../../store/slices/allorder-slice";
+import {
+  fetchAllOrders,
+  updateApprovedCount,
+} from "../../../store/slices/allorder-slice";
 import {
   Table,
   TableBody,
@@ -26,7 +29,16 @@ import axiosClient from "../../../api/axiosClient";
 import Swal from "sweetalert2";
 import moment from "moment";
 import "../../../assets/font/Giants.ttf";
+
 type Props = {};
+
+interface Product {
+  productId: string;
+  name: string;
+  img: string;
+  quantity: number;
+  size: string;
+}
 
 const Order: React.FC<Props> = (props) => {
   const dispatch = useDispatch();
@@ -45,6 +57,25 @@ const Order: React.FC<Props> = (props) => {
     const payload = { page, _limit: limit };
     dispatch(fetchAllOrders(payload));
   }, [dispatch, page, limit]);
+
+  // Function to combine products with the same ID and size
+  const combineProducts = (products: Product[]): Product[] => {
+    const combinedProducts = products.reduce((acc: Product[], product) => {
+      const existingProduct = acc.find(
+        (p) => p.productId === product.productId && p.size === product.size
+      );
+
+      if (existingProduct) {
+        existingProduct.quantity += product.quantity;
+      } else {
+        acc.push({ ...product });
+      }
+
+      return acc;
+    }, []);
+
+    return combinedProducts;
+  };
 
   const handleDelete = async (id: string) => {
     const result = await Swal.fire({
@@ -76,6 +107,45 @@ const Order: React.FC<Props> = (props) => {
       await Swal.fire("Order not deleted", "", "info");
     }
   };
+  const handleBrowse = async (id: string) => {
+    try {
+      const result = await Swal.fire({
+        title: "Confirm Update",
+        text: "Do you want to update the status of this order?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, update it!",
+      });
+
+      if (result.isConfirmed) {
+        // API request to update order status
+        await axiosClient.patch(`/orders/${id}`, {
+          status: "Order Approved",
+          isViewed: false,
+          createdAtBrowse: moment().format(" HH:mm:ss DD/MM/YYYY"),
+        });
+        await Swal.fire({
+          title: "Updated!",
+          text: "Order status has been updated.",
+          icon: "success",
+        });
+
+        // Fetch updated orders
+        dispatch(fetchAllOrders({ page, _limit: limit }));
+        dispatch(updateApprovedCount());
+      }
+    } catch (error) {
+      console.error(error);
+      await Swal.fire({
+        title: "Error updating status",
+        text: "Something went wrong. Please try again.",
+        icon: "error",
+      });
+    }
+  };
+
   if (loading) {
     return (
       <Box>
@@ -98,6 +168,7 @@ const Order: React.FC<Props> = (props) => {
       </Box>
     );
   }
+
   return (
     <Box>
       <HeaderLogin />
@@ -125,28 +196,30 @@ const Order: React.FC<Props> = (props) => {
             <Table>
               <TableHeadOrder OrderTable={OrderTable} />
               <TableBody>
-                {orderList.map((order, index) => (
-                  <TableRow
-                    key={order.id}
-                    sx={{
-                      backgroundColor: index % 2 === 0 ? "#f5f5f5" : "#e0e0e0",
-                    }}
-                  >
-                    <TableCell>{order.id}</TableCell>
-                    <TableCell>{order.firstName}</TableCell>
-                    <TableCell>{order.telephone}</TableCell>
-                    <TableCell>{order.address}</TableCell>
-                    <TableCell>
-                      {Array.isArray(order.products)
-                        ? order.products.reduce(
-                            (total, product) => total + product.quantity,
-                            0
-                          )
-                        : 0}
-                    </TableCell>
+                {orderList.map((order, index) => {
+                  const combinedProducts = Array.isArray(order.products)
+                    ? combineProducts(order.products)
+                    : [];
 
-                    <TableCell>
-                      {Array.isArray(order.products) ? (
+                  return (
+                    <TableRow
+                      key={order.id}
+                      sx={{
+                        backgroundColor:
+                          index % 2 === 0 ? "#f5f5f5" : "#e0e0e0",
+                      }}
+                    >
+                      <TableCell>{order.id}</TableCell>
+                      <TableCell>{order.firstName}</TableCell>
+                      <TableCell>{order.telephone}</TableCell>
+                      <TableCell>{order.address}</TableCell>
+                      <TableCell>
+                        {combinedProducts.reduce(
+                          (total, product) => total + product.quantity,
+                          0
+                        )}
+                      </TableCell>
+                      <TableCell>
                         <ul
                           style={{
                             padding: 0,
@@ -154,9 +227,9 @@ const Order: React.FC<Props> = (props) => {
                             listStyleType: "none",
                           }}
                         >
-                          {order.products.map((product) => (
+                          {combinedProducts.map((product) => (
                             <li
-                              key={product.productId}
+                              key={`${product.productId}-${product.size}`}
                               style={{
                                 display: "flex",
                                 alignItems: "center",
@@ -196,39 +269,75 @@ const Order: React.FC<Props> = (props) => {
                             </li>
                           ))}
                         </ul>
-                      ) : (
-                        <span>No products available</span>
-                      )}
-                    </TableCell>
+                      </TableCell>
+                      <TableCell>
+                        {order.totalAmount.toLocaleString()} VNĐ
+                      </TableCell>
+                      <TableCell>
+                        {moment(order.createdAt).format("DD/MM/YYYY HH:mm:ss")}
+                      </TableCell>
+                      <TableCell>{order?.createdAtBrowse}</TableCell>
+                      <TableCell>
+                        <Button
+                          variant="outlined"
+                          fullWidth
+                          onClick={() => handleDelete(order.id)}
+                          sx={{
+                            bgcolor: "#8B0000",
+                            color: "white",
+                            borderColor: "#8B0000",
+                            "&:hover": {
+                              bgcolor: "white",
+                              color: "black",
+                              borderColor: "#A9A9A9",
+                            },
+                          }}
+                        >
+                          <DeleteIcon />
+                        </Button>
+                      </TableCell>
 
-                    <TableCell>
-                      {" "}
-                      ฿ {order.totalAmount.toLocaleString()}
-                    </TableCell>
-                    <TableCell>
-                      {moment(order.createdAt).format("DD/MM/YYYY HH:mm:ss")}
-                    </TableCell>
-                    <TableCell>
-                      <Button
-                        variant="outlined"
-                        fullWidth
-                        onClick={() => handleDelete(order.id)}
-                        sx={{
-                          bgcolor: "#8B0000",
-                          color: "white",
-                          borderColor: "#8B0000",
-                          "&:hover": {
-                            bgcolor: "white",
-                            color: "black",
-                            borderColor: "#A9A9A9",
-                          },
-                        }}
-                      >
-                        <DeleteIcon />
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                ))}
+                      <TableCell>
+                        {order.status === "Order Approved" ? (
+                          <Button
+                            variant="outlined"
+                            fullWidth
+                            disabled
+                            sx={{
+                              bgcolor: "gray",
+                              color: "white",
+                              borderColor: "gray",
+                              "&.Mui-disabled": {
+                                color: "white",
+                  
+                              },
+                            }}
+                          >
+                            Approved
+                          </Button>
+                        ) : (
+                          <Button
+                            variant="outlined"
+                            fullWidth
+                            onClick={() => handleBrowse(order.id)}
+                            sx={{
+                              bgcolor: "#3bac3c",
+                              color: "white",
+                              borderColor: "#3bac3c",
+                              "&:hover": {
+                                bgcolor: "white",
+                                color: "black",
+                                borderColor: "#3bac3c",
+                              },
+                            }}
+                          >
+                            Browse
+                          </Button>
+                        )}
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
               </TableBody>
             </Table>
           </TableContainer>

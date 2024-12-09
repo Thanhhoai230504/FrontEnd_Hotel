@@ -39,6 +39,19 @@ const Orders = () => {
   const addresstype: string[] = ["Home", "Work"];
   const carts = useSelector((state: any) => state.cartsState.carts) || [];
 
+  // Gộp các sản phẩm có cùng product.id và cộng dồn quantity
+  const mergedCarts = carts.reduce((acc: any[], cart: CartItem) => {
+    const existingCart = acc.find(
+      (item) => item.product.id === cart.product.id
+    );
+    if (existingCart) {
+      existingCart.quantity += cart.quantity;
+    } else {
+      acc.push({ ...cart });
+    }
+    return acc;
+  }, []);
+
   useEffect(() => {
     if (!user?.id) {
       console.error("User not logged in or invalid user data");
@@ -352,7 +365,7 @@ const Orders = () => {
               borderRadius: "8px",
             }}
           >
-            {carts.map((cart: CartItem) => {
+            {mergedCarts.map((cart: CartItem) => {
               const product = cart.product;
 
               return product ? (
@@ -388,7 +401,7 @@ const Orders = () => {
                       <Typography
                         sx={{ fontSize: "0.8rem", marginBottom: "5px" }}
                       >
-                        Price:{product.price.toFixed(2)} ฿
+                        Price:{product.price.toFixed(2)} VNĐ
                       </Typography>
                       <Typography
                         sx={{ fontSize: "0.8rem", marginBottom: "5px" }}
@@ -406,7 +419,7 @@ const Orders = () => {
             <Box display="flex" justifyContent="space-between" mb={1}>
               <Typography sx={{ fontSize: "0.9rem" }}>Item Subtotal</Typography>
               <Typography sx={{ fontSize: "0.9rem" }}>
-                {total.toFixed(2)} ฿
+                {total.toFixed(2)} VNĐ
               </Typography>
             </Box>
 
@@ -418,13 +431,13 @@ const Orders = () => {
             >
               <Typography sx={{ fontSize: "0.9rem" }}>VAT (21%)</Typography>
               <Typography sx={{ fontSize: "0.9rem" }}>
-                {VAT.toFixed(2)} ฿
+                {VAT.toFixed(2)} VNĐ
               </Typography>
             </Box>
 
             <Box display="flex" justifyContent="space-between" mb={2}>
               <Typography sx={{ fontSize: "0.9rem" }}>Shipping</Typography>
-              <Typography sx={{ fontSize: "0.9rem" }}>0,00 ฿</Typography>
+              <Typography sx={{ fontSize: "0.9rem" }}>0,00 VNĐ</Typography>
             </Box>
 
             <Divider sx={{ mb: 2 }} />
@@ -435,7 +448,7 @@ const Orders = () => {
                 Total
               </Typography>
               <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-                {(total + VAT).toFixed(2)} ฿
+                {(total + VAT).toFixed(2)} VNĐ
               </Typography>
             </Box>
             <Button

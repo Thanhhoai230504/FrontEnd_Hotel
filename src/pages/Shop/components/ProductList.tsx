@@ -65,7 +65,7 @@ const ProductList = () => {
       </Grid>
       <Stack spacing={2} sx={{ alignItems: "center", marginTop: 2 }}>
         <Pagination
-          count={8}
+          count={7}
           page={page}
           onChange={(event, value) => setPage(value)}
           variant="outlined"

@@ -17,17 +17,22 @@ export interface Order {
     totalAmount: number;
     createdAt: number;
     id: string;
-   
+    createdAtBrowse?: string;
+    status?: string;
+    appprovedCount?: number
+    isViewed?: boolean
 }
 
 export interface OrdersState {
     orders: Order[];
     loading: boolean;
+    approvedCount: number
 }
 
 const initialState: OrdersState = {
     orders: [],
     loading: false,
+    approvedCount: 0
 };
 
 export const fetchAllOrders : any = createAsyncThunk(
@@ -45,7 +50,18 @@ export const fetchAllOrders : any = createAsyncThunk(
 const ordersAllSlice = createSlice({
     name: "orders",
     initialState,
-    reducers: {},
+    reducers: {
+        updateApprovedCount: (state) => {
+            state.approvedCount = state.orders.filter((order) => order.isViewed === false).length;    
+          },
+          resetApprovedCount: (state) => {
+            state.orders = state.orders.map((order) => ({
+                ...order,
+                isViewed: true, 
+            }));
+            state.approvedCount = 0;
+        }  
+    },
     extraReducers: (builder) => {
         builder.addCase(fetchAllOrders.pending, (state) => {
             state.loading = true;
@@ -53,6 +69,7 @@ const ordersAllSlice = createSlice({
         builder.addCase(fetchAllOrders.fulfilled, (state, action: PayloadAction<Order[]>) => {
             state.orders = action.payload;
             state.loading = false;
+            state.approvedCount = state.orders.filter((order) => order.isViewed === false).length;
         });
         builder.addCase(fetchAllOrders.rejected, (state) => {
             state.loading = false;
@@ -60,4 +77,6 @@ const ordersAllSlice = createSlice({
     },
 });
 
-export default ordersAllSlice.reducer;
+export default ordersAllSlice.reducer ;
+
+export const { updateApprovedCount,resetApprovedCount } = ordersAllSlice.actions;
