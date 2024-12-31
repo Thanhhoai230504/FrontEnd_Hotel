@@ -1,10 +1,6 @@
-import React from "react";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { Box, Button, Container, Typography, Grid } from "@mui/material";
-import { styled } from "@mui/material/styles";
+import { Box, Button, Container, Typography } from "@mui/material";
+import { ThemeProvider, createTheme, styled } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
-import Header from "../../../layout/Header/components/Header";
-import Footer from "../../../layout/Footer";
 
 const theme = createTheme({
   typography: {
@@ -35,7 +31,6 @@ function ContentTop() {
     navigate("/Gallery");
   };
   return (
-   
     <ThemeProvider theme={theme}>
       <Box
         display="flex"
@@ -69,7 +64,6 @@ function ContentTop() {
             >
               THIÊN ĐƯỜNG NGHỈ DƯỠNG RIÊNG TƯ
             </Typography>
-           
           </Container>
         </Box>
 
@@ -114,7 +108,6 @@ function ContentTop() {
         </Box>
       </Box>
     </ThemeProvider>
-   
   );
 }
 

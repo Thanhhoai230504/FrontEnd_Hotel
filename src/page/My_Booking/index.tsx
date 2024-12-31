@@ -21,7 +21,7 @@ import {
   Typography,
 } from "@mui/material";
 import { format } from "date-fns";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchMyBookings } from "../../store/slice/myBookings";
 import Footer from "../../layout/Footer";
@@ -30,6 +30,7 @@ import { FaRegIdBadge } from "react-icons/fa";
 import { Wifi, Tv, Bath, Wine, Fan } from "lucide-react";
 import Loading from "../../components/Loading";
 import NotFoundSearchRoom from "../../asset/svg/NotFoundSearchRoom.png";
+import ImageModal from "../PhotoLibrary/ImageModal";
 interface Booking {
   _id: string;
   user: {
@@ -104,11 +105,15 @@ const MyBookings = () => {
   const dispatch = useDispatch();
   const bookings = useSelector((state: any) => state.myBookingState.bookings);
   const loading = useSelector((state: any) => state.myBookingState.loading);
-
+  const [isImageModalOpen, setIsImageModalOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   useEffect(() => {
     dispatch(fetchMyBookings());
   }, [dispatch]);
-
+  const handleImageClick = (image: string) => {
+    setSelectedImage(image);
+    setIsImageModalOpen(true);
+  };
   return (
     <>
       <Header />
@@ -181,6 +186,7 @@ const MyBookings = () => {
                             booking.room.images.length > 0 ? (
                               booking.room.images.map((imageUrl, index) => (
                                 <IconButton
+                                  onClick={() => handleImageClick(imageUrl)}
                                   key={index}
                                   sx={{
                                     width: 80,
@@ -313,7 +319,11 @@ const MyBookings = () => {
           )}
         </Container>
       )}
-
+      <ImageModal
+        open={isImageModalOpen}
+        imageUrl={selectedImage}
+        onClose={() => setIsImageModalOpen(false)}
+      />
       <Footer />
     </>
   );
