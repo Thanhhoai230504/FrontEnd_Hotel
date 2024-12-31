@@ -1,33 +1,44 @@
+
 import axios from "axios";
 
 const axiosClient = axios.create({
-   // https://backend-project-t200.onrender.com
-   // http://localhost:4000
-   baseURL: "https://backend-project-t200.onrender.com",
+   baseURL: "http://localhost:3000/api",
    timeout: 10000,
 });
 
-// Thêm một bộ đón chặn request
+// Add request interceptor
 axiosClient.interceptors.request.use(
    function (config) {
-      // Làm gì đó trước khi request được gửi đi
+      // Add authorization header with JWT token
+      const token = localStorage.getItem('token');
+      if (token) {
+         config.headers.Authorization = `Bearer ${token}`;
+      }
       return config;
    },
    function (error) {
-      // Làm gì đó với lỗi request
       return Promise.reject(error);
    }
 );
 
-// Thêm một bộ đón chặn response
+// Add response interceptor
 axiosClient.interceptors.response.use(
    function (response) {
-      // Bất kì mã trạng thái nào nằm trong tầm 2xx đều khiến hàm này được trigger
+      // Return data property from the response
       return response.data;
    },
    function (error) {
-      // Bất kì mã trạng thái nào lọt ra ngoài tầm 2xx đều khiến hàm này được trigger
-      return Promise.reject(error?.message);
+      // Handle specific error cases
+      if (error.response) {
+         // Server responded with error status
+         return Promise.reject(error.response.data);
+      } else if (error.request) {
+         // Request made but no response received
+         return Promise.reject({ message: 'No response from server' });
+      } else {
+         // Other errors
+         return Promise.reject({ message: error.message });
+      }
    }
 );
 

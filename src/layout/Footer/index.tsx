@@ -1,250 +1,123 @@
-import { Facebook, Google, Instagram } from "@mui/icons-material";
-import { Box, Button, Grid, Link, TextField, Typography } from "@mui/material";
-import { Badge } from "react-bootstrap";
-import "./Footer.scss";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import React from "react";
+import { Box, Container, Grid, Typography, Link, Stack } from "@mui/material";
+import { styled } from "@mui/material/styles";
+
+const StyledFooter = styled(Box)(({ theme }) => ({
+  backgroundColor: "#333333",
+  color: "#ffffff",
+  padding: theme.spacing(6, 0),
+}));
+
+const FooterTitle = styled(Typography)(({ theme }) => ({
+  color: "#ffffff",
+  fontWeight: "bold",
+  marginBottom: theme.spacing(2),
+}));
+
+const FooterLink = styled(Link)(({ theme }) => ({
+  color: "#cccccc",
+  textDecoration: "none",
+  "&:hover": {
+    color: "#ffffff",
+  },
+}));
+
 const Footer = () => {
   return (
-    <div className="footer-container">
-      {/* <Grid
-        container
-        spacing={4}
-        sx={{
-          padding: "2rem 0",
-          backgroundColor: "#F4F4F4",
-          height: "242px",
-          mb: 1,
-        }}
-      >
-       
-        <Grid item xs={12} md={4}>
-          <Typography variant="h6" fontWeight="bold" gutterBottom>
-            ELEVATE YOUR FASHION GAME
-          </Typography>
-          <Typography variant="body2" gutterBottom>
-            Sign up for our email newsletter and <strong>GET 10% OFF.</strong>{" "}
-            It’s like having a stylish BFF. Opt out any time.
-          </Typography>
-          <Link href="#" underline="hover">
-            privacy policy
-          </Link>
-          <Grid container sx={{ mt: 2 }} alignItems="center">
-            <Grid item xs={8}>
-              <TextField
-                variant="outlined"
-                placeholder="Enter your e-mail."
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={4}>
-              <Button
-                variant="contained"
-                sx={{
-                  height: "100%",
-                  backgroundColor: "black",
-                  color: "white",
-                }}
+    <StyledFooter>
+      <Container maxWidth="lg">
+        <Grid container spacing={4}>
+          {/* Hotel Information */}
+          <Grid item xs={12} md={3}>
+            <Box mb={3}>
+              {/* Video thay thế hình ảnh */}
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                style={{ width: "100%", maxWidth: 200, borderRadius: 8 }}
               >
-                <ArrowForwardIcon />
-              </Button>
-            </Grid>
-          </Grid>
-        </Grid>
-
-      
-        <Grid item xs={12} md={4}>
-          <Typography variant="h6" fontWeight="bold" gutterBottom>
-            HELP US IMPROVE
-          </Typography>
-          <Typography variant="body2" gutterBottom>
-            Take a brief survey about today’s visit.
-          </Typography>
-          <Link href="#" underline="hover" fontWeight="bold">
-            BEGIN SURVEY
-          </Link>
-        </Grid>
-
-        
-        <Grid item xs={12} md={4}>
-          <Typography variant="h6" fontWeight="bold" gutterBottom>
-            GET REVOLVE ON THE GO
-          </Typography>
-          <Typography variant="body2" gutterBottom>
-            Download our super easy-to-use app available for your iPhone, iPad
-            and Android.
-          </Typography>
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/6/67/App_Store_%28iOS%29.svg"
-            alt="App Store"
-            style={{ width: "150px", height: "auto" }}
-          />
-        </Grid>
-      </Grid> */}
-      <Box>
-        {/* //spacing={4} nghĩa là khoảng cách giữa các phần tử con sẽ là 4 đơn vị */}
-        <Grid
-          sx={{ paddingTop: "7px" }}
-          container
-          spacing={4}
-          className="footer-grid"
-        >
-          <Grid item xs={12} sm={6} md={3} className="footer-grid-item">
-            <Typography className="footer-typography">CUSTOMER CARE</Typography>
-            <Box component="ul">
-              <li>
-                <Link href="#" className="footer-link">
-                  Contact Us
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="footer-link">
-                  +1-562-926-5672
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="footer-link">
-                  Payment Options
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="footer-link">
-                  FAQs
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="footer-link">
-                  Track Your Order
-                </Link>
-              </li>
+                <source
+                  src="https://media.istockphoto.com/id/1209606008/vi/video/woman-%C4%91i-b%E1%BB%99-b%C3%AAn-h%E1%BB%93-b%C6%A1i-c%E1%BB%A7a-m%E1%BB%99t-khu-ngh%E1%BB%89-m%C3%A1t-sang-tr%E1%BB%8Dng.mp4?s=mp4-640x640-is&k=20&c=uX6aXtsEK3NQf-0Tkwb8qquKeKEnkh2j_sfxcCHoRdE=" // Đường dẫn đến video
+                  type="video/mp4"
+                />
+                Trình duyệt của bạn không hỗ trợ video.
+              </video>
             </Box>
-          </Grid>
-
-          <Grid item xs={12} sm={6} md={3} className="footer-grid-item">
-            <Typography className="footer-typography">
-              Shipping & Delivery
+            <Typography variant="body2" color="#cccccc" paragraph>
+              KHÁCH SẠN THANH HOÀI ĐÀ NẴNG
             </Typography>
-            <Box component="ul">
-              <li>
-                <Link href="#" className="footer-link">
-                  Returns & Exchanges
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="footer-link">
-                  Size Guide
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="footer-link">
-                  Gifting REVOLVE
-                </Link>
-              </li>
-            </Box>
+            <Typography variant="body2" color="#cccccc" paragraph>
+              Địa chỉ: 06 – 08 Phạm Thiều, An Hải Bắc, Sơn Trà, Đà Nẵng
+            </Typography>
+            <Typography variant="body2" color="#cccccc">
+              Đặt phòng: 0394.72.70.05
+            </Typography>
+            <Typography variant="body2" color="#cccccc">
+              Hotline Ban: 0394.72.70.05
+            </Typography>
+            <Typography variant="body2" color="#cccccc">
+              Website: www.thanhhoaihotel.vn
+            </Typography>
           </Grid>
 
-          <Grid item xs={12} sm={6} md={3} className="footer-grid-item">
-            <Typography className="footer-typography">INFORMATION</Typography>
-            <Box component="ul">
-              <li>
-                <Link href="#" className="footer-link">
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="footer-link">
-                  Stores
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="footer-link">
-                  Social Impact
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="footer-link">
-                  Careers
-                </Link>
-              </li>
-            </Box>
+          {/* Room System */}
+          <Grid item xs={12} md={3}>
+            <FooterTitle variant="h6">HỆ THỐNG PHÒNG</FooterTitle>
+            <Stack spacing={1}>
+              <FooterLink href="#">Standard Double</FooterLink>
+              <FooterLink href="#">Standard Double Vip</FooterLink>
+              <FooterLink href="#">Standard Twin</FooterLink>
+              <FooterLink href="#">Superior Triple</FooterLink>
+              <FooterLink href="#">Family Vip</FooterLink>
+              <FooterLink href="#">Family View Vip</FooterLink>
+              <FooterLink href="#">Căn Hộ Gia Đình</FooterLink>
+            </Stack>
           </Grid>
 
-          <Grid item xs={12} sm={6} md={3}>
-            <Box className="fwrd-box"></Box>
+          {/* About Us */}
+          <Grid item xs={12} md={3}>
+            <FooterTitle variant="h6">VỀ CHÚNG TÔI</FooterTitle>
+            <Stack spacing={1}>
+              <FooterLink href="#">Giới Thiệu</FooterLink>
+              <FooterLink href="#">Phòng</FooterLink>
+              <FooterLink href="#">Quy Định Chung</FooterLink>
+              <FooterLink href="#">Khuyến Mãi</FooterLink>
+              <FooterLink href="#">Liên Hệ</FooterLink>
+            </Stack>
+          </Grid>
+
+          {/* Services */}
+          <Grid item xs={12} md={3}>
+            <FooterTitle variant="h6">DỊCH VỤ</FooterTitle>
+            <Stack spacing={1}>
+              <FooterLink href="#">Tour Đà Nẵng</FooterLink>
+              <FooterLink href="#">Cho Thuê Xe Máy</FooterLink>
+              <FooterLink href="#">Vé Thắm Quan</FooterLink>
+              <FooterLink href="#">Đặc Sản Đà Nẵng</FooterLink>
+            </Stack>
           </Grid>
         </Grid>
 
-        <Box className="footer-bottom">
-          <Box>
-            <Typography
-              className="footer-bottom-typography"
-              sx={{ marginLeft: "5px" }}
-            >
-              CONNECT
-            </Typography>
-            <a
-              href="https://www.instagram.com/_nth_68/"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ marginRight: "5px" }}
-            >
-              <Badge className="badge">
-                <Instagram className="header-icon" />
-              </Badge>
-            </a>
-            <a
-              href="https://www.facebook.com/profile.php?id=100036930660925"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ marginRight: "5px" }}
-            >
-              <Badge className="badge">
-                <Facebook className="header-icon" />
-              </Badge>
-            </a>
-            <a
-              href="https://www.google.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Badge className="badge">
-                <Google className="header-icon" />
-              </Badge>
-            </a>
-          </Box>
-
-          <Typography className="footer-bottom-typographys">
-            2024 © Eminent, Inc. All Rights Reserved.
+        {/* Bottom Section */}
+        <Box mt={4} pt={4} borderTop={1} borderColor="rgba(255,255,255,0.1)">
+          <Typography variant="body2" color="#cccccc" align="center">
+            CTY TNHH MTV TM & DVDL THANH HOÀI
           </Typography>
-          <Box component="ul">
-            <li>
-              <Link href="#" className="footer-link">
-                Terms
-              </Link>
-            </li>
-            <li>
-              <Link href="#" className="footer-link">
-                Privacy
-              </Link>
-            </li>
-            <li>
-              <Link href="#" className="footer-link">
-                Cookie Preferences
-              </Link>
-            </li>
-            <li>
-              <Link href="#" className="footer-link">
-                CA Privacy Rights
-              </Link>
-            </li>
-            <li>
-              <Link href="#" className="footer-link">
-                Your Privacy Choices
-              </Link>
-            </li>
-          </Box>
+          <Typography variant="body2" color="#cccccc" align="center">
+            Giấy phép kinh doanh dịch vụ lưu trú/lữ hành số 0401800726 cấp ngày
+            18/11/2016
+          </Typography>
+          <Typography variant="body2" color="#cccccc" align="center">
+            Do Sở kế Hoạch và Đầu Tư TP Đà Nẵng
+          </Typography>
+          <Typography variant="body2" color="#cccccc" align="center">
+            Người đại diện: Nguyễn Thanh Hoài
+          </Typography>
         </Box>
-      </Box>
-    </div>
+      </Container>
+    </StyledFooter>
   );
 };
 
