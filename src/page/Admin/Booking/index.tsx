@@ -32,13 +32,13 @@ const BookingTable: React.FC = () => {
   const [modalOpen, setModalOpen] = React.useState(false);
   const [selectedBooking, setSelectedBooking] = React.useState<any>();
   const [modalTitle, setModalTitle] = React.useState("");
- const [page, setPage] = useState(1);
+  const [page, setPage] = useState(1);
   const limit = 5;
   const dispatch = useDispatch<AppDispatch>();
   const { allBookings, loading } = useSelector(
     (state: RootState) => state.bookingState
   );
-  
+
   useEffect(() => {
     const payload = {
       page,
@@ -137,7 +137,10 @@ const BookingTable: React.FC = () => {
               sx={{ maxWidth: 1200, margin: "0 auto" }}
             >
               <Box sx={{ p: 2 }}>
-                <Typography variant="h5" sx={{ fontWeight: "bold",color: "#8B7355" }}>
+                <Typography
+                  variant="h5"
+                  sx={{ fontWeight: "bold", color: "#8B7355" }}
+                >
                   Booking Management
                 </Typography>
               </Box>
@@ -148,7 +151,12 @@ const BookingTable: React.FC = () => {
                       Guest Name
                     </TableCell>
                     <TableCell sx={{ fontWeight: "bold" }}>Email</TableCell>
+                    <TableCell sx={{ fontWeight: "bold" }}>
+                      Phone Number
+                    </TableCell>
+
                     <TableCell sx={{ fontWeight: "bold" }}>Room</TableCell>
+                    <TableCell sx={{ fontWeight: "bold" }}>Notes</TableCell>
                     <TableCell sx={{ fontWeight: "bold" }}>Check In</TableCell>
                     <TableCell sx={{ fontWeight: "bold" }}>Check Out</TableCell>
                     <TableCell sx={{ fontWeight: "bold" }}>
@@ -162,11 +170,13 @@ const BookingTable: React.FC = () => {
                 <TableBody>
                   {allBookings.map((booking: any) => (
                     <TableRow key={booking._id} hover>
-                      <TableCell>{booking.user?.name}</TableCell>
-                      <TableCell>{booking.user.email}</TableCell>
+                      <TableCell>{booking.fullName}</TableCell>
+                      <TableCell>{booking.email}</TableCell>
+                      <TableCell>{booking.phoneNumber}</TableCell>
                       <TableCell>
                         {booking.room.type} - {booking.room.number}
                       </TableCell>
+                      <TableCell>{booking.notes}</TableCell>
 
                       <TableCell>{formatDate(booking.checkIn)}</TableCell>
                       <TableCell>{formatDate(booking.checkOut)}</TableCell>
@@ -186,21 +196,29 @@ const BookingTable: React.FC = () => {
                         />
                       </TableCell>
                       <TableCell>
-                        <IconButton
-                          color="primary"
-                          size="small"
-                          onClick={() => handleEdit(booking)}
-                          sx={{ mr: 1 }}
+                        <Box
+                          sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                            gap: 0.5,
+                          }}
                         >
-                          <Edit />
-                        </IconButton>
-                        <IconButton
-                          color="error"
-                          size="small"
-                          onClick={() => handleDelete(booking._id)}
-                        >
-                          <Delete />
-                        </IconButton>
+                          <IconButton
+                            color="primary"
+                            size="small"
+                            onClick={() => handleEdit(booking)}
+                            sx={{ mr: 1 }}
+                          >
+                            <Edit />
+                          </IconButton>
+                          <IconButton
+                            color="error"
+                            size="small"
+                            onClick={() => handleDelete(booking._id)}
+                          >
+                            <Delete />
+                          </IconButton>
+                        </Box>
                       </TableCell>
                     </TableRow>
                   ))}
@@ -208,26 +226,26 @@ const BookingTable: React.FC = () => {
               </Table>
             </TableContainer>
             <Stack spacing={2} sx={{ alignItems: "center", marginTop: 2 }}>
-            <Pagination
-              count={10}
-              page={page}
-              onChange={(event, value) => setPage(value)}
-              variant="outlined"
-              shape="rounded"
-              sx={{
-                "& .MuiPaginationItem-root": {
-                  "&:hover": {
-                    backgroundColor: "#8B7355",
-                    color: "white",
+              <Pagination
+                count={10}
+                page={page}
+                onChange={(event, value) => setPage(value)}
+                variant="outlined"
+                shape="rounded"
+                sx={{
+                  "& .MuiPaginationItem-root": {
+                    "&:hover": {
+                      backgroundColor: "#8B7355",
+                      color: "white",
+                    },
+                    "&.Mui-selected": {
+                      backgroundColor: "#8B7355",
+                      color: "white",
+                    },
                   },
-                  "&.Mui-selected": {
-                    backgroundColor: "#8B7355",
-                    color: "white",
-                  },
-                },
-              }}
-            />
-          </Stack>
+                }}
+              />
+            </Stack>
           </Grid>
         </Grid>
       )}

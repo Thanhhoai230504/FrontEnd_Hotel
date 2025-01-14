@@ -5,6 +5,9 @@ import {
   CheckCircle,
   PendingActions,
   Person,
+  Phone,
+  Email,
+  Notes,
 } from "@mui/icons-material";
 import {
   Badge,
@@ -31,6 +34,7 @@ import { Wifi, Tv, Bath, Wine, Fan } from "lucide-react";
 import Loading from "../../components/Loading";
 import NotFoundSearchRoom from "../../asset/svg/NotFoundSearchRoom.png";
 import ImageModal from "../PhotoLibrary/ImageModal";
+
 interface Booking {
   _id: string;
   user: {
@@ -50,6 +54,10 @@ interface Booking {
     createdAt: string;
     updatedAt: string;
   };
+  fullName: string;
+  phoneNumber: string;
+  email: string;
+  notes: string;
   checkIn: string;
   checkOut: string;
   totalPrice: number;
@@ -101,19 +109,23 @@ const AmenityIcon = ({ type }: { type: string }) => {
       return null;
   }
 };
+
 const MyBookings = () => {
   const dispatch = useDispatch();
   const bookings = useSelector((state: any) => state.myBookingState.bookings);
   const loading = useSelector((state: any) => state.myBookingState.loading);
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
   useEffect(() => {
     dispatch(fetchMyBookings());
   }, [dispatch]);
+
   const handleImageClick = (image: string) => {
     setSelectedImage(image);
     setIsImageModalOpen(true);
   };
+
   return (
     <>
       <Header />
@@ -197,7 +209,7 @@ const MyBookings = () => {
                                   }}
                                 >
                                   <img
-                                    src={imageUrl} // Thay 'image' bằng 'imageUrl'
+                                    src={imageUrl}
                                     alt={`Room view ${index + 1}`}
                                     style={{
                                       width: "100%",
@@ -215,7 +227,7 @@ const MyBookings = () => {
                           </Box>
                         </Grid>
 
-                        <Grid item xs={12} md={8} paddingLeft={4}>
+                        <Grid item xs={12} md={8} paddingLeft={6}>
                           <CardContent>
                             <Box sx={{ mb: 2 }}>
                               <Typography
@@ -234,7 +246,7 @@ const MyBookings = () => {
                               <Chip
                                 label={`Payment: ${booking.paymentStatus.toUpperCase()}`}
                                 color={
-                                  booking.paymentStatus === "completed"
+                                  booking.paymentStatus === "paid"
                                     ? "success"
                                     : "warning"
                                 }
@@ -248,12 +260,48 @@ const MyBookings = () => {
                                   gap: 1,
                                 }}
                               >
+                                <Person color="primary" />
+                                <Typography>Họ và tên: {booking.fullName}</Typography>
+                              </Box>
+
+                              <Box
+                                sx={{
+                                  display: "flex",
+                                  alignItems: "center",
+                                  gap: 1,
+                                }}
+                              >
+                                <Phone color="primary" />
+                                <Typography>
+                                  Số điện thoại: {booking.phoneNumber}
+                                </Typography>
+                              </Box>
+
+                              <Box
+                                sx={{
+                                  display: "flex",
+                                  alignItems: "center",
+                                  gap: 1,
+                                }}
+                              >
+                                <Email color="primary" />
+                                <Typography>Email: {booking.email}</Typography>
+                              </Box>
+
+                              <Box
+                                sx={{
+                                  display: "flex",
+                                  alignItems: "center",
+                                  gap: 1,
+                                }}
+                              >
                                 <CalendarMonth color="primary" />
                                 <Typography>
                                   {formatDate(booking.checkIn)} -{" "}
                                   {formatDate(booking.checkOut)}
                                 </Typography>
                               </Box>
+
                               <Box
                                 sx={{
                                   display: "flex",
@@ -266,6 +314,7 @@ const MyBookings = () => {
                                   Số người: {booking.room.capacity} người
                                 </Typography>
                               </Box>
+
                               <Box
                                 sx={{
                                   display: "flex",
@@ -275,9 +324,23 @@ const MyBookings = () => {
                               >
                                 <AttachMoney color="primary" />
                                 <Typography>
-                                  Tổng tiền : {formatPrice(booking.totalPrice)}
+                                  Tổng tiền: {formatPrice(booking.totalPrice)}
                                 </Typography>
                               </Box>
+
+                              {booking.notes && (
+                                <Box
+                                  sx={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: 1,
+                                  }}
+                                >
+                                  <Notes color="primary" />
+                                  <Typography>Ghi chú: {booking.notes}</Typography>
+                                </Box>
+                              )}
+
                               <Divider />
                               <Box>
                                 <Typography
@@ -328,4 +391,6 @@ const MyBookings = () => {
     </>
   );
 };
+
 export default MyBookings;
+ 

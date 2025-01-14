@@ -20,7 +20,6 @@ import { AppDispatch } from "../../../store/store";
 import axiosClient from "../../../api/axiosClient";
 import { fetchAllBookings } from "../../../store/slice/allBooking";
 
-
 interface BookingModalProps {
   open: boolean;
   onClose: () => void;
@@ -35,6 +34,14 @@ const validationSchema = Yup.object().shape({
   checkOut: Yup.date()
     .required("Check-out date is required")
     .min(Yup.ref("checkIn"), "Check-out date must be after check-in date"),
+  fullName: Yup.string().required("Full name is required"),
+  phoneNumber: Yup.string()
+    .matches(/^[0-9]{10,}$/, "Invalid phone number format")
+    .required("Phone number is required"),
+  email: Yup.string()
+    .email("Invalid email format")
+    .required("Email is required"),
+  notes: Yup.string(),
 });
 
 const BookingModal: React.FC<BookingModalProps> = ({
@@ -51,6 +58,10 @@ const BookingModal: React.FC<BookingModalProps> = ({
       paymentStatus: booking?.paymentStatus || "pending",
       checkIn: booking ? format(new Date(booking.checkIn), "yyyy-MM-dd") : "",
       checkOut: booking ? format(new Date(booking.checkOut), "yyyy-MM-dd") : "",
+      fullName: booking?.fullName || "",
+      phoneNumber: booking?.phoneNumber || "",
+      email: booking?.email || "",
+      notes: booking?.notes || "",
     }),
     [booking]
   );
@@ -99,6 +110,8 @@ const BookingModal: React.FC<BookingModalProps> = ({
           borderRadius: 1,
           boxShadow: 24,
           p: 4,
+          maxHeight: "90vh",
+          overflowY: "auto",
         }}
       >
         <Typography variant="h6" component="h2" sx={{ mb: 3 }}>
@@ -107,9 +120,6 @@ const BookingModal: React.FC<BookingModalProps> = ({
 
         {booking && (
           <Box sx={{ mb: 3 }}>
-            <Typography variant="subtitle1" gutterBottom>
-              Guest: {booking.user.name}
-            </Typography>
             <Typography variant="subtitle1" gutterBottom>
               Room: {booking.room.type} - {booking.room.number}
             </Typography>
@@ -131,6 +141,39 @@ const BookingModal: React.FC<BookingModalProps> = ({
           {({ errors, touched }) => (
             <Form>
               <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <Field
+                    as={TextField}
+                    fullWidth
+                    label="Full Name"
+                    name="fullName"
+                    error={touched.fullName && Boolean(errors.fullName)}
+                    helperText={touched.fullName && errors.fullName}
+                  />
+                </Grid>
+
+                <Grid item xs={12} sm={6}>
+                  <Field
+                    as={TextField}
+                    fullWidth
+                    label="Phone Number"
+                    name="phoneNumber"
+                    error={touched.phoneNumber && Boolean(errors.phoneNumber)}
+                    helperText={touched.phoneNumber && errors.phoneNumber}
+                  />
+                </Grid>
+
+                <Grid item xs={12} sm={6}>
+                  <Field
+                    as={TextField}
+                    fullWidth
+                    label="Email"
+                    name="email"
+                    error={touched.email && Boolean(errors.email)}
+                    helperText={touched.email && errors.email}
+                  />
+                </Grid>
+
                 <Grid item xs={12} sm={6}>
                   <Field name="status">
                     {({ field }: any) => (
@@ -184,6 +227,19 @@ const BookingModal: React.FC<BookingModalProps> = ({
                     InputLabelProps={{ shrink: true }}
                     error={touched.checkOut && Boolean(errors.checkOut)}
                     helperText={touched.checkOut && errors.checkOut}
+                  />
+                </Grid>
+
+                <Grid item xs={12}>
+                  <Field
+                    as={TextField}
+                    fullWidth
+                    label="Notes"
+                    name="notes"
+                    multiline
+                    rows={3}
+                    error={touched.notes && Boolean(errors.notes)}
+                    helperText={touched.notes && errors.notes}
                   />
                 </Grid>
               </Grid>

@@ -6,6 +6,7 @@ import {
   DialogContent,
   DialogTitle,
   Typography,
+  TextField,
 } from "@mui/material";
 import { Bath, Fan, Tv, Wifi, Wine, X } from "lucide-react";
 import React from "react";
@@ -13,6 +14,9 @@ import { FaRegIdBadge } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { bookingRequest } from "../../../api/auth/booking.request";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+
 interface BookingModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -31,6 +35,7 @@ interface BookingModalProps {
   checkIn: string;
   checkOut: string;
 }
+
 const AmenityIcon = ({ type }: { type: string }) => {
   switch (type) {
     case "WiFi":
@@ -60,6 +65,29 @@ const BookingModal: React.FC<BookingModalProps> = ({
 }) => {
   const navigate = useNavigate();
 
+  const validationSchema = Yup.object({
+    fullName: Yup.string().required("Vui lòng nhập họ tên"),
+    phoneNumber: Yup.string()
+      .matches(/^[0-9]+$/, "Số điện thoại không hợp lệ")
+      .min(10, "Số điện thoại phải có ít nhất 10 số")
+      .required("Vui lòng nhập số điện thoại"),
+    email: Yup.string()
+      .email("Email không hợp lệ")
+      .required("Vui lòng nhập email"),
+    notes: Yup.string(),
+  });
+
+  const formik = useFormik({
+    initialValues: {
+      fullName: "",
+      phoneNumber: "",
+      email: "",
+      notes: "",
+    },
+    validationSchema,
+    onSubmit: handleBooking,
+  });
+
   const calculateNights = (checkIn: string, checkOut: string) => {
     const start = new Date(checkIn);
     const end = new Date(checkOut);
@@ -72,12 +100,17 @@ const BookingModal: React.FC<BookingModalProps> = ({
     return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   };
 
-  const handleBooking = async () => {
+  async function handleBooking(values: any) {
     const bookingData = {
       roomId: room._id,
       checkIn: checkIn,
       checkOut: checkOut,
+      fullName: values.fullName,
+      phoneNumber: values.phoneNumber,
+      email: values.email,
+      notes: values.notes,
     };
+
     try {
       const response = await bookingRequest(bookingData);
       onClose();
@@ -109,12 +142,11 @@ const BookingModal: React.FC<BookingModalProps> = ({
         confirmButtonText: "OK",
       });
     }
-  };
+  }
 
   const nights = calculateNights(checkIn, checkOut);
   const totalPrice = room.price * nights;
 
-  // Format dates for display
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString("vi-VN", {
       day: "2-digit",
@@ -139,7 +171,7 @@ const BookingModal: React.FC<BookingModalProps> = ({
       <DialogContent>
         <Box
           display="grid"
-          gridTemplateColumns={{ xs: "1fr", md: "1fr 1fr" }}
+          gridTemplateColumns={{ xs: "1fr", md: "1fr 1fr " }}
           gap={4}
         >
           <Box>
@@ -168,13 +200,61 @@ const BookingModal: React.FC<BookingModalProps> = ({
             </Box>
           </Box>
 
-          <Box>
+          <Box component="form" onSubmit={formik.handleSubmit}>
             <Typography variant="subtitle1" fontWeight="bold">
-              Thông tin phòng
+              Thông tin người đặt phòng
             </Typography>
-            <Typography variant="body2" color="textSecondary" mt={1}>
-              {formatDate(checkIn)} - {formatDate(checkOut)} ({nights} đêm)
-            </Typography>
+            
+            <TextField
+              fullWidth
+              id="fullName"
+              name="fullName"
+              label="Họ và tên"
+              value={formik.values.fullName}
+              onChange={formik.handleChange}
+              error={formik.touched.fullName && Boolean(formik.errors.fullName)}
+              helperText={formik.touched.fullName && formik.errors.fullName}
+              margin="normal"
+            />
+
+            <TextField
+              fullWidth
+              id="phoneNumber"
+              name="phoneNumber"
+              label="Số điện thoại"
+              value={formik.values.phoneNumber}
+              onChange={formik.handleChange}
+              error={formik.touched.phoneNumber && Boolean(formik.errors.phoneNumber)}
+              helperText={formik.touched.phoneNumber && formik.errors.phoneNumber}
+              margin="normal"
+            />
+
+            <TextField
+              fullWidth
+              id="email"
+              name="email"
+              label="Email"
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              error={formik.touched.email && Boolean(formik.errors.email)}
+              helperText={formik.touched.email && formik.errors.email}
+              margin="normal"
+            />
+
+            <TextField
+              fullWidth
+              id="notes"
+              name="notes"
+              label="Ghi chú"
+              multiline
+              rows={2}
+              value={formik.values.notes}
+              onChange={formik.handleChange}
+              error={formik.touched.notes && Boolean(formik.errors.notes)}
+              helperText={formik.touched.notes && formik.errors.notes}
+              margin="normal"
+            />
+
             <Typography variant="subtitle1" fontWeight="bold" mt={2}>
               {hotelName}
             </Typography>
@@ -187,6 +267,7 @@ const BookingModal: React.FC<BookingModalProps> = ({
             <Typography variant="body2" color="textSecondary">
               {room.description}
             </Typography>
+            
             <Box display="flex" gap={1} flexWrap="wrap" mb={2} mt={1}>
               {Array.isArray(room.amenities) ? (
                 room.amenities.map((amenity) => (
@@ -221,10 +302,10 @@ const BookingModal: React.FC<BookingModalProps> = ({
               </Box>
 
               <Button
+                type="submit"
                 variant="contained"
                 fullWidth
                 size="large"
-                onClick={handleBooking}
                 sx={{ mt: "25px" }}
               >
                 ĐẶT NGAY
