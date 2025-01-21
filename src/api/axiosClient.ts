@@ -2,7 +2,6 @@
 import axios from "axios";
 
 const axiosClient = axios.create({
-   // https://backend-hotel-1-nqtn.onrender.com
    baseURL: "http://localhost:3000/api",
    timeout: 10000,
 });
