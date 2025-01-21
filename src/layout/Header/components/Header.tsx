@@ -1,4 +1,3 @@
-
 import React from "react";
 import {
   AppBar,
@@ -34,15 +33,12 @@ const Header = () => {
       cancelButtonText: "Hủy",
     }).then((result) => {
       if (result.isConfirmed) {
-        // Xóa thông tin người dùng và token khỏi localStorage
         localStorage.removeItem("token");
         localStorage.removeItem("user");
         localStorage.removeItem("role");
 
-        // Chuyển hướng về trang chủ
         navigate("/");
 
-        // Hiển thị thông báo đăng xuất thành công
         Swal.fire({
           title: "Đăng xuất thành công",
           icon: "success",
@@ -73,18 +69,20 @@ const Header = () => {
             <>
               <Link to="/Admin/Rooms">
                 <Typography sx={{ fontWeight: "600", fontSize: "17px" }}>
-                  Hotel Management
+                  Quản Lý Khách Sạn
                 </Typography>
               </Link>
-              <Typography>Hi | {user.name}</Typography>
+              <Link to="/Profile">
+                <Typography>Chào | {user.name}</Typography>
+              </Link>
             </>
           ) : (
             <>
               <IconButton href="#">
-                <LocalPhoneOutlined  />
+                <LocalPhoneOutlined />
               </IconButton>
               <Typography variant="body1" color="textPrimary">
-               0394 727 005
+                0394 727 005
               </Typography>
               <IconButton>
                 <Facebook />
@@ -95,7 +93,9 @@ const Header = () => {
               <IconButton>
                 <YouTube />
               </IconButton>
-              {user?.name && <Typography>Hi | {user?.name}</Typography>}
+              <Link to="/Profile">
+                {user?.name && <Typography>Chào | {user?.name}</Typography>}
+              </Link>
             </>
           )}
         </Box>
@@ -118,7 +118,7 @@ const Header = () => {
         </Link>
 
         {/* Phần tử bên phải */}
-        <Box sx={{ display: "flex", gap: 2,justifyContent:"flex-end" }}>
+        <Box sx={{ display: "flex", gap: 2, justifyContent: "flex-end" }}>
           {user ? (
             <>
               <Link to="/MyBookings">
@@ -132,7 +132,7 @@ const Header = () => {
                     },
                   }}
                 >
-                  MY BOOKING
+                  ĐẶT PHÒNG CỦA TÔI
                 </Button>
               </Link>
               <Button

@@ -2,21 +2,21 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   Box,
   Button,
+  Container,
   IconButton,
   InputAdornment,
+  Paper,
   TextField,
   Typography,
-  Paper,
-  Container,
 } from "@mui/material";
 import { useFormik } from "formik";
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import * as Yup from "yup";
 import { loginRequest } from "../../api/auth/auth.request";
-import Header from "../../layout/Header/components/Header";
 import withPublicRoute from "../../components/hocs/withPublicRoute";
+import Header from "../../layout/Header/components/Header";
 const LoginForm: React.FC = () => {
   const navigate = useNavigate();
 
@@ -189,7 +189,6 @@ const LoginForm: React.FC = () => {
                   mt: 4,
                   mb: 2,
                   py: 1.5,
-                 
                 }}
               >
                 Login

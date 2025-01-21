@@ -92,7 +92,9 @@ const BookingModal: React.FC<BookingModalProps> = ({
       await Swal.fire({
         icon: "error",
         title: "Error",
-        text: error.response?.data?.message || "Something went wrong. Please try again.",
+        text:
+          error.response?.data?.message ||
+          "Something went wrong. Please try again.",
       });
     }
   };
@@ -124,7 +126,8 @@ const BookingModal: React.FC<BookingModalProps> = ({
               Room: {booking.room.type} - {booking.room.number}
             </Typography>
             <Typography variant="subtitle1" gutterBottom>
-              Total Price: {new Intl.NumberFormat("vi-VN", {
+              Total Price:{" "}
+              {new Intl.NumberFormat("vi-VN", {
                 style: "currency",
                 currency: "VND",
               }).format(booking.totalPrice)}
@@ -177,7 +180,10 @@ const BookingModal: React.FC<BookingModalProps> = ({
                 <Grid item xs={12} sm={6}>
                   <Field name="status">
                     {({ field }: any) => (
-                      <FormControl fullWidth error={touched.status && Boolean(errors.status)}>
+                      <FormControl
+                        fullWidth
+                        error={touched.status && Boolean(errors.status)}
+                      >
                         <InputLabel>Status</InputLabel>
                         <Select {...field} label="Status">
                           <MenuItem value="pending">Pending</MenuItem>
@@ -192,7 +198,12 @@ const BookingModal: React.FC<BookingModalProps> = ({
                 <Grid item xs={12} sm={6}>
                   <Field name="paymentStatus">
                     {({ field }: any) => (
-                      <FormControl fullWidth error={touched.paymentStatus && Boolean(errors.paymentStatus)}>
+                      <FormControl
+                        fullWidth
+                        error={
+                          touched.paymentStatus && Boolean(errors.paymentStatus)
+                        }
+                      >
                         <InputLabel>Payment Status</InputLabel>
                         <Select {...field} label="Payment Status">
                           <MenuItem value="pending">Pending</MenuItem>
@@ -244,7 +255,9 @@ const BookingModal: React.FC<BookingModalProps> = ({
                 </Grid>
               </Grid>
 
-              <Box sx={{ mt: 3, display: "flex", justifyContent: "flex-start" }}>
+              <Box
+                sx={{ mt: 3, display: "flex", justifyContent: "flex-start" }}
+              >
                 <Button variant="contained" type="submit" sx={{ mr: 1 }}>
                   Save Changes
                 </Button>

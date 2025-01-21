@@ -45,29 +45,28 @@ const Hero = () => {
           left: 0,
           right: 0,
           bottom: 0,
-          backgroundColor: "rgba(0, 0, 0, 0.3)", // Lớp phủ mờ
+          backgroundColor: "rgba(0, 0, 0, 0.3)", 
         }}
       />
 
       {/* Tiêu đề và nội dung */}
       <Typography
-        variant="h3"
-        component="h2"
         sx={{
           color: "white",
           textAlign: "center",
           position: "relative",
           fontWeight: 300,
-          // mb: 20,
-          mt: 20,
+          fontSize: { xs: "1rem", md: "2rem" },
+          mt: 30,
           px: 2,
           zIndex: 1, // Đảm bảo nằm trên video
+          letterSpacing: 2.2,
         }}
       >
         Khu nghỉ dưỡng biển đẳng cấp hoang sơ miền nhiệt đới
       </Typography>
 
-      {/* Form tìm kiếm */}
+     
       <BookingForm />
     </Box>
   );

@@ -80,7 +80,7 @@ const RoomModal: React.FC<RoomModalProps> = ({
         images: values.images.filter(url => url.trim() !== ""),
       };
 
-      console.log("Submitting payload:", payload);
+      
 
       if (room?._id) {
         await axiosClient.put(`/rooms/${room._id}`, payload);

@@ -1,15 +1,16 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import ScrollToTop from "../components/scrollTop";
+import BookingTable from "../page/Admin/Booking";
+import RoomTable from "../page/Admin/Room";
+import UserTable from "../page/Admin/User";
 import Home from "../page/Home";
 import LoginForm from "../page/Login";
-import SignupForm from "../page/Singnup";
-import RoomDetail from "../page/RoomDetail";
-import ScrollToTop from "../components/scrollTop";
-import SearchRoomList from "../page/SearchRoom";
 import MyBookings from "../page/My_Booking";
-import UserTable from "../page/Admin/User";
-import RoomTable from "../page/Admin/Room";
-import BookingTable from "../page/Admin/Booking";
 import PhotoLibrary from "../page/PhotoLibrary";
+import RoomDetail from "../page/RoomDetail";
+import SearchRoomList from "../page/SearchRoom";
+import SignupForm from "../page/Singnup";
+import Profile from "../page/Profile";
 
 const Routers = () => {
   return (
@@ -26,6 +27,8 @@ const Routers = () => {
         <Route path="/Admin/Rooms" element={<RoomTable />} />
         <Route path="/Admin/Bookings" element={<BookingTable />} />
         <Route path="/Gallery" element={<PhotoLibrary />} />
+        <Route path="/Profile" element={<Profile />} />
+
         <Route path="*" element={<Home />} />
       </Routes>
     </Router>
