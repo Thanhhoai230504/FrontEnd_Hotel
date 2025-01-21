@@ -192,7 +192,7 @@ const MyBookings = () => {
       };
 
       const response = await axios.post(
-        "http://localhost:3000/api/payments/create-payment",
+        "https://backend-hotel-1-nqtn.onrender.com/api/payments/create-payment",
         paymentData
       );
 
@@ -221,7 +221,7 @@ const MyBookings = () => {
     async (app_trans_id: string) => {
       try {
         const response = await axios.post(
-          `http://localhost:3000/api/payments/order-status/${app_trans_id}`
+          `https://backend-hotel-1-nqtn.onrender.com/api/payments/order-status/${app_trans_id}`
         );
 
         if (!response?.data) {
