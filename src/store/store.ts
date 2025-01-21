@@ -7,6 +7,7 @@ import myBookingSlice from "./slice/myBookings";
 import  userSlice  from "./slice/allUser";
 import  RoomAllSlice  from "./slice/roomAdmin";
 import  ImagesSlice  from "./slice/allImages";
+import  ProfileSlice  from "./slice/Profile";
 
 const store = configureStore({
   reducer: {
@@ -17,7 +18,8 @@ const store = configureStore({
     myBookingState: myBookingSlice,
     allUserState: userSlice,
     allRoomState: RoomAllSlice,
-    imagesState:ImagesSlice
+    imagesState:ImagesSlice,
+    profileState:ProfileSlice
   },
 });
 

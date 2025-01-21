@@ -3,15 +3,17 @@ import {
   CalendarMonth,
   CancelOutlined,
   CheckCircle,
+  Email,
+  Notes,
   PendingActions,
   Person,
   Phone,
-  Email,
-  Notes,
 } from "@mui/icons-material";
 import {
+  Alert,
   Badge,
   Box,
+  Button,
   Card,
   CardContent,
   CardMedia,
@@ -20,19 +22,22 @@ import {
   Divider,
   Grid,
   IconButton,
+  Snackbar,
   Stack,
   Typography,
 } from "@mui/material";
+import axios from "axios";
 import { format } from "date-fns";
-import React, { useEffect, useState } from "react";
+import { Bath, Fan, Tv, Wifi, Wine } from "lucide-react";
+import React, { useCallback, useEffect, useState } from "react";
+import { FaRegIdBadge } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchMyBookings } from "../../store/slice/myBookings";
+import { useLocation } from "react-router-dom";
+import NotFoundSearchRoom from "../../asset/svg/NotFoundSearchRoom.png";
+import Loading from "../../components/Loading";
 import Footer from "../../layout/Footer";
 import Header from "../../layout/Header/components/Header";
-import { FaRegIdBadge } from "react-icons/fa";
-import { Wifi, Tv, Bath, Wine, Fan } from "lucide-react";
-import Loading from "../../components/Loading";
-import NotFoundSearchRoom from "../../asset/svg/NotFoundSearchRoom.png";
+import { fetchMyBookings } from "../../store/slice/myBookings";
 import ImageModal from "../PhotoLibrary/ImageModal";
 
 interface Booking {
@@ -112,18 +117,235 @@ const AmenityIcon = ({ type }: { type: string }) => {
 
 const MyBookings = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
   const bookings = useSelector((state: any) => state.myBookingState.bookings);
   const loading = useSelector((state: any) => state.myBookingState.loading);
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [isProcessingPayment, setIsProcessingPayment] = useState(false);
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: "",
+    severity: "success" as "success" | "error" | "warning",
+  });
 
+  // useEffect(() => {
+  //   dispatch(fetchMyBookings());
+  //   const queryParams = new URLSearchParams(location.search);
+  //   const status = queryParams.get("status");
+
+  //   if (status === "1") {
+  //     setSnackbar({
+  //       open: true,
+  //       message: "Thanh toán thành công!",
+  //       severity: "success",
+  //     });
+
+  //   } else if (status === "0") {
+  //     setSnackbar({
+  //       open: true,
+  //       message: "Thanh toán thất bại. Vui lòng thử lại.",
+  //       severity: "error",
+  //     });
+  //   }
+  // }, [dispatch, location]);
+  // const handleOnlinePayment = async (booking: Booking) => {
+  //   try {
+  //     setIsProcessingPayment(true);
+
+  //     const paymentData = {
+  //       amount: booking.totalPrice,
+  //       orderId: booking._id,
+  //       description: `Thanh toán đặt phòng ${booking.room.type} - ${booking.room.number}`,
+  //     };
+
+  //     const response = await axios.post(
+  //       "http://localhost:3000/api/payments/create-payment",
+  //       paymentData
+  //     );
+
+  //     if (response.data.success && response.data.data.order_url) {
+  //       window.location.href = response.data.data.order_url;
+  //     } else {
+  //       throw new Error("Không nhận được URL thanh toán");
+  //     }
+  //   } catch (error) {
+  //     console.error("Payment error:", error);
+
+  //     setSnackbar({
+  //       open: true,
+  //       message: "Có lỗi xảy ra khi tạo thanh toán. Vui lòng thử lại sau.",
+  //       severity: "error",
+  //     });
+  //   } finally {
+  //     setIsProcessingPayment(false);
+  //   }
+  // };
+  const handleOnlinePayment = async (booking: Booking) => {
+    try {
+      setIsProcessingPayment(true);
+
+      const paymentData = {
+        amount: booking.totalPrice,
+        orderId: booking._id,
+        description: `Thanh toán đặt phòng ${booking.room.type} - ${booking.room.number}`,
+      };
+
+      const response = await axios.post(
+        "http://localhost:3000/api/payments/create-payment",
+        paymentData
+      );
+
+      if (response.data.success && response.data.data.order_url) {
+        localStorage.setItem(
+          "lastPaymentTransId",
+          response.data.data.app_trans_id
+        );
+        window.location.href = response.data.data.order_url;
+      } else {
+        throw new Error("Không nhận được URL thanh toán");
+      }
+    } catch (error) {
+      console.error("Payment error:", error);
+      setSnackbar({
+        open: true,
+        message: "Có lỗi xảy ra khi tạo thanh toán. Vui lòng thử lại sau.",
+        severity: "error",
+      });
+    } finally {
+      setIsProcessingPayment(false);
+    }
+  };
+
+  const checkPaymentStatus = useCallback(
+    async (app_trans_id: string) => {
+      try {
+        const response = await axios.post(
+          `http://localhost:3000/api/payments/order-status/${app_trans_id}`
+        );
+
+        if (!response?.data) {
+          throw new Error("Invalid response data");
+        }
+
+        if (!response.data.success) {
+          throw new Error(
+            response.data.message || "Failed to check payment status"
+          );
+        }
+
+        const data = response.data.data;
+
+        const returnCode = Number(data.return_code);
+
+        if (isNaN(returnCode)) {
+          throw new Error("Invalid return code received");
+        }
+
+        switch (returnCode) {
+          case 1:
+            setSnackbar({
+              open: true,
+              message: "Thanh toán thành công!",
+              severity: "success",
+            });
+            dispatch(fetchMyBookings());
+            break;
+
+          case 2:
+            setSnackbar({
+              open: true,
+              message:
+                data.sub_return_message ||
+                data.return_message ||
+                "Thanh toán thất bại",
+              severity: "error",
+            });
+            dispatch(fetchMyBookings());
+            break;
+
+          case 3:
+            setSnackbar({
+              open: true,
+              message: data.is_processing
+                ? "Đang xử lý thanh toán, vui lòng đợi..."
+                : "Đơn hàng chưa được thanh toán",
+              severity: "warning",
+            });
+
+            // Only retry if still processing
+            if (data.is_processing) {
+              setTimeout(() => checkPaymentStatus(app_trans_id), 5000);
+            } else {
+              dispatch(fetchMyBookings());
+            }
+            break;
+
+          default:
+            console.error(`Unexpected return code: ${returnCode}`);
+            setSnackbar({
+              open: true,
+              message: "Có lỗi xảy ra khi kiểm tra trạng thái thanh toán",
+              severity: "error",
+            });
+            dispatch(fetchMyBookings());
+        }
+      } catch (error: any) {
+        console.error("Error checking payment status:", error);
+
+        // Hiển thị thông báo lỗi chi tiết
+        setSnackbar({
+          open: true,
+          message:
+            error.response?.data?.message ||
+            error.message ||
+            "Lỗi kiểm tra trạng thái thanh toán",
+          severity: "error",
+        });
+
+        // Log chi tiết lỗi
+        if (error.response?.data?.details) {
+          console.error("Server error details:", error.response.data.details);
+        }
+      }
+    },
+    [dispatch, setSnackbar]
+  );
   useEffect(() => {
     dispatch(fetchMyBookings());
-  }, [dispatch]);
+
+    const lastPaymentTransId = localStorage.getItem("lastPaymentTransId");
+
+    if (lastPaymentTransId) {
+      checkPaymentStatus(lastPaymentTransId);
+      localStorage.removeItem("lastPaymentTransId");
+    }
+
+    // const queryParams = new URLSearchParams(location.search);
+    // const status = queryParams.get("status");
+
+    // if (status === "1") {
+    //   setSnackbar({
+    //     open: true,
+    //     message: "Thanh toán thành công!",
+    //     severity: "success",
+    //   });
+    // } else if (status === "0") {
+    //   setSnackbar({
+    //     open: true,
+    //     message: "Thanh toán thất bại. Vui lòng thử lại.",
+    //     severity: "error",
+    //   });
+    // }
+  }, [dispatch, location, checkPaymentStatus, setSnackbar]);
 
   const handleImageClick = (image: string) => {
     setSelectedImage(image);
     setIsImageModalOpen(true);
+  };
+
+  const handleCloseSnackbar = () => {
+    setSnackbar({ ...snackbar, open: false });
   };
 
   return (
@@ -149,6 +371,16 @@ const MyBookings = () => {
               </Typography>
             </Badge>
           </Box>
+          <Snackbar
+            open={snackbar.open}
+            autoHideDuration={6000}
+            onClose={handleCloseSnackbar}
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          >
+            <Alert onClose={handleCloseSnackbar} severity={snackbar.severity}>
+              {snackbar.message}
+            </Alert>
+          </Snackbar>
 
           {bookings.length === 0 ? (
             <Container maxWidth="lg">
@@ -235,7 +467,8 @@ const MyBookings = () => {
                                 component="h2"
                                 gutterBottom
                               >
-                                {booking.room.type} - Room {booking.room.number}
+                                {booking.room.type} - Phòng{" "}
+                                {booking.room.number}
                               </Typography>
                               <Chip
                                 icon={statusConfig.icon}
@@ -261,7 +494,9 @@ const MyBookings = () => {
                                 }}
                               >
                                 <Person color="primary" />
-                                <Typography>Họ và tên: {booking.fullName}</Typography>
+                                <Typography>
+                                  Họ và tên: {booking.fullName}
+                                </Typography>
                               </Box>
 
                               <Box
@@ -337,37 +572,79 @@ const MyBookings = () => {
                                   }}
                                 >
                                   <Notes color="primary" />
-                                  <Typography>Ghi chú: {booking.notes}</Typography>
+                                  <Typography>
+                                    Ghi chú: {booking.notes}
+                                  </Typography>
                                 </Box>
                               )}
 
                               <Divider />
-                              <Box>
-                                <Typography
-                                  variant="subtitle2"
-                                  color="text.secondary"
-                                  gutterBottom
-                                >
-                                  Tiện nghi:
-                                </Typography>
+
+                              <Typography
+                                variant="subtitle2"
+                                color="text.secondary"
+                                gutterBottom
+                                sx={{ whiteSpace: "nowrap" }} // Đảm bảo văn bản không bị xuống dòng
+                              >
+                                Tiện nghi:
+                              </Typography>
+                              <Box
+                                sx={{
+                                  display: "flex",
+                                  alignItems: "center", // Căn giữa theo trục dọc
+                                  justifyContent: "space-between", // Nút ở cuối dòng ngang
+                                  width: "100%",
+                                  gap: 2,
+                                }}
+                              >
                                 <Box
                                   sx={{
                                     display: "flex",
-                                    flexWrap: "wrap",
+                                    alignItems: "center",
                                     gap: 1,
                                   }}
                                 >
-                                  {booking.room.amenities.map(
-                                    (amenity, index) => (
-                                      <Chip
-                                        key={index}
-                                        label={amenity}
-                                        icon={<AmenityIcon type={amenity} />}
-                                        size="small"
-                                        variant="outlined"
-                                      />
-                                    )
-                                  )}
+                                  <Box
+                                    sx={{
+                                      display: "flex",
+                                      flexWrap: "wrap",
+                                      gap: 1,
+                                    }}
+                                  >
+                                    {booking.room.amenities.map(
+                                      (amenity, index) => (
+                                        <Chip
+                                          key={index}
+                                          label={amenity}
+                                          icon={<AmenityIcon type={amenity} />}
+                                          size="small"
+                                          variant="outlined"
+                                        />
+                                      )
+                                    )}
+                                  </Box>
+                                </Box>
+                                <Box
+                                  sx={{
+                                    marginLeft: "auto", // Đẩy nút sang phía cuối dòng
+                                  }}
+                                >
+                                  <Button
+                                    variant="contained"
+                                    color="primary"
+                                    onClick={() => handleOnlinePayment(booking)}
+                                    disabled={
+                                      isProcessingPayment ||
+                                      booking.paymentStatus === "paid"
+                                    }
+                                    sx={{ ml: 2 }}
+                                  >
+                                    {isProcessingPayment
+                                      ? "Đang xử lý..."
+                                      : booking.paymentStatus === "paid"
+                                      ? "Đã thanh toán"
+                                      : "Thanh toán online"}
+                                  </Button>
                                 </Box>
                               </Box>
                             </Stack>
@@ -393,4 +670,3 @@ const MyBookings = () => {
 };
 
 export default MyBookings;
- 
