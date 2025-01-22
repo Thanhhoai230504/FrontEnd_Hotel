@@ -52,3 +52,35 @@ export interface Booking {
   status: "pending" | "confirmed" | "cancelled";
   paymentStatus: "pending" | "completed" | "failed";
 }
+
+export interface PaymentStats {
+  bookings: number;
+  revenue: number;
+}
+
+export interface PeriodStats {
+  totalBookings: number;
+  totalRevenue: number;
+  paid: PaymentStats;
+  pending: PaymentStats;
+  failed: PaymentStats;
+}
+
+export interface DailyStats {
+  date: string;
+  bookings: number;
+  revenue: number;
+  paidBookings: number;
+  paidRevenue: number;
+  pendingBookings: number;
+  pendingRevenue: number;
+  failedBookings: number;
+  failedRevenue: number;
+}
+
+export interface BookingStatistics {
+  today: PeriodStats;
+  thisWeek: PeriodStats;
+  thisMonth: PeriodStats;
+  dailyStats: DailyStats[];
+}

@@ -8,6 +8,7 @@ import  userSlice  from "./slice/allUser";
 import  RoomAllSlice  from "./slice/roomAdmin";
 import  ImagesSlice  from "./slice/allImages";
 import  ProfileSlice  from "./slice/Profile";
+import  BookingStatistics  from "./slice/bookingStatistics";
 
 const store = configureStore({
   reducer: {
@@ -19,7 +20,8 @@ const store = configureStore({
     allUserState: userSlice,
     allRoomState: RoomAllSlice,
     imagesState:ImagesSlice,
-    profileState:ProfileSlice
+    profileState:ProfileSlice,
+    bookingStatisticsState:BookingStatistics
   },
 });
 

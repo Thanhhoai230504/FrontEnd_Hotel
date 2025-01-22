@@ -11,6 +11,7 @@ import RoomDetail from "../page/RoomDetail";
 import SearchRoomList from "../page/SearchRoom";
 import SignupForm from "../page/Singnup";
 import Profile from "../page/Profile";
+import BookingStatistics from "../page/Admin/BookingStatistics";
 
 const Routers = () => {
   return (
@@ -28,6 +29,10 @@ const Routers = () => {
         <Route path="/Admin/Bookings" element={<BookingTable />} />
         <Route path="/Gallery" element={<PhotoLibrary />} />
         <Route path="/Profile" element={<Profile />} />
+        <Route
+          path="/Admin/BookingStatistics"
+          element={<BookingStatistics />}
+        />
 
         <Route path="*" element={<Home />} />
       </Routes>

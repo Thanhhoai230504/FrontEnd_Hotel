@@ -9,6 +9,7 @@
     "@fontsource/roboto": "^5.1.0",
     "@mui/icons-material": "^6.1.0",
     "@mui/material": "^6.2.0",
+    "@mui/x-charts": "^7.24.0",
     "@mui/x-date-pickers": "^7.23.2",
     "@react-google-maps/api": "^2.20.3",
     "@reduxjs/toolkit": "^2.2.7",

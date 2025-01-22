@@ -86,7 +86,7 @@ const RoomTable: React.FC = () => {
           text: "Room has been deleted.",
           icon: "success",
         });
-        dispatch(fetchAllRooms({page: 1, _limit: limit}));
+        dispatch(fetchAllRooms({ page: 1, _limit: limit }));
       } catch (error) {
         await Swal.fire({
           title: "Error deleting room",
@@ -124,7 +124,10 @@ const RoomTable: React.FC = () => {
                   alignItems: "center",
                 }}
               >
-                <Typography variant="h5" sx={{ fontWeight: "bold",color:"#8B7355" }}>
+                <Typography
+                  variant="h5"
+                  sx={{ fontWeight: "bold", color: "#8B7355" }}
+                >
                   Room Management
                 </Typography>
                 <Button
@@ -218,26 +221,26 @@ const RoomTable: React.FC = () => {
               </Table>
             </TableContainer>
             <Stack spacing={2} sx={{ alignItems: "center", marginTop: 2 }}>
-            <Pagination
-              count={10}
-              page={page}
-              onChange={(event, value) => setPage(value)}
-              variant="outlined"
-              shape="rounded"
-              sx={{
-                "& .MuiPaginationItem-root": {
-                  "&:hover": {
-                    backgroundColor: "#8B7355",
-                    color: "white",
+              <Pagination
+                count={10}
+                page={page}
+                onChange={(event, value) => setPage(value)}
+                variant="outlined"
+                shape="rounded"
+                sx={{
+                  "& .MuiPaginationItem-root": {
+                    "&:hover": {
+                      backgroundColor: "#8B7355",
+                      color: "white",
+                    },
+                    "&.Mui-selected": {
+                      backgroundColor: "#8B7355",
+                      color: "white",
+                    },
                   },
-                  "&.Mui-selected": {
-                    backgroundColor: "#8B7355",
-                    color: "white",
-                  },
-                },
-              }}
-            />
-          </Stack>
+                }}
+              />
+            </Stack>
           </Grid>
         </Grid>
       )}

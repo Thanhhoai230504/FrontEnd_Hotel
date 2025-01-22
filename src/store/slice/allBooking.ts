@@ -71,7 +71,7 @@ export const bookingSlice = createSlice({
 export const { clearError } = bookingSlice.actions;
 export default bookingSlice.reducer;
 
-// Selectors
+
 export const selectAllBookings = (state: { booking: BookingState }) => state.booking.allBookings;
 export const selectBookingLoading = (state: { booking: BookingState }) => state.booking.loading;
 export const selectBookingError = (state: { booking: BookingState }) => state.booking.error;
