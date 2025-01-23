@@ -85,10 +85,10 @@ const SignupForm: React.FC = () => {
           alignItems: "center",
           justifyContent: "center",
           padding: 2,
-          mt: "54px",
+          
         }}
       >
-        <Container maxWidth="sm">
+        <Container maxWidth="sm" >
           <Paper
             elevation={24}
             sx={{
@@ -96,6 +96,7 @@ const SignupForm: React.FC = () => {
               backdropFilter: "blur(10px)",
               backgroundColor: "rgba(0, 0, 0, 0.7)",
               borderRadius: 2,
+              mt: 8,
             }}
           >
             <Typography
