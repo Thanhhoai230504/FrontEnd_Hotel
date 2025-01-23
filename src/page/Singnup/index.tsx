@@ -17,6 +17,7 @@ import * as Yup from "yup";
 import { signupRequest } from "../../api/auth/auth.request";
 import withPublicRoute from "../../components/hocs/withPublicRoute";
 import Header from "../../layout/Header/components/Header";
+import backgroundSignup from "../../asset/svg/thumb-1920-515366.jpg";
 
 const SignupForm: React.FC = () => {
   const navigate = useNavigate();
@@ -72,9 +73,13 @@ const SignupForm: React.FC = () => {
       <Box
         sx={{
           minHeight: "100vh",
-          background:
-            "url(https://images5.alphacoders.com/515/thumb-1920-515366.jpg)",
-          backgroundSize: "cover",
+          background: {
+            xs: `url(${backgroundSignup})`,
+            sm: `url(${backgroundSignup})`,
+            md: `url(${backgroundSignup})`,
+            lg: `url(${backgroundSignup})`,
+            xl: `url(${backgroundSignup})`,
+          },
           backgroundPosition: "center",
           display: "flex",
           alignItems: "center",

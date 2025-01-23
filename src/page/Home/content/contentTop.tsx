@@ -37,6 +37,7 @@ function ContentTop() {
         flexDirection="row"
         height="calc(100vh - 80px)"
         marginTop="80px"
+        boxSizing={"border-box"}
       >
         {/* Phần bên trái */}
         <Box
@@ -75,13 +76,29 @@ function ContentTop() {
             flexDirection: "column",
             justifyContent: "space-between",
             alignItems: "center",
+            boxSizing: "border-box",
+            overflow: "hidden", // Ngăn tràn nội dung
+            maxWidth: "100%", // Đảm bảo không vượt quá kích thước khối cha
+            flexShrink: 1, // Co lại nếu không đủ không gian
           }}
         >
           <Container maxWidth="lg" sx={{ paddingLeft: 4, paddingRight: 4 }}>
-            <Typography variant="h4" component="h2" sx={{ mb: 4 }}>
+            <Typography
+              variant="h4"
+              component="h2"
+              sx={{ mb: 2, textAlign: "center" }}
+            >
               THƯ VIỆN HÌNH ẢNH
             </Typography>
-            <Typography variant="body1" sx={{ mb: 4, lineHeight: 1.8 }}>
+            <Typography
+              sx={{
+                mb: 3,
+                lineHeight: 1.8,
+                textAlign: "justify", // Canh đều nội dung
+                wordWrap: "break-word", // Tự động xuống dòng nếu từ quá dài
+                fontSize: "17px",
+              }}
+            >
               Trải nghiệm kỳ nghỉ dưỡng riêng tư miền nhiệt đới với nắng vàng,
               biển xanh và cát trắng tại một trong những khu nghỉ dưỡng biển đẹp
               nhất Việt Nam. Còn gì tuyệt vời hơn khi được đắm mình vào trong
@@ -91,7 +108,14 @@ function ContentTop() {
               đại. Hãy trải nghiệm ẩm thực tinh tuy và tận hưởng dịch vụ tận tâm
               từ đội ngũ nhân viên người địa phương.
             </Typography>
-            <StyledButton variant="contained" sx={{ mb: 2 }} onClick={click}>
+            <StyledButton
+              variant="contained"
+              sx={{
+                mb: 2,
+                alignSelf: "center", // Đảm bảo nút nằm gọn trong khối
+              }}
+              onClick={click}
+            >
               KHÁM PHÁ
             </StyledButton>
           </Container>
@@ -103,6 +127,7 @@ function ContentTop() {
               height: "343px",
               objectFit: "cover",
               alignSelf: "flex-end",
+              maxWidth: "100%", // Không vượt quá chiều rộng của khối cha
             }}
           />
         </Box>

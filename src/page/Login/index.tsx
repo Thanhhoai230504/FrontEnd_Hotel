@@ -17,6 +17,7 @@ import * as Yup from "yup";
 import { loginRequest } from "../../api/auth/auth.request";
 import withPublicRoute from "../../components/hocs/withPublicRoute";
 import Header from "../../layout/Header/components/Header";
+import backgroundLogin from "../../asset/svg/pexels-pixabay-260922.jpg";
 const LoginForm: React.FC = () => {
   const navigate = useNavigate();
 
@@ -81,10 +82,16 @@ const LoginForm: React.FC = () => {
       <Box
         sx={{
           minHeight: "100vh",
-          background:
-            "url(https://c.wallhere.com/photos/15/fc/nature_landscape_trees_clouds_mountains_forest_sunset_interior-128687.jpg!d)",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
+          background: {
+            xs: `url(${backgroundLogin})`,
+            sm: `url(${backgroundLogin})`,
+            md: `url(${backgroundLogin})`,
+            lg: `url(${backgroundLogin})`,
+            xl: `url(${backgroundLogin})`,
+          },
+          backgroundSize: "contain", // Hiển thị toàn bộ hình ảnh trong khung
+          backgroundRepeat: "no-repeat", // Không lặp lại hình ảnh
+          backgroundPosition: "center", // Căn giữa hình ảnh
           display: "flex",
           alignItems: "center",
           justifyContent: "center",

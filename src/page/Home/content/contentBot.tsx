@@ -1,25 +1,25 @@
 import React from "react";
 import { Avatar, Grid, Typography, Box, Container } from "@mui/material";
-
+import dv1 from "../../../asset/svg/dv1.jpeg";
+import dv3 from "../../../asset/svg/dv3.png";
+import dv2 from "../../../asset/svg/dv2.webp";
 // Danh sách dịch vụ với hình ảnh và nội dung
 const services = [
   {
     title: "DỊCH VỤ DÙ LƯỢN",
     description:
       "Trải nghiệm bay dù lượn tuyệt vời tại Đà Nẵng & Hội An với tầm nhìn ngoạn mục",
-    image: "https://tournhatrang.co/wp-content/uploads/2023/12/vui-he-cuc-da-voi-kinh-nghiem-choi-du-luon-o-nha-t.jpeg", // Đường dẫn hình ảnh
+    image: dv1,
   },
   {
     title: "VÉ THAM QUAN",
     description: "Vé tham quan Bà Nà hill, du thuyền, nhiều khuyến mãi hấp dẫn",
-    image:
-      "https://asia-park.vn/wp-content/uploads/2024/02/gia-ve-ba-na-hill-c.jpg", // Đường dẫn hình ảnh
+    image: dv2,
   },
   {
     title: "ĐẶC SẢN ĐÀ NẴNG",
     description: "Cung cấp đặc sản đà nẵng, chính gốc, ngon rẻ làm quà",
-    image:
-      "https://daotaovatuyensinh.com/wp-content/uploads/2023/09/dac-san-da-nang-q.png", // Đường dẫn hình ảnh
+    image: dv3,
   },
 ];
 
