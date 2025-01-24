@@ -129,58 +129,7 @@ const MyBookings = () => {
     severity: "success" as "success" | "error" | "warning",
   });
 
-  // useEffect(() => {
-  //   dispatch(fetchMyBookings());
-  //   const queryParams = new URLSearchParams(location.search);
-  //   const status = queryParams.get("status");
-
-  //   if (status === "1") {
-  //     setSnackbar({
-  //       open: true,
-  //       message: "Thanh toán thành công!",
-  //       severity: "success",
-  //     });
-
-  //   } else if (status === "0") {
-  //     setSnackbar({
-  //       open: true,
-  //       message: "Thanh toán thất bại. Vui lòng thử lại.",
-  //       severity: "error",
-  //     });
-  //   }
-  // }, [dispatch, location]);
-  // const handleOnlinePayment = async (booking: Booking) => {
-  //   try {
-  //     setIsProcessingPayment(true);
-
-  //     const paymentData = {
-  //       amount: booking.totalPrice,
-  //       orderId: booking._id,
-  //       description: `Thanh toán đặt phòng ${booking.room.type} - ${booking.room.number}`,
-  //     };
-
-  //     const response = await axios.post(
-  //       "http://localhost:3000/api/payments/create-payment",
-  //       paymentData
-  //     );
-
-  //     if (response.data.success && response.data.data.order_url) {
-  //       window.location.href = response.data.data.order_url;
-  //     } else {
-  //       throw new Error("Không nhận được URL thanh toán");
-  //     }
-  //   } catch (error) {
-  //     console.error("Payment error:", error);
-
-  //     setSnackbar({
-  //       open: true,
-  //       message: "Có lỗi xảy ra khi tạo thanh toán. Vui lòng thử lại sau.",
-  //       severity: "error",
-  //     });
-  //   } finally {
-  //     setIsProcessingPayment(false);
-  //   }
-  // };
+  
   const handleOnlinePayment = async (booking: Booking) => {
     try {
       setIsProcessingPayment(true);
@@ -349,7 +298,7 @@ const MyBookings = () => {
   };
 
   return (
-    <>
+    <Box sx={{ backgroundColor: "#F5F5F5" }}>
       <Header />
       {loading ? (
         <Loading />
@@ -665,7 +614,7 @@ const MyBookings = () => {
         onClose={() => setIsImageModalOpen(false)}
       />
       <Footer />
-    </>
+    </Box>
   );
 };
 

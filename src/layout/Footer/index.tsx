@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Container, Grid, Typography, Link, Stack } from "@mui/material";
 import { styled } from "@mui/material/styles";
-
+import videoFooter from "../../asset/video/footer.mp4";
 const StyledFooter = styled(Box)(({ theme }) => ({
   backgroundColor: "#333333",
   color: "#ffffff",
@@ -38,10 +38,7 @@ const Footer = () => {
                 playsInline
                 style={{ width: "100%", maxWidth: 200, borderRadius: 8 }}
               >
-                <source
-                  src="https://media.istockphoto.com/id/1209606008/vi/video/woman-%C4%91i-b%E1%BB%99-b%C3%AAn-h%E1%BB%93-b%C6%A1i-c%E1%BB%A7a-m%E1%BB%99t-khu-ngh%E1%BB%89-m%C3%A1t-sang-tr%E1%BB%8Dng.mp4?s=mp4-640x640-is&k=20&c=uX6aXtsEK3NQf-0Tkwb8qquKeKEnkh2j_sfxcCHoRdE=" // Đường dẫn đến video
-                  type="video/mp4"
-                />
+                <source src={videoFooter} type="video/mp4" />
                 Trình duyệt của bạn không hỗ trợ video.
               </video>
             </Box>

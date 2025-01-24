@@ -134,7 +134,7 @@ const BookingTable: React.FC = () => {
           <Grid item xs={12} md={10} pt={3}>
             <TableContainer
               component={Paper}
-              sx={{ maxWidth: 1200, margin: "0 auto" }}
+              sx={{ maxWidth: 1350, margin: "0 auto" }}
             >
               <Box sx={{ p: 2 }}>
                 <Typography

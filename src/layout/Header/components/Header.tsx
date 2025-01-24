@@ -330,6 +330,11 @@ function Header() {
               </Button>
             </ListItem>
             <ListItem>
+              <StyledButton href="/MyBookings" fullWidth variant="contained">
+                ĐẶT PHÒNG CỦA TÔI
+              </StyledButton>
+            </ListItem>
+            <ListItem>
               {user ? (
                 <StyledButton
                   fullWidth
@@ -360,7 +365,7 @@ function Header() {
             )}
             <ListItem>
               <StyledButton href="/MyBookings" fullWidth variant="contained">
-                {user ? "ĐẶT PHÒNG CỦA TÔI" : "MY BOOKING"}
+                ĐẶT PHÒNG CỦA TÔI
               </StyledButton>
             </ListItem>
             <ListItem>
@@ -475,7 +480,7 @@ function Header() {
               }}
             >
               <StyledButton href="/MyBookings" variant="contained">
-                {user ? "ĐẶT PHÒNG CỦA TÔI" : "MY BOOKING"}
+                ĐẶT PHÒNG CỦA TÔI
               </StyledButton>
               {user ? (
                 <StyledButton variant="contained" onClick={handleLogout}>

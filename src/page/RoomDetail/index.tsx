@@ -24,7 +24,7 @@ function RoomDetail() {
     <>
       <Header />
       {loading ? (
-      <Loading />
+        <Loading />
       ) : (
         <Box
           sx={{

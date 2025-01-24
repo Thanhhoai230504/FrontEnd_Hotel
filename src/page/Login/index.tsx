@@ -127,7 +127,7 @@ const LoginForm: React.FC = () => {
                 fullWidth
                 id="email"
                 name="email"
-                label="Username"
+                label="Email"
                 value={formik.values.email}
                 onChange={formik.handleChange}
                 error={formik.touched.email && Boolean(formik.errors.email)}

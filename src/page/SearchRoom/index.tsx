@@ -50,7 +50,7 @@ export const SearchRoomList: React.FC = () => {
   };
 
   return (
-    <>
+    <Box sx={{ backgroundColor: "#F5F5F5" }}>
       <Header />
       <Container maxWidth="lg" sx={{ py: 4 }}>
         <Typography
@@ -122,7 +122,7 @@ export const SearchRoomList: React.FC = () => {
         )}
       </Container>
       <Footer />
-    </>
+    </Box>
   );
 };
 
