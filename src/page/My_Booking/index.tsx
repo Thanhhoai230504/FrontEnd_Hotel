@@ -39,6 +39,8 @@ import Footer from "../../layout/Footer";
 import Header from "../../layout/Header/components/Header";
 import { fetchMyBookings } from "../../store/slice/myBookings";
 import ImageModal from "../PhotoLibrary/ImageModal";
+import axiosClient from "../../api/axiosClient";
+import Swal from "sweetalert2";
 
 interface Booking {
   _id: string;
@@ -123,13 +125,13 @@ const MyBookings = () => {
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
+  const [isCancelling, setIsCancelling] = useState(false);
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: "",
     severity: "success" as "success" | "error" | "warning",
   });
 
-  
   const handleOnlinePayment = async (booking: Booking) => {
     try {
       setIsProcessingPayment(true);
@@ -296,7 +298,49 @@ const MyBookings = () => {
   const handleCloseSnackbar = () => {
     setSnackbar({ ...snackbar, open: false });
   };
+  const handleCancelBooking = async (bookingId: string) => {
+    const result = await Swal.fire({
+      title: "Bạn có chắc chắn muốn hủy đặt phòng này?",
+      text: "Hành động này không thể hoàn tác!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Hủy đặt phòng",
+      cancelButtonText: "Quay lại",
+    });
 
+    if (!result.isConfirmed) {
+      return;
+    }
+
+    try {
+      setIsCancelling(true);
+      const response = await axiosClient.patch(`/bookings/${bookingId}/cancel`);
+
+      if (response.data) {
+        dispatch(fetchMyBookings());
+        setSnackbar({
+          open: true,
+          message: response.data.message || "Đã hủy đặt phòng thành công",
+          severity: "success",
+        });
+      } else {
+        throw new Error("Failed to cancel booking");
+      }
+    } catch (error: any) {
+      console.error("Error cancelling booking:", error);
+      setSnackbar({
+        open: true,
+        message:
+          error.response?.data?.message ||
+          "Không thể hủy đặt phòng. Vui lòng thử lại sau.",
+        severity: "error",
+      });
+    } finally {
+      setIsCancelling(false);
+    }
+  };
   return (
     <Box sx={{ backgroundColor: "#F5F5F5" }}>
       <Header />
@@ -575,18 +619,39 @@ const MyBookings = () => {
                                 </Box>
                                 <Box
                                   sx={{
-                                    marginLeft: "auto", // Đẩy nút sang phía cuối dòng
+                                    marginLeft: "auto",
+                                    display: "flex",
+                                    gap: 2,
                                   }}
                                 >
+                                  {booking.status !== "cancelled" &&
+                                    new Date(booking.checkIn) > new Date() && (
+                                      <Button
+                                        variant="outlined"
+                                        color="error"
+                                        onClick={() =>
+                                          handleCancelBooking(booking._id)
+                                        }
+                                        disabled={
+                                          isCancelling ||
+                                          booking.paymentStatus === "paid"
+                                        }
+                                        startIcon={<CancelOutlined />}
+                                      >
+                                        {isCancelling
+                                          ? "Đang hủy..."
+                                          : "Hủy đặt phòng"}
+                                      </Button>
+                                    )}
                                   <Button
                                     variant="contained"
                                     color="primary"
                                     onClick={() => handleOnlinePayment(booking)}
                                     disabled={
                                       isProcessingPayment ||
-                                      booking.paymentStatus === "paid"
+                                      booking.paymentStatus === "paid" ||
+                                      booking.status === "cancelled"
                                     }
-                                    sx={{ ml: 2 }}
                                   >
                                     {isProcessingPayment
                                       ? "Đang xử lý..."
