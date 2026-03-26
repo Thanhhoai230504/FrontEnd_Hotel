@@ -43,5 +43,4 @@ export const myBookingSlice = createSlice({
   },
 });
 
-export const {} = myBookingSlice.actions; 
 export default myBookingSlice.reducer; 

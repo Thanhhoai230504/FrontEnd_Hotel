@@ -73,7 +73,7 @@ const PhotoLibrary: React.FC = () => {
               className={index === 0 ? "featured" : "regular"}
               onClick={() => handleImageClick(image)} // Xử lý khi click vào ảnh
             >
-              <img src={image} alt={`Image ${index}`} />
+              <img src={image} alt={`Ảnh ${index + 1}`} />
             </ImageWrapper>
           ))}
         </GridContainer>

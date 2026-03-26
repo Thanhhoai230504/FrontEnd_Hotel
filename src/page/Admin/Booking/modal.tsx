@@ -15,10 +15,8 @@ import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { format } from "date-fns";
 import Swal from "sweetalert2";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../../store/store";
+
 import axiosClient from "../../../api/axiosClient";
-import { fetchAllBookings } from "../../../store/slice/allBooking";
 
 interface BookingModalProps {
   open: boolean;
@@ -51,7 +49,6 @@ const BookingModal: React.FC<BookingModalProps> = ({
   booking,
   title,
 }) => {
-  const dispatch = useDispatch<AppDispatch>();
 
   const initialValues = React.useMemo(
     () => ({
