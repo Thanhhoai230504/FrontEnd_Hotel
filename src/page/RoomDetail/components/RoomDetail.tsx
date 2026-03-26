@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Card,
@@ -19,12 +19,20 @@ import { FaRegIdBadge } from "react-icons/fa";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
+import isBetween from "dayjs/plugin/isBetween";
 import Swal from "sweetalert2";
 import BookingModal from "../../SearchRoom/components/BookingModal";
 import "dayjs/locale/vi";
 import ImageModal from "../../PhotoLibrary/ImageModal";
+import axiosClient from "../../../api/axiosClient";
 dayjs.locale("vi");
+dayjs.extend(isBetween);
+
+interface BookedRange {
+  checkIn: string;
+  checkOut: string;
+}
 
 const StyledCard = styled(Card)(({ theme }) => ({
   maxWidth: 1200,
@@ -73,7 +81,33 @@ const RoomDetailComponent: React.FC<{ room: Room | null }> = ({ room }) => {
   });
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [bookedRanges, setBookedRanges] = useState<BookedRange[]>([]);
   const user = JSON.parse(localStorage.getItem("user") || "null");
+
+  // Fetch booked dates for this room
+  useEffect(() => {
+    const fetchBookedDates = async () => {
+      if (!room?._id) return;
+      try {
+        const response: any = await axiosClient.get(`/rooms/${room._id}/booked-dates`);
+        if (response.success) {
+          setBookedRanges(response.data);
+        }
+      } catch (error) {
+        console.error("Error fetching booked dates:", error);
+      }
+    };
+    fetchBookedDates();
+  }, [room?._id]);
+
+  // Check if a date falls within any booked range
+  const isDateBooked = (date: Dayjs): boolean => {
+    return bookedRanges.some((range) => {
+      const checkIn = dayjs(range.checkIn).startOf('day');
+      const checkOut = dayjs(range.checkOut).startOf('day');
+      return date.isBetween(checkIn, checkOut, 'day', '[)');
+    });
+  };
 
   const formatCurrency = (value: number) => {
     return new Intl.NumberFormat("vi-VN", {
@@ -264,6 +298,7 @@ const RoomDetailComponent: React.FC<{ room: Room | null }> = ({ room }) => {
                             );
                           }}
                           disablePast
+                          shouldDisableDate={(date) => isDateBooked(date)}
                           slotProps={{
                             textField: {
                               fullWidth: true,
@@ -285,6 +320,7 @@ const RoomDetailComponent: React.FC<{ room: Room | null }> = ({ room }) => {
                             );
                           }}
                           disablePast
+                          shouldDisableDate={(date) => isDateBooked(date)}
                           minDate={
                             values.checkIn
                               ? dayjs(values.checkIn).add(1, "day")
@@ -303,12 +339,11 @@ const RoomDetailComponent: React.FC<{ room: Room | null }> = ({ room }) => {
                       <Button
                         sx={{ width: "300px", padding: "13px 20px" }}
                         variant="contained"
-                        color={room.isAvailable ? "primary" : "inherit"}
-                        disabled={!room.isAvailable}
+                        color="primary"
                         onClick={() => handleSubmit()}
                         type="submit"
                       >
-                        {room.isAvailable ? "Đặt phòng" : "Hết phòng"}
+                        Đặt phòng
                       </Button>
                     </Box>
                   </Form>

@@ -41,6 +41,7 @@ const validationSchema = Yup.object().shape({
   email: Yup.string()
     .email("Invalid email format")
     .required("Email is required"),
+  guests: Yup.number().min(1, "Minimum 1 guest").required("Guests is required"),
   notes: Yup.string(),
 });
 
@@ -61,6 +62,7 @@ const BookingModal: React.FC<BookingModalProps> = ({
       fullName: booking?.fullName || "",
       phoneNumber: booking?.phoneNumber || "",
       email: booking?.email || "",
+      guests: booking?.guests || 1,
       notes: booking?.notes || "",
     }),
     [booking]
@@ -80,21 +82,20 @@ const BookingModal: React.FC<BookingModalProps> = ({
 
       await Swal.fire({
         icon: "success",
-        title: "Booking updated successfully!",
+        title: "Cập nhật booking thành công!",
         showConfirmButton: false,
         timer: 1500,
       });
 
-      dispatch(fetchAllBookings({ page: 1, _limit: 5 }));
       onClose();
     } catch (error: any) {
       console.error("Error details:", error);
       await Swal.fire({
         icon: "error",
-        title: "Error",
+        title: "Lỗi",
         text:
-          error.response?.data?.message ||
-          "Something went wrong. Please try again.",
+          error?.message ||
+          "Có lỗi xảy ra. Vui lòng thử lại.",
       });
     }
   };
@@ -109,24 +110,24 @@ const BookingModal: React.FC<BookingModalProps> = ({
           transform: "translate(-50%, -50%)",
           width: 600,
           bgcolor: "background.paper",
-          borderRadius: 1,
+          borderRadius: 2,
           boxShadow: 24,
           p: 4,
           maxHeight: "90vh",
           overflowY: "auto",
         }}
       >
-        <Typography variant="h6" component="h2" sx={{ mb: 3 }}>
+        <Typography variant="h6" component="h2" sx={{ mb: 3, color: "#8B7355", fontWeight: "bold" }}>
           {title}
         </Typography>
 
         {booking && (
-          <Box sx={{ mb: 3 }}>
+          <Box sx={{ mb: 3, p: 2, backgroundColor: "#f5f0eb", borderRadius: 1 }}>
             <Typography variant="subtitle1" gutterBottom>
-              Room: {booking.room.type} - {booking.room.number}
+              Phòng: {booking.room?.type} - {booking.room?.number}
             </Typography>
             <Typography variant="subtitle1" gutterBottom>
-              Total Price:{" "}
+              Tổng tiền:{" "}
               {new Intl.NumberFormat("vi-VN", {
                 style: "currency",
                 currency: "VND",
@@ -148,7 +149,7 @@ const BookingModal: React.FC<BookingModalProps> = ({
                   <Field
                     as={TextField}
                     fullWidth
-                    label="Full Name"
+                    label="Họ tên"
                     name="fullName"
                     error={touched.fullName && Boolean(errors.fullName)}
                     helperText={touched.fullName && errors.fullName}
@@ -159,7 +160,7 @@ const BookingModal: React.FC<BookingModalProps> = ({
                   <Field
                     as={TextField}
                     fullWidth
-                    label="Phone Number"
+                    label="Số điện thoại"
                     name="phoneNumber"
                     error={touched.phoneNumber && Boolean(errors.phoneNumber)}
                     helperText={touched.phoneNumber && errors.phoneNumber}
@@ -177,25 +178,41 @@ const BookingModal: React.FC<BookingModalProps> = ({
                   />
                 </Grid>
 
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={4}>
+                  <Field
+                    as={TextField}
+                    fullWidth
+                    label="Số khách"
+                    name="guests"
+                    type="number"
+                    InputProps={{ inputProps: { min: 1 } }}
+                    error={touched.guests && Boolean(errors.guests)}
+                    helperText={touched.guests && errors.guests}
+                  />
+                </Grid>
+
+                <Grid item xs={12} sm={4}>
                   <Field name="status">
                     {({ field }: any) => (
                       <FormControl
                         fullWidth
                         error={touched.status && Boolean(errors.status)}
                       >
-                        <InputLabel>Status</InputLabel>
-                        <Select {...field} label="Status">
-                          <MenuItem value="pending">Pending</MenuItem>
-                          <MenuItem value="confirmed">Confirmed</MenuItem>
-                          <MenuItem value="cancelled">Cancelled</MenuItem>
+                        <InputLabel>Trạng thái</InputLabel>
+                        <Select {...field} label="Trạng thái">
+                          <MenuItem value="pending">Chờ xác nhận</MenuItem>
+                          <MenuItem value="confirmed">Đã xác nhận</MenuItem>
+                          <MenuItem value="checked_in">Đã nhận phòng</MenuItem>
+                          <MenuItem value="checked_out">Đã trả phòng</MenuItem>
+                          <MenuItem value="cancelled">Đã hủy</MenuItem>
+                          <MenuItem value="no_show">Không đến</MenuItem>
                         </Select>
                       </FormControl>
                     )}
                   </Field>
                 </Grid>
 
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={4}>
                   <Field name="paymentStatus">
                     {({ field }: any) => (
                       <FormControl
@@ -204,11 +221,11 @@ const BookingModal: React.FC<BookingModalProps> = ({
                           touched.paymentStatus && Boolean(errors.paymentStatus)
                         }
                       >
-                        <InputLabel>Payment Status</InputLabel>
-                        <Select {...field} label="Payment Status">
-                          <MenuItem value="pending">Pending</MenuItem>
-                          <MenuItem value="paid">Paid</MenuItem>
-                          <MenuItem value="failed">Failed</MenuItem>
+                        <InputLabel>Thanh toán</InputLabel>
+                        <Select {...field} label="Thanh toán">
+                          <MenuItem value="pending">Chờ thanh toán</MenuItem>
+                          <MenuItem value="paid">Đã thanh toán</MenuItem>
+                          <MenuItem value="failed">Thất bại</MenuItem>
                         </Select>
                       </FormControl>
                     )}
@@ -219,7 +236,7 @@ const BookingModal: React.FC<BookingModalProps> = ({
                   <Field
                     as={TextField}
                     fullWidth
-                    label="Check In"
+                    label="Ngày nhận phòng"
                     name="checkIn"
                     type="date"
                     InputLabelProps={{ shrink: true }}
@@ -232,7 +249,7 @@ const BookingModal: React.FC<BookingModalProps> = ({
                   <Field
                     as={TextField}
                     fullWidth
-                    label="Check Out"
+                    label="Ngày trả phòng"
                     name="checkOut"
                     type="date"
                     InputLabelProps={{ shrink: true }}
@@ -245,7 +262,7 @@ const BookingModal: React.FC<BookingModalProps> = ({
                   <Field
                     as={TextField}
                     fullWidth
-                    label="Notes"
+                    label="Ghi chú"
                     name="notes"
                     multiline
                     rows={3}
@@ -256,13 +273,20 @@ const BookingModal: React.FC<BookingModalProps> = ({
               </Grid>
 
               <Box
-                sx={{ mt: 3, display: "flex", justifyContent: "flex-start" }}
+                sx={{ mt: 3, display: "flex", justifyContent: "flex-start", gap: 1 }}
               >
-                <Button variant="contained" type="submit" sx={{ mr: 1 }}>
-                  Save Changes
+                <Button
+                  variant="contained"
+                  type="submit"
+                  sx={{
+                    backgroundColor: "#8B7355",
+                    "&:hover": { backgroundColor: "#6d5a43" },
+                  }}
+                >
+                  Lưu thay đổi
                 </Button>
                 <Button variant="outlined" onClick={onClose}>
-                  Cancel
+                  Hủy
                 </Button>
               </Box>
             </Form>

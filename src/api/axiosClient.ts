@@ -1,10 +1,8 @@
 
 import axios from "axios";
-
+// process.env.REACT_APP_API_URL ||
 const axiosClient = axios.create({
-   // http://localhost:3000
-   // https://backend-hotel-1-nqtn.onrender.com
-   baseURL: "https://backend-hotel-1-nqtn.onrender.com/api",
+   baseURL: "http://localhost:3000/api",
    timeout: 10000,
 });
 
@@ -26,19 +24,19 @@ axiosClient.interceptors.request.use(
 
 axiosClient.interceptors.response.use(
    function (response) {
-   
+
       return response.data;
    },
    function (error) {
-      
+
       if (error.response) {
-       
+
          return Promise.reject(error.response.data);
       } else if (error.request) {
-         
+
          return Promise.reject({ message: 'No response from server' });
       } else {
-         
+
          return Promise.reject({ message: error.message });
       }
    }

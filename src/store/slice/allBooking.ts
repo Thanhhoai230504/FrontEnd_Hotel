@@ -5,6 +5,10 @@ interface Booking {
   _id: string;
   user: any;
   room: any;
+  fullName: string;
+  phoneNumber: string;
+  email: string;
+  guests: number;
   checkIn: string;
   checkOut: string;
   totalPrice: number;
